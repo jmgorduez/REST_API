@@ -1,0 +1,94 @@
+package com.supercon.service.builders;
+
+import com.supercon.model.Product;
+import com.supercon.service.builders.abstractions.IProductBuilder;
+import com.supercon.utils.Constants;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static com.supercon.utils.DataTestGenerator.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+class ProductBuilderTest {
+
+    private ProductBuilder productBuilderUnderTest;
+
+    @BeforeEach
+    void setUp() {
+        productBuilderUnderTest = new ProductBuilder(PROD_01, PRODUCT_01);
+    }
+
+    @Test
+    void setPrice() {
+        IProductBuilder productBuilderExpected = new ProductBuilder(PROD_01, PRODUCT_01)
+                .setPrice(_1_50);
+        assertThat(productBuilderUnderTest.setPrice(_1_50))
+                .isEqualToComparingFieldByFieldRecursively(productBuilderExpected);
+    }
+
+    @Test
+    void setDiscountStrategy() {
+        IProductBuilder productBuilderExpected = new ProductBuilder(PROD_01, PRODUCT_01)
+                .setDiscountStrategy(Constants::discount10Percent);
+        assertThat(productBuilderUnderTest.setDiscountStrategy(Constants::discount10Percent))
+                .isEqualToComparingFieldByFieldRecursively(productBuilderExpected);
+    }
+
+    @Test
+    void setLoyaltyPointsStrategy() {
+        IProductBuilder productBuilderExpected = new ProductBuilder(PROD_01, PRODUCT_01)
+                .setLoyaltyPointsStrategy(Constants::priceDividedBy5);
+        assertThat(productBuilderUnderTest.setLoyaltyPointsStrategy(Constants::priceDividedBy5))
+                .isEqualToComparingFieldByFieldRecursively(productBuilderExpected);
+    }
+
+    @Test
+    void getProductCode() {
+        assertThat(productBuilderUnderTest.getProductCode())
+                .isEqualTo(PROD_01);
+    }
+
+    @Test
+    void getName() {
+        assertThat(productBuilderUnderTest.getName())
+                .isEqualTo(PRODUCT_01);
+    }
+
+    @Test
+    void getFinalPrice() {
+        productBuilderUnderTest.setPrice(_1_50);
+        assertThat(productBuilderUnderTest.getFinalPrice())
+                .isEqualTo(_1_50);
+        productBuilderUnderTest.setDiscountStrategy(Constants::discount10Percent);
+        assertThat(productBuilderUnderTest.getFinalPrice())
+                .isEqualTo(_1_35);
+    }
+
+    @Test
+    void getLoyaltyPointsEarned() {
+        productBuilderUnderTest.setPrice(_45_80)
+                .setLoyaltyPointsStrategy(Constants::priceDividedBy5);
+        assertThat(productBuilderUnderTest.getLoyaltyPointsEarned())
+                .isEqualTo(_9);
+
+        productBuilderUnderTest.setLoyaltyPointsStrategy(Constants::priceDividedBy10);
+        assertThat(productBuilderUnderTest.getLoyaltyPointsEarned())
+                .isEqualTo(_4);
+    }
+
+    @Test
+    void build() {
+        Product productExpected = new ProductBuilder(PROD_01, PRODUCT_01)
+                .setPrice(_1_35)
+                .setDiscountStrategy(Constants::discount10Percent)
+                .setLoyaltyPointsStrategy(Constants::priceDividedBy5)
+                .build();
+        productBuilderUnderTest
+                .setPrice(_1_35)
+                .setDiscountStrategy(Constants::discount10Percent)
+                .setLoyaltyPointsStrategy(Constants::priceDividedBy5);
+        assertThat(productBuilderUnderTest.build())
+                .isEqualToComparingFieldByFieldRecursively(productExpected);
+    }
+}

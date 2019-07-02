@@ -1,15 +1,21 @@
 package com.supercon.model;
 
-public class Product {
+import com.supercon.service.builders.abstractions.IProductBuilder;
+
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     private final double price;
     private final String productCode;
     private final String name;
+    private final Integer loyaltyPointsEarned;
 
-    public Product(double price, String productCode, String name) {
-        this.price = price;
-        this.productCode = productCode;
-        this.name = name;
+    public Product(IProductBuilder builder) {
+        this.productCode = builder.getProductCode();
+        this.name = builder.getName();
+        this.price = builder.getFinalPrice();
+        this.loyaltyPointsEarned = builder.getLoyaltyPointsEarned();
     }
 
     public double getPrice() { return price; }
@@ -20,5 +26,9 @@ public class Product {
 
     public String getName() {
         return name;
+    }
+
+    public Integer getLoyaltyPointsEarned(){
+        return loyaltyPointsEarned;
     }
 }

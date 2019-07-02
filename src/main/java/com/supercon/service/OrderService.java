@@ -1,9 +1,8 @@
 package com.supercon.service;
 
 import com.supercon.model.Customer;
-import com.supercon.model.Order;
 import com.supercon.model.Product;
-import com.supercon.model.ShoppingCart;
+import com.supercon.service.builders.ShoppingCart;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class OrderService {
 
     public ShoppingCart placeOrder(Customer customer, List<Product> products) {
         //place order
-        return new Order(customer, products);
+        return new ShoppingCart(customer);
     }
 
 }

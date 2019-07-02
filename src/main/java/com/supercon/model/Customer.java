@@ -1,6 +1,8 @@
 package com.supercon.model;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 
     private String name;
 
@@ -8,4 +10,7 @@ public class Customer {
         this.name = name;
     }
 
+    public String getName() {
+        return null;
+    }
 }

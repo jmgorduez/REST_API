@@ -1,47 +1,44 @@
 package com.supercon.service;
 
 import com.supercon.model.Product;
-import org.junit.Before;
-import org.junit.Test;
+import com.supercon.service.builders.ProductBuilder;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static com.supercon.utils.DataTestGenerator.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductServiceTest {
 
-    private ProductService productService;
+    private ProductService productServiceUnderTest;
 
-    @Before
-    public void setup() throws Exception {
-        productService = new ProductService(Arrays.asList(
-                new Product(1.50, "PROD_01", "Product 01"),
-                new Product(3.45, "PROD_02", "Product 02")
-        ));
+    @BeforeAll
+    public void setup() {
+        productServiceUnderTest = new ProductService(PRODUCTS);
     }
 
     @Test
-    public void getProductCodes_shouldReturnAllCodes() throws Exception {
-        List<String> codes = productService.getProductCodes();
-        assertEquals(2, codes.size());
-        assertEquals("PROD_01", codes.get(0));
-        assertEquals("PROD_02", codes.get(1));
+    public void getProductCodes_shouldReturnAllCodes() {
+        assertThat(productServiceUnderTest.getProductCodes())
+                .containsExactly(PROD_01, PROD_02);
     }
 
     @Test
-    public void getProduct_shouldReturnProductForKnownCode() throws Exception {
-        Product product = productService.getProduct("PROD_01");
-        assertEquals("PROD_01", product.getProductCode());
-        assertEquals("Product 01", product.getName());
-        assertEquals(1.50, product.getPrice(), 0.00);
+    public void getProduct_shouldReturnProductForKnownCode() {
+        assertThat(productServiceUnderTest.getProduct(PROD_01).get())
+                .isEqualToComparingFieldByField(new ProductBuilder(PROD_01, PRODUCT_01)
+                .setPrice(_1_50).build());
     }
 
     @Test
-    public void getProduct_shouldReturnNullForUnknownCode() throws Exception {
-        Product product = productService.getProduct("PROD_03");
-        assertNull(product);
+    public void getProduct_shouldReturnNullForUnknownCode() {
+       assertThatThrownBy(() -> productServiceUnderTest.getProduct(PROD_03).get())
+               .isInstanceOf(NoSuchElementException.class);
     }
 
 }
