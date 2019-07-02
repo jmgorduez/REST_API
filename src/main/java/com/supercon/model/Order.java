@@ -19,7 +19,7 @@ public final class Order implements Serializable {
         products = new ArrayList<>(shoppingCart.getProducts());
     }
 
-    public double getTotalPrice(){
+    public Double getTotalPrice(){
         return totalPrice;
     }
 

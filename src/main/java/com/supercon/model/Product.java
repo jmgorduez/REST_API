@@ -18,7 +18,7 @@ public class Product implements Serializable {
         this.loyaltyPointsEarned = builder.getLoyaltyPointsEarned();
     }
 
-    public double getPrice() { return price; }
+    public Double getPrice() { return price; }
 
     public String getProductCode() {
         return productCode;

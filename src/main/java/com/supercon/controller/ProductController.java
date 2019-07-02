@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.supercon.utils.Constants.V1_PRODUCTS;
+import static com.supercon.utils.Constants.V1_PRODUCTS_CODE;
 
 @RestController
 public class ProductController {
@@ -20,15 +21,12 @@ public class ProductController {
     @Autowired
     private IProductService productService;
 
-    /*
-    * TODO It should return a ResponseEntity<List<String>>
-    * */
     @GetMapping(V1_PRODUCTS)
-    public List<String> getProducts() {
-        return productService.getProductCodes();
+    public ResponseEntity<List<String>> getProducts() {
+        return new ResponseEntity<>(productService.getProductCodes(), HttpStatus.OK);
     }
 
-    @GetMapping("/v1/products/{code}")
+    @GetMapping(V1_PRODUCTS_CODE)
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable final String code) {
         final Optional<Product> product = productService.getProduct(code);
         return new ResponseEntity<>(product, HttpStatus.OK);

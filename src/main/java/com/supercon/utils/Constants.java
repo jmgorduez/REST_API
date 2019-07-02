@@ -9,6 +9,7 @@ import java.util.List;
 public class Constants {
 
     public static final String V1_PRODUCTS = "/v1/products";
+    public static final String V1_PRODUCTS_CODE = "/v1/products/{code}";
 
     public static final Double _14_99 = 14.99;
     public static final Double _24_99 = 24.99;
