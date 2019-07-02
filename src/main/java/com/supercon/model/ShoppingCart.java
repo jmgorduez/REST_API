@@ -8,15 +8,29 @@ import java.util.List;
 public class ShoppingCart {
 
     //Product and quantity
+    /*
+    * TODO They should be referenced using interfaces
+    * */
     private List<Product> products;
     private Customer customer;
+    /*
+    * TODO This field is not used, however if it is necessary it should be an enum
+    * */
     private String cartState;
 
     @Autowired
+    /*
+    * TODO This set is not necessary,
+    * it possible inject dependency annotating field private OrderService orderService with
+    * @Autowired
+    * */
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 
+    /*
+     * This service can not be referenced form a model class
+     */
     private OrderService orderService;
 
     public ShoppingCart(Customer customer, List<Product> products, String cartState) {
@@ -35,6 +49,8 @@ public class ShoppingCart {
 
 
     /*
+    TODO This logic should be in a service
+
         Checkout: Calculates total price and total loyalty points earned by the customer.
         Products with product code starting with DIS_10 have a 10% discount applied.
         Products with product code starting with DIS_15 have a 15% discount applied.
@@ -44,7 +60,6 @@ public class ShoppingCart {
             Customer earns 1 point on every $10 spent on a product with 10% discount.
             Customer earns 1 point on every $15 spent on a product with 15% discount.
     */
-
     public void checkout() {
         double totalPrice = 0;
 

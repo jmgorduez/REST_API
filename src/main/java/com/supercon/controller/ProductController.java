@@ -15,9 +15,15 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    /*
+    * TODO It should be referenced by an interfaces.
+    * */
     private ProductService productService;
 
     @GetMapping("/v1/products")
+    /*
+    * TODO It should return a ResponseEntity<List<String>>
+    * */
     public List<String> getProducts() {
         return productService.getProductCodes();
     }
