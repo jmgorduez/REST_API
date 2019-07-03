@@ -57,14 +57,5 @@ class ProductControllerTest {
 
     @Test
     void getProduct() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(V1_PRODUCTS_CODE)
-                .param(CODE, PROD_01)
-                .accept(MediaType.APPLICATION_JSON);
-
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(PROD_01);
     }
 }

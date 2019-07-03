@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Customer implements Serializable {
 
-    private String name;
+    private final String name;
 
     public Customer(String name) {
         this.name = name;

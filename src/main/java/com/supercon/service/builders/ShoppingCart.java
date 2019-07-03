@@ -3,12 +3,14 @@ package com.supercon.service.builders;
 import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.model.Product;
+import com.supercon.service.builders.abstractions.IProductBuilder;
 import com.supercon.service.builders.abstractions.IShoppingCart;
 import com.supercon.utils.Constants;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.supercon.utils.Constants.EMPTY_STRING;
@@ -18,10 +20,12 @@ public class ShoppingCart implements IShoppingCart {
 
     private Customer customer;
     private final List<Product> products;
+    private Function<Double, Double> discountStrategy;
 
     public ShoppingCart() {
         this.customer = new Customer(EMPTY_STRING);
         products = new ArrayList<>();
+        this.discountStrategy = Double::doubleValue;
     }
 
     @Override
@@ -47,6 +51,12 @@ public class ShoppingCart implements IShoppingCart {
     }
 
     @Override
+    public IShoppingCart setDiscountStrategy(Function<Double, Double> discountStrategy) {
+        this.discountStrategy = discountStrategy;
+        return this;
+    }
+
+    @Override
     public List<Product> getProducts() {
         return new ArrayList<>(products);
     }
@@ -63,9 +73,10 @@ public class ShoppingCart implements IShoppingCart {
 
     @Override
     public Double totalPrice() {
-        return products.stream()
+        Double price = products.stream()
                 .mapToDouble(Product::getPrice)
                 .sum();
+        return discountStrategy.apply(price);
     }
 
     @Override

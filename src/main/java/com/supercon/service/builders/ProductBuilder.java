@@ -4,6 +4,8 @@ import com.supercon.model.Product;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import static com.supercon.utils.Constants.EMPTY_STRING;
@@ -17,6 +19,7 @@ public class ProductBuilder implements IProductBuilder {
     private double price;
     private Function<Double, Double> discountStrategy;
     private Function<Double, Integer> loyaltyPointsStrategy;
+    private final List<Product> elements;
 
     public ProductBuilder() {
         this.productCode = EMPTY_STRING;
@@ -24,6 +27,7 @@ public class ProductBuilder implements IProductBuilder {
         this.price = _0;
         this.discountStrategy = Double::doubleValue;
         this.loyaltyPointsStrategy = Double::intValue;
+        elements = new ArrayList<>();
     }
 
     @Override
@@ -39,20 +43,26 @@ public class ProductBuilder implements IProductBuilder {
     }
 
     @Override
-    public ProductBuilder setPrice(double price) {
+    public IProductBuilder setPrice(double price) {
         this.price = price;
         return this;
     }
 
     @Override
-    public ProductBuilder setLoyaltyPointsStrategy(Function<Double, Integer> loyaltyPointsStrategy) {
+    public IProductBuilder setLoyaltyPointsStrategy(Function<Double, Integer> loyaltyPointsStrategy) {
         this.loyaltyPointsStrategy = loyaltyPointsStrategy;
         return this;
     }
 
     @Override
-    public ProductBuilder setDiscountStrategy(Function<Double, Double> discountStrategy) {
+    public IProductBuilder setDiscountStrategy(Function<Double, Double> discountStrategy) {
         this.discountStrategy = discountStrategy;
+        return this;
+    }
+
+    @Override
+    public IProductBuilder addElement(Product product) {
+        this.elements.add(product);
         return this;
     }
 
@@ -67,6 +77,9 @@ public class ProductBuilder implements IProductBuilder {
     }
 
     public Double getFinalPrice() {
+        price += elements.stream()
+                .mapToDouble(Product::getPrice)
+                .sum();
         return discountStrategy.apply(price);
     }
 
@@ -78,5 +91,10 @@ public class ProductBuilder implements IProductBuilder {
     @Override
     public Product build() {
         return new Product(this);
+    }
+
+    @Override
+    public List<Product> getElements() {
+        return new ArrayList<>(elements);
     }
 }
