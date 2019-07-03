@@ -4,27 +4,30 @@ import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.model.Product;
 import com.supercon.service.builders.abstractions.IShoppingCart;
+import com.supercon.utils.Constants;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.supercon.utils.Constants.EMPTY_STRING;
+
 @Service
 public class ShoppingCart implements IShoppingCart {
 
-    public void checkout(Customer customer, List<Product> products) {
-        com.supercon.model.ShoppingCart cart = new com.supercon.model.ShoppingCart(customer, products, "OPEN");
-
-        cart.checkout();
-    }
-
-    private final Customer customer;
+    private Customer customer;
     private final List<Product> products;
 
-    public ShoppingCart(Customer customer){
-        this.customer = customer;
+    public ShoppingCart() {
+        this.customer = new Customer(EMPTY_STRING);
         products = new ArrayList<>();
+    }
+
+    @Override
+    public IShoppingCart setCustomer(Customer customer) {
+        this.customer = customer;
+        return this;
     }
 
     @Override

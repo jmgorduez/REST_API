@@ -2,11 +2,14 @@ package com.supercon.service.builders;
 
 import com.supercon.model.Product;
 import com.supercon.service.builders.abstractions.IProductBuilder;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 
+import static com.supercon.utils.Constants.EMPTY_STRING;
 import static com.supercon.utils.Constants._0;
 
+@Service
 public class ProductBuilder implements IProductBuilder {
 
     private String productCode;
@@ -15,12 +18,24 @@ public class ProductBuilder implements IProductBuilder {
     private Function<Double, Double> discountStrategy;
     private Function<Double, Integer> loyaltyPointsStrategy;
 
-    public ProductBuilder(String productCode, String name) {
-        this.productCode = productCode;
-        this.name = name;
+    public ProductBuilder() {
+        this.productCode = EMPTY_STRING;
+        this.name = EMPTY_STRING;
         this.price = _0;
         this.discountStrategy = Double::doubleValue;
         this.loyaltyPointsStrategy = Double::intValue;
+    }
+
+    @Override
+    public IProductBuilder setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+
+    @Override
+    public IProductBuilder setName(String name) {
+        this.name = name;
+        return this;
     }
 
     @Override

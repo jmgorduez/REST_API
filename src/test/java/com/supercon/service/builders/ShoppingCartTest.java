@@ -11,17 +11,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ShoppingCartTest {
 
-    private ShoppingCart shoppingCartUnderTest;
+    private IShoppingCart shoppingCartUnderTest;
 
     @BeforeEach
     void setUp() {
-        shoppingCartUnderTest = new ShoppingCart(new Customer(JOHN));
+        shoppingCartUnderTest = new ShoppingCart()
+                .setCustomer(new Customer(JOHN));
     }
 
     @Test
     void addProduct() {
         IShoppingCart shoppingCartManagerExpected
-                = new ShoppingCart(new Customer(JOHN))
+                = new ShoppingCart()
+                .setCustomer(new Customer(JOHN))
                 .addProduct(PRODUCT_01_OBJECT);
         assertThat(shoppingCartUnderTest.addProduct(PRODUCT_01_OBJECT))
                 .isEqualToComparingFieldByFieldRecursively(shoppingCartManagerExpected);
@@ -30,7 +32,8 @@ class ShoppingCartTest {
     @Test
     void removeProduct() {
         IShoppingCart shoppingCartManagerExpected
-                = new ShoppingCart(new Customer(JOHN));
+                = new ShoppingCart()
+                .setCustomer(new Customer(JOHN));
         shoppingCartUnderTest.addProduct(PRODUCT_01_OBJECT);
         assertThat(shoppingCartUnderTest.removeProduct(PRODUCT_01_OBJECT))
                 .isEqualToComparingFieldByFieldRecursively(shoppingCartManagerExpected);
@@ -54,7 +57,8 @@ class ShoppingCartTest {
 
     @Test
     void checkout() {
-        Order orderExpected = new ShoppingCart(new Customer(JOHN))
+        Order orderExpected = new ShoppingCart()
+                .setCustomer(new Customer(JOHN))
                 .addProduct(PRODUCT_01_OBJECT)
                 .addProduct(PRODUCT_02_OBJECT).checkout();
         shoppingCartUnderTest
@@ -65,7 +69,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    void totalPrice(){
+    void totalPrice() {
         shoppingCartUnderTest
                 .addProduct(PRODUCT_01_OBJECT)
                 .addProduct(PRODUCT_02_OBJECT);
@@ -74,7 +78,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    void loyaltyPointsEarned(){
+    void loyaltyPointsEarned() {
         shoppingCartUnderTest
                 .addProduct(PRODUCT_03_OBJECT)
                 .addProduct(PRODUCT_04_OBJECT);

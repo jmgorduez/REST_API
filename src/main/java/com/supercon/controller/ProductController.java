@@ -18,8 +18,11 @@ import static com.supercon.utils.Constants.V1_PRODUCTS_CODE;
 @RestController
 public class ProductController {
 
-    @Autowired
     private IProductService productService;
+
+    public ProductController(IProductService productService){
+        this.productService = productService;
+    }
 
     @GetMapping(V1_PRODUCTS)
     public ResponseEntity<List<String>> getProducts() {
@@ -27,8 +30,9 @@ public class ProductController {
     }
 
     @GetMapping(V1_PRODUCTS_CODE)
-    public ResponseEntity<Optional<Product>> getProduct(@PathVariable final String code) {
-        final Optional<Product> product = productService.getProduct(code);
+    public ResponseEntity<Product> getProduct(@PathVariable final String code) {
+        final Product product = productService.getProduct(code)
+                .orElseThrow(IllegalArgumentException::new);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 

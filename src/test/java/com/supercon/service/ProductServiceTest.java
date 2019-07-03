@@ -1,6 +1,5 @@
 package com.supercon.service;
 
-import com.supercon.model.Product;
 import com.supercon.service.builders.ProductBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -23,22 +22,24 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void getProductCodes_shouldReturnAllCodes() {
+    public void getProductCodes_shouldReturnAllCodes() throws Exception {
         assertThat(productServiceUnderTest.getProductCodes())
                 .containsExactly(PROD_01, PROD_02);
     }
 
     @Test
-    public void getProduct_shouldReturnProductForKnownCode() {
+    public void getProduct_shouldReturnProductForKnownCode() throws Exception {
         assertThat(productServiceUnderTest.getProduct(PROD_01).get())
-                .isEqualToComparingFieldByField(new ProductBuilder(PROD_01, PRODUCT_01)
-                .setPrice(_1_50).build());
+                .isEqualToComparingFieldByField(new ProductBuilder()
+                        .setProductCode(PROD_01)
+                        .setName(PRODUCT_01)
+                        .setPrice(_1_50).build());
     }
 
     @Test
-    public void getProduct_shouldReturnNullForUnknownCode() {
-       assertThatThrownBy(() -> productServiceUnderTest.getProduct(PROD_03).get())
-               .isInstanceOf(NoSuchElementException.class);
+    public void getProduct_shouldReturnNullForUnknownCode() throws Exception {
+        assertThatThrownBy(() -> productServiceUnderTest.getProduct(PROD_03).get())
+                .isInstanceOf(NoSuchElementException.class);
     }
 
 }

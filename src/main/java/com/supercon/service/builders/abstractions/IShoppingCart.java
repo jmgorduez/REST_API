@@ -7,6 +7,7 @@ import com.supercon.model.Product;
 import java.util.List;
 
 public interface IShoppingCart {
+    IShoppingCart setCustomer(Customer customer);
     IShoppingCart addProduct(Product product);
     IShoppingCart removeProduct(Product product);
     List<Product> getProducts();

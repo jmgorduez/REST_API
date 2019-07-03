@@ -30,18 +30,36 @@ public class DataTestGenerator {
     public static final int _9 = 9;
     public static final int _13 = 13;
 
-    public static final Product PRODUCT_01_OBJECT = new ProductBuilder(PROD_01, PRODUCT_01)
+    public static final Product PRODUCT_01_OBJECT = new ProductBuilder()
+            .setProductCode(PROD_01)
+            .setName(PRODUCT_01)
             .setPrice(_1_50).build();
-    public static final Product PRODUCT_02_OBJECT = new ProductBuilder(PROD_02, PRODUCT_02)
+    public static final Product PRODUCT_02_OBJECT = new ProductBuilder()
+            .setProductCode(PROD_02)
+            .setName(PRODUCT_02)
             .setPrice(_3_45).build();
-    public static final Product PRODUCT_03_OBJECT = new ProductBuilder(PROD_03, PRODUCT_03)
+    public static final Product PRODUCT_03_OBJECT = new ProductBuilder()
+            .setProductCode(PROD_03)
+            .setName(PRODUCT_03)
             .setPrice(_45_80)
             .setLoyaltyPointsStrategy(Constants::priceDividedBy5).build();
-    public static final Product PRODUCT_04_OBJECT = new ProductBuilder(PROD_04, PRODUCT_04)
+    public static final Product PRODUCT_04_OBJECT = new ProductBuilder()
+            .setProductCode(PROD_04)
+            .setName(PRODUCT_04)
             .setPrice(_45_80)
             .setLoyaltyPointsStrategy(Constants::priceDividedBy10).build();
 
     public static final List<Product> PRODUCTS = Arrays.asList(
             PRODUCT_01_OBJECT, PRODUCT_02_OBJECT
     );
+
+    public static final List<String> PRODUCTS_CODES = Arrays.asList(
+            PROD_01, PROD_02, PROD_03, PROD_04
+    );
+
+    public static final String PRODUCTS_CODES_JSON = "[*".concat(PROD_01).concat("*,*")
+            .concat(PROD_02).concat("*,*").concat(PROD_03).concat("*,*").concat(PROD_04).concat("*]")
+            .replace("*","\"");
+
+    public static final String PROD01_JSON = "[*".concat(PROD_01).concat("*]").replace("*","\"");
 }

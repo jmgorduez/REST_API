@@ -18,7 +18,7 @@ public class OrderService {
 
     public ShoppingCart placeOrder(Customer customer, List<Product> products) {
         //place order
-        return new ShoppingCart(customer);
+        return new ShoppingCart();
     }
 
 }
