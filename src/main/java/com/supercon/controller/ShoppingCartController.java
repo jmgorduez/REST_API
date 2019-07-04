@@ -1,6 +1,7 @@
 package com.supercon.controller;
 
 import com.supercon.model.Customer;
+import com.supercon.model.Order;
 import com.supercon.service.builders.ShoppingCart;
 import com.supercon.service.builders.abstractions.IShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class ShoppingCartController {
     }
 
     @GetMapping(V1_SHOPPING_CART_CUSTOMER_NAME)
-    public ResponseEntity<IShoppingCart> createShoppingCart(@PathVariable final String customerName){
+    public ResponseEntity<Order> createShoppingCart(@PathVariable final String customerName){
         shoppingCart.setCustomer(new Customer(customerName));
-        return new ResponseEntity<IShoppingCart>(shoppingCart, HttpStatus.OK);
+        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
     }
 }

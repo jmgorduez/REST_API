@@ -8,6 +8,9 @@ import java.util.List;
 
 public class DataTestGenerator {
 
+    public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/JOHN";
+    public static final String V1_PRODUCTS_PROD1 = "/v1/products/PROD1";
+
     public static final String JOHN = "JOHN";
 
     public static final String PROD_01 = "PROD_01";
@@ -57,9 +60,13 @@ public class DataTestGenerator {
             PROD_01, PROD_02, PROD_03, PROD_04
     );
 
-    public static final String PRODUCTS_CODES_JSON = "[*".concat(PROD_01).concat("*,*")
-            .concat(PROD_02).concat("*,*").concat(PROD_03).concat("*,*").concat(PROD_04).concat("*]")
+    public static final String PRODUCTS_CODES_JSON = "[*PROD_01*,*PROD_02*,*PROD_03*,*PROD_04*]"
             .replace("*","\"");
 
-    public static final String PROD01_JSON = "[*".concat(PROD_01).concat("*]").replace("*","\"");
+    public static final String PROD1_JSON = "{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1,*elements*:[]}"
+            .replace("*","\"");
+
+    public static final String ORDER_JOHN_JSON = "{*customer*:{*name*:*JOHN*},*products*:[],*totalPrice*:0.0}"
+            .replace("*","\"");
+
 }
