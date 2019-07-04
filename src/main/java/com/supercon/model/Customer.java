@@ -11,6 +11,6 @@ public class Customer implements Serializable {
     }
 
     public String getName() {
-        return null;
+        return name;
     }
 }
