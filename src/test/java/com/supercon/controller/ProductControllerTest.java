@@ -22,10 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(controllers = ProductController.class, secure = false)
-@SpringBootTest
 class ProductControllerTest {
 
     private MockMvc mockMvc;
@@ -40,14 +39,13 @@ class ProductControllerTest {
                 .thenReturn(PRODUCTS_CODES);
         when(productService.getProduct(any()))
                 .thenReturn(ofNullable(PRODUCT_01_OBJECT));
-        mockMvc = MockMvcBuilders.standaloneSetup(new ProductController(productService)).build();
+        mockMvc = standaloneSetup(new ProductController(productService)).build();
     }
 
     @Test
     void getProducts() throws Exception {
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(V1_PRODUCTS)
+        RequestBuilder requestBuilder = get(V1_PRODUCTS)
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
@@ -58,8 +56,7 @@ class ProductControllerTest {
 
     @Test
     void getProduct() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get(V1_PRODUCTS_PROD1)
+        RequestBuilder requestBuilder = get(V1_PRODUCTS_PROD1)
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();

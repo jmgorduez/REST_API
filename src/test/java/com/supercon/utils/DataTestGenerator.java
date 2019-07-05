@@ -10,6 +10,9 @@ public class DataTestGenerator {
 
     public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/JOHN";
     public static final String V1_PRODUCTS_PROD1 = "/v1/products/PROD1";
+    public static final String V1_SHOPPING_CART_ADD_PRODUCT_PROD_01 = "/v1/shopping-cart/add-product/PROD_01";
+    public static final String V1_SHOPPING_CART_ADD_PRODUCT_PROD_02 = "/v1/shopping-cart/add-product/PROD_02";
+    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT_PROD_01 = "/v1/shopping-cart/remove-product/PROD_01";
 
     public static final String JOHN = "JOHN";
 
@@ -67,6 +70,12 @@ public class DataTestGenerator {
             .replace("*","\"");
 
     public static final String ORDER_JOHN_JSON = "{*customer*:{*name*:*JOHN*},*products*:[],*totalPrice*:0.0}"
+            .replace("*","\"");
+
+    public static final String ORDER_JOHN_PROD_01_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1,*elements*:[]}],*totalPrice*:1.5}"
+            .replace("*","\"");
+
+    public static final String ORDER_JOHN_PROD_02_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3,*elements*:[]}],*totalPrice*:3.45}"
             .replace("*","\"");
 
 }

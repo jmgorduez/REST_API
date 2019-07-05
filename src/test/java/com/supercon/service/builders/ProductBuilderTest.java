@@ -100,4 +100,13 @@ class ProductBuilderTest {
         assertThat(productBuilderUnderTest.build())
                 .isEqualToComparingFieldByFieldRecursively(productExpected);
     }
+
+    @Test
+    void addElement() {
+        assertThat(productBuilderUnderTest.addElement(PRODUCT_01_OBJECT))
+                .isEqualToComparingFieldByField(new ProductBuilder()
+                        .setProductCode(PROD_01)
+                        .setName(PRODUCT_01)
+                        .addElement(PRODUCT_01_OBJECT));
+    }
 }

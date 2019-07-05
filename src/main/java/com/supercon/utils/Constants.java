@@ -13,6 +13,8 @@ public class Constants {
     public static final String V1_PRODUCTS = "/v1/products";
     public static final String V1_PRODUCTS_CODE = "/v1/products/{code}";
     public static final String V1_SHOPPING_CART_CUSTOMER_NAME = "/v1/shopping-cart/{customerName}";
+    public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product/{codeProduct}";
+    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product/{codeProduct}";
 
     public static final String CODE = "{code}";
 

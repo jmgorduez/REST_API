@@ -3,8 +3,11 @@ package com.supercon.service.builders;
 import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.service.builders.abstractions.IShoppingCart;
+import com.supercon.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.function.Function;
 
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -84,5 +87,13 @@ class ShoppingCartTest {
                 .addProduct(PRODUCT_04_OBJECT);
         assertThat(shoppingCartUnderTest.loyaltyPointsEarned())
                 .isEqualTo(_13);
+    }
+
+    @Test
+    void setDiscountStrategy() {
+        assertThat(shoppingCartUnderTest.setDiscountStrategy(Constants::discount10Percent))
+                .isEqualToComparingFieldByFieldRecursively(new ShoppingCart()
+                        .setCustomer(new Customer(JOHN))
+                        .setDiscountStrategy(Constants::discount10Percent));
     }
 }
