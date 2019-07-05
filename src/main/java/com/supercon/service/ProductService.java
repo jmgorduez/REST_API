@@ -38,10 +38,8 @@ public class ProductService implements IProductService {
     }
 
     private Product applyDiscount(Product product){
-        return productBuilder.setProductCode(product.getProductCode())
-                .setName(product.getName())
-                .setPrice(product.getPrice())
-                .setDiscountStrategy(discountManager.getDiscountStrategy(product.getProductCode()))
+        return productBuilder
+                .getInstance(product)
                 .build();
     }
 

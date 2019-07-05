@@ -109,4 +109,13 @@ class ProductBuilderTest {
                         .setName(PRODUCT_01)
                         .addElement(PRODUCT_01_OBJECT));
     }
+
+    @Test
+    void getInstance() {
+        assertThat(productBuilderUnderTest.getInstance(PRODUCT_01_OBJECT))
+                .isEqualToComparingFieldByFieldRecursively(new ProductBuilder()
+                        .setProductCode(PROD_01)
+                        .setName(PRODUCT_01)
+                        .setPrice(_1_50));
+    }
 }

@@ -30,6 +30,20 @@ public class ProductBuilder implements IProductBuilder {
         elements = new ArrayList<>();
     }
 
+    public ProductBuilder(Product product) {
+        this.productCode = product.getProductCode();
+        this.name = product.getName();
+        this.price = product.getPrice();
+        this.discountStrategy = Double::doubleValue;
+        this.loyaltyPointsStrategy = Double::intValue;
+        elements = new ArrayList<>(product.getElements());
+    }
+
+    @Override
+    public IProductBuilder getInstance(Product product) {
+        return new ProductBuilder(product);
+    }
+
     @Override
     public IProductBuilder setProductCode(String productCode) {
         this.productCode = productCode;

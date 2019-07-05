@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 public interface IProductBuilder {
 
+    IProductBuilder getInstance(Product product);
     IProductBuilder setProductCode(String productCode);
     IProductBuilder setName(String name);
     IProductBuilder setPrice(double price);
