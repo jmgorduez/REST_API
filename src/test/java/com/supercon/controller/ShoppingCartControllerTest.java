@@ -15,10 +15,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import static com.supercon.utils.Constants.V1_SHOPPING_CART;
+import static com.supercon.utils.Constants._1;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -48,6 +49,9 @@ class ShoppingCartControllerTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(shoppingCart, times(_1))
+                .setCustomer(any());
+
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(ORDER_JOHN_JSON);
     }
@@ -66,6 +70,9 @@ class ShoppingCartControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        verify(shoppingCart, times(_1))
+                .addProduct(any());
 
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(ORDER_JOHN_PROD_01_JSON);
@@ -97,6 +104,8 @@ class ShoppingCartControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(shoppingCart, times(_1))
+                .removeProduct(any());
 
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(ORDER_JOHN_PROD_02_JSON);

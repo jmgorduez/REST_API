@@ -11,13 +11,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 import static com.supercon.utils.Constants.V1_PRODUCTS;
+import static com.supercon.utils.Constants._1;
 import static com.supercon.utils.DataTestGenerator.*;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -44,6 +44,9 @@ class ProductControllerTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(productService, times(_1))
+                .getProducts();
+
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(PRODUCTS_JSON);
     }
@@ -58,6 +61,9 @@ class ProductControllerTest {
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(productService, times(_1))
+                .getProduct(any());
+
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(PROD1_JSON);
     }
@@ -71,6 +77,9 @@ class ProductControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        verify(productService, times(_1))
+                .getProduct(any());
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.NOT_FOUND.value());
