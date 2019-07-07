@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.supercon.utils.Constants.V1_PRODUCTS;
 import static com.supercon.utils.Constants.V1_PRODUCTS_CODE;
@@ -20,13 +19,14 @@ public class ProductController {
 
     private IProductService productService;
 
+    @Autowired
     public ProductController(IProductService productService){
         this.productService = productService;
     }
 
     @GetMapping(V1_PRODUCTS)
-    public ResponseEntity<List<String>> getProducts() {
-        return new ResponseEntity<>(productService.getProductCodes(), HttpStatus.OK);
+    public ResponseEntity<List<Product>> getProducts() {
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
     @GetMapping(V1_PRODUCTS_CODE)

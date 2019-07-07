@@ -3,13 +3,11 @@ package com.supercon.controller;
 import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.model.Product;
-import com.supercon.service.abstractions.IProductService;
 import com.supercon.service.builders.abstractions.IShoppingCart;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.supercon.utils.Constants.*;
 
@@ -17,33 +15,33 @@ import static com.supercon.utils.Constants.*;
 public class ShoppingCartController {
 
     private IShoppingCart shoppingCart;
-    private IProductService productService;
 
-    public ShoppingCartController(IShoppingCart shoppingCart, IProductService productService){
+    @Autowired
+    public ShoppingCartController(IShoppingCart shoppingCart){
 
         this.shoppingCart = shoppingCart;
-        this.productService = productService;
     }
 
-    @GetMapping(V1_SHOPPING_CART_CUSTOMER_NAME)
-    public ResponseEntity<Order> createShoppingCart(@PathVariable final String customerName){
-        shoppingCart.setCustomer(new Customer(customerName));
+    @PostMapping(V1_SHOPPING_CART_CREATE)
+    public ResponseEntity<Order> createShoppingCart(@RequestBody final Customer customer){
+        shoppingCart.setCustomer(customer);
         return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
-    @GetMapping(V1_SHOPPING_CART_ADD_PRODUCT)
-    public ResponseEntity<Order> addProductToShoppingCart(@PathVariable final String codeProduct){
-        Product product = productService.getProduct(codeProduct)
-                .orElseThrow(IllegalArgumentException::new);
+    @PutMapping(V1_SHOPPING_CART_ADD_PRODUCT)
+    public ResponseEntity<Order> addProductToShoppingCart(@RequestBody final Product product){
         shoppingCart.addProduct(product);
         return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
-    @GetMapping(V1_SHOPPING_CART_REMOVE_PRODUCT)
-    public ResponseEntity<Order> removeProductToShoppingCart(@PathVariable final String codeProduct){
-        Product product = productService.getProduct(codeProduct)
-                .orElseThrow(IllegalArgumentException::new);
+    @DeleteMapping(V1_SHOPPING_CART_REMOVE_PRODUCT)
+    public ResponseEntity<Order> removeProductToShoppingCart(@RequestBody final Product product){
         shoppingCart.removeProduct(product);
+        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
+    }
+
+    @GetMapping(V1_SHOPPING_CART)
+    public ResponseEntity<Order> getShoppingCart(){
         return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
     }
 }

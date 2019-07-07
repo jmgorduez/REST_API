@@ -3,8 +3,8 @@ package com.supercon.service;
 import com.supercon.model.Product;
 import com.supercon.service.abstractions.IDiscountManager;
 import com.supercon.service.abstractions.IProductService;
-import com.supercon.service.builders.ProductBuilder;
 import com.supercon.service.builders.abstractions.IProductBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class ProductService implements IProductService {
     private IDiscountManager discountManager;
     private IProductBuilder productBuilder;
 
+    @Autowired
     public ProductService(IDiscountManager discountManager, IProductBuilder productBuilder) {
         this(discountManager, productBuilder, ALL_PRODUCTS);
     }
@@ -42,13 +43,6 @@ public class ProductService implements IProductService {
                 .getInstance(product)
                 .setDiscountStrategy(discountManager.getDiscountStrategy(product.getProductCode()))
                 .build();
-    }
-
-    @Override
-    public List<String> getProductCodes() {
-        return products.stream()
-                .map(Product::getProductCode)
-                .collect(Collectors.toList());
     }
 
     @Override

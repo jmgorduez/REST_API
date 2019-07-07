@@ -1,5 +1,6 @@
 package com.supercon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 
 import java.io.Serializable;
@@ -13,6 +14,19 @@ public class Product implements Serializable {
     private final String name;
     private final Integer loyaltyPointsEarned;
     private final List<Product> elements;
+
+    public Product(@JsonProperty("price") double price,
+                   @JsonProperty("productCode") String productCode,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("loyaltyPointsEarned") Integer loyaltyPointsEarned,
+                   @JsonProperty("elements") List<Product> elements){
+
+        this.price = price;
+        this.productCode = productCode;
+        this.name = name;
+        this.loyaltyPointsEarned = loyaltyPointsEarned;
+        this.elements = elements;
+    }
 
     public Product(IProductBuilder builder) {
         this.productCode = builder.getProductCode();

@@ -4,18 +4,12 @@ import com.supercon.service.ProductService;
 import com.supercon.service.abstractions.IProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static com.supercon.utils.Constants.*;
+import static com.supercon.utils.Constants.V1_PRODUCTS;
 import static com.supercon.utils.DataTestGenerator.*;
 import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,8 +29,8 @@ class ProductControllerTest {
     @BeforeEach
     protected void setUp() {
         productService = mock(ProductService.class);
-        when(productService.getProductCodes())
-                .thenReturn(PRODUCTS_CODES);
+        when(productService.getProducts())
+                .thenReturn(PRODUCTS);
         when(productService.getProduct(any()))
                 .thenReturn(ofNullable(PRODUCT_01_OBJECT));
         mockMvc = standaloneSetup(new ProductController(productService)).build();
@@ -51,7 +45,7 @@ class ProductControllerTest {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(PRODUCTS_CODES_JSON);
+                .isEqualTo(PRODUCTS_JSON);
     }
 
     @Test

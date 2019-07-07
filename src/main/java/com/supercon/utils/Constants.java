@@ -3,6 +3,8 @@ package com.supercon.utils;
 import com.supercon.model.Product;
 import com.supercon.service.builders.ProductBuilder;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,9 +14,10 @@ public class Constants {
 
     public static final String V1_PRODUCTS = "/v1/products";
     public static final String V1_PRODUCTS_CODE = "/v1/products/{code}";
-    public static final String V1_SHOPPING_CART_CUSTOMER_NAME = "/v1/shopping-cart/{customerName}";
-    public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product/{codeProduct}";
-    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product/{codeProduct}";
+    public static final String V1_SHOPPING_CART_CREATE = "/v1/shopping-cart/create";
+    public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product";
+    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product";
+    public static final String V1_SHOPPING_CART = "/v1/shopping-cart";
 
     public static final Double _0_1 = 0.1;
     public static final Double _0_15 = 0.15;
@@ -64,11 +67,13 @@ public class Constants {
     );
 
     public static Double discount10Percent(Double price) {
-        return price - _0_1 * price;
+        BigDecimal formatNumber = new BigDecimal(price - _0_1 * price);
+        return formatNumber.setScale(_2, RoundingMode.HALF_EVEN).doubleValue();
     }
 
     public static Double discount15Percent(Double price) {
-        return price - _0_15 * price;
+        BigDecimal formatNumber = new BigDecimal(price - _0_15 * price);
+        return formatNumber.setScale(_2, RoundingMode.HALF_EVEN).doubleValue();
     }
 
     public static Integer priceDividedBy5(Double price) {
@@ -81,4 +86,5 @@ public class Constants {
 
     public static final int _0 = 0;
     public static final int _1 = 1;
+    public static final int _2 = 2;
 }

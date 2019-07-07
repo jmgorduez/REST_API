@@ -3,10 +3,9 @@ package com.supercon.service.builders;
 import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.model.Product;
-import com.supercon.service.builders.abstractions.IProductBuilder;
 import com.supercon.service.builders.abstractions.IShoppingCart;
-import com.supercon.utils.Constants;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.function.Predicate;
 import static com.supercon.utils.Constants.EMPTY_STRING;
 
 @Service
+@SessionScope
 public class ShoppingCart implements IShoppingCart {
 
     private Customer customer;

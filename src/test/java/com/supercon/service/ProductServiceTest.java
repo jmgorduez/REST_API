@@ -8,7 +8,6 @@ import com.supercon.utils.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.Mockito;
 
 import java.util.NoSuchElementException;
 
@@ -40,22 +39,16 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void getProductCodes_shouldReturnAllCodes() throws Exception {
-        assertThat(productServiceUnderTest.getProductCodes())
-                .containsExactly(PROD_01, PROD_02);
-    }
-
-    @Test
     public void getProducts_shouldReturnAllProducts() throws Exception {
         Product product01Expected = new ProductBuilder()
                 .setProductCode(PROD_01)
                 .setName(PRODUCT_01)
-                .setPrice(_1_50)
+                .setPrice(_1_67)
                 .setDiscountStrategy(Constants::discount10Percent).build();
         Product product02Expected = new ProductBuilder()
                 .setProductCode(PROD_02)
                 .setName(PRODUCT_02)
-                .setPrice(_3_45)
+                .setPrice(_3_83)
                 .setDiscountStrategy(Constants::discount10Percent).build();
         assertThat(productServiceUnderTest.getProducts().get(_0))
                 .isEqualToComparingFieldByFieldRecursively(product01Expected);

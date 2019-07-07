@@ -9,7 +9,6 @@ import java.util.function.Function;
 
 import static com.supercon.utils.DataTestGenerator.PROD_01;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class DiscountManagerTest {
 

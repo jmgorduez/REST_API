@@ -8,11 +8,10 @@ import java.util.List;
 
 public class DataTestGenerator {
 
-    public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/JOHN";
+    public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/create";
     public static final String V1_PRODUCTS_PROD1 = "/v1/products/PROD1";
-    public static final String V1_SHOPPING_CART_ADD_PRODUCT_PROD_01 = "/v1/shopping-cart/add-product/PROD_01";
-    public static final String V1_SHOPPING_CART_ADD_PRODUCT_PROD_02 = "/v1/shopping-cart/add-product/PROD_02";
-    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT_PROD_01 = "/v1/shopping-cart/remove-product/PROD_01";
+    public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product";
+    public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product";
 
     public static final String JOHN = "JOHN";
 
@@ -28,7 +27,9 @@ public class DataTestGenerator {
 
     public static final double _1_35 = 1.35;
     public static final double _1_50 = 1.50;
+    public static final double _1_67 = 1.67;
     public static final double _3_45 = 3.45;
+    public static final double _3_83 = 3.83;
     public static final double _4_95 = 4.95;
     public static final double _45_80 = 45.80;
 
@@ -63,7 +64,7 @@ public class DataTestGenerator {
             PROD_01, PROD_02, PROD_03, PROD_04
     );
 
-    public static final String PRODUCTS_CODES_JSON = "[*PROD_01*,*PROD_02*,*PROD_03*,*PROD_04*]"
+    public static final String PRODUCTS_JSON = "[{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1,*elements*:[]},{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3,*elements*:[]}]"
             .replace("*","\"");
 
     public static final String PROD1_JSON = "{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1,*elements*:[]}"
