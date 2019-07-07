@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import static com.supercon.utils.Constants._0;
@@ -30,12 +31,26 @@ public class ProductServiceTest {
     @BeforeAll
     public void setup() {
         discountManager = mock(DiscountManager.class);
-        productBuilder = new ProductBuilder();
         when(discountManager.getDiscountStrategy(PROD_01))
                 .thenReturn(Constants::discount10Percent);
         when(discountManager.getDiscountStrategy(any()))
                 .thenReturn(Double::doubleValue);
-        productServiceUnderTest = new ProductService(discountManager, productBuilder, PRODUCTS);
+
+        productBuilder = mock(ProductBuilder.class);
+        when(productBuilder.getInstance(any()))
+                .thenReturn(new ProductBuilder()
+                        .getInstance(PRODUCT_01_OBJECT));
+        when(productBuilder.setDiscountStrategy(any()))
+                .thenReturn(new ProductBuilder()
+                        .getInstance(PRODUCT_01_OBJECT)
+                        .setDiscountStrategy(Constants::discount10Percent));
+        when(productBuilder.build())
+                .thenReturn(new ProductBuilder()
+                        .getInstance(PRODUCT_01_OBJECT)
+                        .setDiscountStrategy(Constants::discount10Percent)
+                        .build());
+
+        productServiceUnderTest = new ProductService(discountManager, productBuilder, Arrays.asList(PRODUCT_01_OBJECT));
     }
 
     @Test
@@ -45,15 +60,8 @@ public class ProductServiceTest {
                 .setName(PRODUCT_01)
                 .setPrice(_1_67)
                 .setDiscountStrategy(Constants::discount10Percent).build();
-        Product product02Expected = new ProductBuilder()
-                .setProductCode(PROD_02)
-                .setName(PRODUCT_02)
-                .setPrice(_3_83)
-                .setDiscountStrategy(Constants::discount10Percent).build();
         assertThat(productServiceUnderTest.getProducts().get(_0))
                 .isEqualToComparingFieldByFieldRecursively(product01Expected);
-        assertThat(productServiceUnderTest.getProducts().get(_1))
-                .isEqualToComparingFieldByFieldRecursively(product02Expected);
     }
 
     @Test

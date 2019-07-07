@@ -27,13 +27,11 @@ class ShoppingCartControllerTest {
     private MockMvc mockMvc;
 
     private IShoppingCart shoppingCart;
-    private IProductService productService;
 
     @BeforeEach
     void setUp() {
         shoppingCart = mock(ShoppingCart.class);
-        productService = mock(ProductService.class);
-        mockMvc = standaloneSetup(new ShoppingCartController(shoppingCart, productService)).build();
+        mockMvc = standaloneSetup(new ShoppingCartController(shoppingCart)).build();
     }
 
     @Test

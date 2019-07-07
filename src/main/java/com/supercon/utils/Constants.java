@@ -18,10 +18,13 @@ public class Constants {
     public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product";
     public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product";
     public static final String V1_SHOPPING_CART = "/v1/shopping-cart";
+    public static final String V1_DISCOUNT_MANAGER_APPLY = "/v1/discount-manager/apply";
+    public static final String V1_DISCOUNT_MANAGER_PLAIN = "/v1/discount-manager/plain";
 
     public static final Double _0_1 = 0.1;
     public static final Double _0_15 = 0.15;
     public static final Double _14_99 = 14.99;
+    public static final Double _20 = 20D;
     public static final Double _24_99 = 24.99;
 
     public static final String DIS_15_STOOL_GREEN = "DIS_15-STOOL_GREEN";
@@ -73,6 +76,11 @@ public class Constants {
 
     public static Double discount15Percent(Double price) {
         BigDecimal formatNumber = new BigDecimal(price - _0_15 * price);
+        return formatNumber.setScale(_2, RoundingMode.HALF_EVEN).doubleValue();
+    }
+
+    public static Double discount20Dollars(Double price) {
+        BigDecimal formatNumber = new BigDecimal(price - _20);
         return formatNumber.setScale(_2, RoundingMode.HALF_EVEN).doubleValue();
     }
 
