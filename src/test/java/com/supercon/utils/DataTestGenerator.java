@@ -10,6 +10,7 @@ public class DataTestGenerator {
 
     public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/create";
     public static final String V1_PRODUCTS_PROD1 = "/v1/products/PROD1";
+    public static final String V1_PRODUCTS_PRODX = "/v1/products/PRODX";
     public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product";
     public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product";
 

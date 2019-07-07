@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.function.Function;
 
+import static com.supercon.utils.Constants._2;
 import static com.supercon.utils.DataTestGenerator.PROD_01;
 import static com.supercon.utils.DataTestGenerator.PROD_02;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +35,6 @@ class DiscountManagerTest {
     void plainDiscountToProduct(){
         Function<Double,Double> discount15Percent = Constants::discount15Percent;
         assertThat(discountManagerUnderTest.plainDiscountToProduct(PROD_02, discount15Percent))
-                .isEqualToComparingFieldByFieldRecursively(discount15Percent);
+                .isEqualTo(_2);
     }
 }

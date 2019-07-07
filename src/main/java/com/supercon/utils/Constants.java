@@ -94,5 +94,5 @@ public class Constants {
 
     public static final int _0 = 0;
     public static final int _1 = 1;
-    public static final int _2 = 2;
+    public static final Integer _2 = 2;
 }

@@ -25,23 +25,23 @@ public class ShoppingCartController {
     @PostMapping(V1_SHOPPING_CART_CREATE)
     public ResponseEntity<Order> createShoppingCart(@RequestBody final Customer customer){
         shoppingCart.setCustomer(customer);
-        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
+        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
     @PutMapping(V1_SHOPPING_CART_ADD_PRODUCT)
     public ResponseEntity<Order> addProductToShoppingCart(@RequestBody final Product product){
         shoppingCart.addProduct(product);
-        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
+        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
     @DeleteMapping(V1_SHOPPING_CART_REMOVE_PRODUCT)
     public ResponseEntity<Order> removeProductToShoppingCart(@RequestBody final Product product){
         shoppingCart.removeProduct(product);
-        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
+        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
     @GetMapping(V1_SHOPPING_CART)
     public ResponseEntity<Order> getShoppingCart(){
-        return new ResponseEntity<Order>(shoppingCart.checkout(), HttpStatus.OK);
+        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 }

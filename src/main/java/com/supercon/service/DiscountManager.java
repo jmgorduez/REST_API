@@ -1,7 +1,6 @@
 package com.supercon.service;
 
 import com.supercon.service.abstractions.IDiscountManager;
-import com.supercon.utils.Constants;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -31,8 +30,8 @@ public class DiscountManager implements IDiscountManager {
     }
 
     @Override
-    public Function<Double, Double> plainDiscountToProduct(String codeProduct, Function<Double, Double> discountStrategy) {
+    public Integer plainDiscountToProduct(String codeProduct, Function<Double, Double> discountStrategy) {
         this.discountsByProduct.put(codeProduct, discountStrategy);
-        return this.discountsByProduct.getOrDefault(codeProduct, Double::doubleValue);
+        return this.discountsByProduct.size();
     }
 }

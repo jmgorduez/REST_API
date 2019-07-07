@@ -31,9 +31,14 @@ public class ProductController {
 
     @GetMapping(V1_PRODUCTS_CODE)
     public ResponseEntity<Product> getProduct(@PathVariable final String code) {
-        final Product product = productService.getProduct(code)
-                .orElseThrow(IllegalArgumentException::new);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        try {
+
+            final Product product = productService.getProduct(code)
+                    .orElseThrow(IllegalArgumentException::new);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }catch (IllegalArgumentException error){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
 }

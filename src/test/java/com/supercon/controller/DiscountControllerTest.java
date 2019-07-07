@@ -19,10 +19,8 @@ import static com.supercon.utils.Constants.*;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 class DiscountControllerTest {
@@ -39,7 +37,7 @@ class DiscountControllerTest {
         when(discountManager.getDiscountStrategy(PROD_01))
                 .thenReturn(Constants::discount10Percent);
         when(discountManager.plainDiscountToProduct(any(), any()))
-                .thenReturn(Constants::discount10Percent);
+                .thenReturn(_2);
 
         productBuilder = mock(ProductBuilder.class);
         when(productBuilder.getInstance(any()))
@@ -67,13 +65,16 @@ class DiscountControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(discountManager, times(_1))
+                .getDiscountStrategy(PRODUCT_01_OBJECT.getProductCode());
+
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(PRODUCT_WITH_DISCOUNT_JSON);
     }
 
     @Test
     void plainDiscountToProduct() throws Exception {
-        RequestBuilder requestBuilder = put(V1_DISCOUNT_MANAGER_PLAIN)
+        RequestBuilder requestBuilder = post(V1_DISCOUNT_MANAGER_PLAIN)
                 .content(new ObjectMapper()
                         .writeValueAsString(PRODUCT_01_OBJECT))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -81,7 +82,11 @@ class DiscountControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
+        verify(discountManager, times(_1))
+                .plainDiscountToProduct(PRODUCT_01_OBJECT.getProductCode(),
+                        DISCOUNT_10_PERCENT.getDiscountStrategy());
+
         assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(PRODUCT_WITH_DISCOUNT_JSON);
+                .isEqualTo(_2.toString());
     }
 }
