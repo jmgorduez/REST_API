@@ -77,6 +77,10 @@ public class DataTestGenerator {
             .replace("*","\"");
     public static final String ORDER_JOHN_PROD_02_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3,*elements*:[]}],*totalPrice*:3.45}"
             .replace("*","\"");
+    public static final String PROD1_JSON_0 = "{*price*:0.0,*productCode*:*PROD_01*,*name*:**,*loyaltyPointsEarned*:0,*elements*:[]}"
+            .replace("*","\"");
+    public static final String PROD1_JSON_1 = "{*price*:0.0,*productCode*:**,*name*:*Product 01*,*loyaltyPointsEarned*:0,*elements*:[]}"
+            .replace("*","\"");
 
     public static final String TYPE_DISCOUNT = "typeDiscount";
 

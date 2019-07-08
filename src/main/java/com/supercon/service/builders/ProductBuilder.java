@@ -3,6 +3,7 @@ package com.supercon.service.builders;
 import com.supercon.model.Product;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import static com.supercon.utils.Constants.EMPTY_STRING;
 import static com.supercon.utils.Constants._0;
 
 @Service
+@SessionScope
 public class ProductBuilder implements IProductBuilder {
 
     private String productCode;

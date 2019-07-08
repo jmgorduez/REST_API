@@ -2,26 +2,27 @@ package com.supercon.controller;
 
 import com.supercon.model.Product;
 import com.supercon.service.abstractions.IProductService;
+import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.supercon.utils.Constants.V1_PRODUCTS;
-import static com.supercon.utils.Constants.V1_PRODUCTS_CODE;
+import static com.supercon.utils.Constants.*;
 
 @RestController
 public class ProductController {
 
     private IProductService productService;
+    private IProductBuilder productBuilder;
 
     @Autowired
-    public ProductController(IProductService productService){
+    public ProductController(IProductService productService,
+                             IProductBuilder productBuilder) {
         this.productService = productService;
+        this.productBuilder = productBuilder;
     }
 
     @GetMapping(V1_PRODUCTS)
@@ -39,6 +40,18 @@ public class ProductController {
         }catch (IllegalArgumentException error){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping(V1_PRODUCTS_SET_CODE)
+    public ResponseEntity<Product> setCodeProduct(@RequestBody String codeProduct){
+        productBuilder.setProductCode(codeProduct);
+        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
+    }
+
+    @PostMapping(V1_PRODUCTS_SET_NAME)
+    public ResponseEntity<Product> setNameProduct(@RequestBody String nameProduct){
+        productBuilder.setName(nameProduct);
+        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
     }
 
 }
