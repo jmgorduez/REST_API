@@ -1,11 +1,13 @@
 package com.supercon.service.builders;
 
 import com.supercon.model.Product;
+import com.supercon.model.ProductPackage;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -38,7 +40,7 @@ public class ProductBuilder implements IProductBuilder {
         this.price = product.getPrice();
         this.discountStrategy = Double::doubleValue;
         this.loyaltyPointsStrategy = Double::intValue;
-        elements = new ArrayList<>(product.getElements());
+        elements = new ArrayList<>();
     }
 
     @Override
@@ -106,7 +108,12 @@ public class ProductBuilder implements IProductBuilder {
 
     @Override
     public Product build() {
-        return new Product(this);
+        if (elements.isEmpty()) {
+            return new Product(getFinalPrice(), productCode, name,
+                    getLoyaltyPointsEarned());
+        }
+        return new ProductPackage(getFinalPrice(), productCode, name,
+                getLoyaltyPointsEarned(),elements);
     }
 
     @Override

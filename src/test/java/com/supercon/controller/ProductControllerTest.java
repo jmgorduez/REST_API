@@ -1,6 +1,7 @@
 package com.supercon.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.supercon.model.Product;
 import com.supercon.service.ProductService;
 import com.supercon.service.abstractions.IProductService;
 import com.supercon.service.builders.ProductBuilder;
@@ -119,7 +120,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void setNameProduct() throws Exception{
+    void setNameProduct() throws Exception {
         when(productBuilder.setName(any()))
                 .thenReturn(new ProductBuilder()
                         .setName(PRODUCT_01));
@@ -143,5 +144,34 @@ class ProductControllerTest {
 
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(PROD1_JSON_1);
+    }
+
+    @Test
+    void addElement() throws Exception {
+        when(productBuilder.addElement(any()))
+                .thenReturn(new ProductBuilder()
+                        .addElement(PRODUCT_02_OBJECT));
+        when(productBuilder.build())
+                .thenReturn(new ProductBuilder()
+                        .addElement(PRODUCT_02_OBJECT)
+                        .build());
+        when(productService.getProduct(any()))
+                .thenReturn(ofNullable(PRODUCT_02_OBJECT));
+
+        RequestBuilder requestBuilder = post(V1_PRODUCTS_ADD_ELEMENT)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(PROD_01)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        verify(productBuilder, times(_1))
+                .addElement(any());
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
+
+        assertThat(result.getResponse().getContentAsString())
+                .isEqualTo(PROD1_JSON_2);
     }
 }

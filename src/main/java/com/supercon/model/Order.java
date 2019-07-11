@@ -1,7 +1,5 @@
 package com.supercon.model;
 
-import com.supercon.service.builders.abstractions.IShoppingCart;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +11,10 @@ public final class Order implements Serializable {
     private final List<Product> products;
     private final double totalPrice;
 
-    public Order(IShoppingCart shoppingCart) {
-        customer = shoppingCart.getCustomer();
-        totalPrice = shoppingCart.totalPrice();
-        products = new ArrayList<>(shoppingCart.getProducts());
+    public Order(Customer customer, double totalPrice, List<Product> products) {
+        this.customer = customer;
+        this.totalPrice = totalPrice;
+        this.products = new ArrayList<>(products);
     }
 
     public Double getTotalPrice(){

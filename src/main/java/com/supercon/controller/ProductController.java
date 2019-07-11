@@ -54,4 +54,11 @@ public class ProductController {
         return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
     }
 
+    @PostMapping(V1_PRODUCTS_ADD_ELEMENT)
+    public ResponseEntity<Product> addElement(@RequestBody String codeProduct){
+        Product product = productService.getProduct(codeProduct).get();
+        productBuilder.addElement(product);
+        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
+    }
+
 }

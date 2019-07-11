@@ -15,18 +15,11 @@ import static org.mockito.Mockito.when;
 class OrderTest {
 
     private Order orderUnderTest;
-    private IShoppingCart shoppingCart;
 
     @BeforeEach
     void setUp() {
-        this.shoppingCart = mock(ShoppingCart.class);
-        when(shoppingCart.getCustomer())
-                .thenReturn(new Customer(JOHN));
-        when(shoppingCart.totalPrice())
-                .thenReturn(_1_50);
-        when(shoppingCart.getProducts())
-                .thenReturn(Arrays.asList(PRODUCT_01_OBJECT, PRODUCT_02_OBJECT));
-        orderUnderTest = new Order(shoppingCart);
+        orderUnderTest = new Order(new Customer(JOHN), _1_50,
+                Arrays.asList(PRODUCT_01_OBJECT, PRODUCT_02_OBJECT));
     }
 
     @Test

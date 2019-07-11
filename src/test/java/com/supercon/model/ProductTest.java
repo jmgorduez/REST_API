@@ -15,22 +15,10 @@ import static org.mockito.Mockito.when;
 class ProductTest {
 
     private Product productUnderTest;
-    private IProductBuilder productBuilder;
 
     @BeforeEach
     void setUp() {
-        this.productBuilder = mock(ProductBuilder.class);
-        when(productBuilder.getProductCode())
-                .thenReturn(PROD_01);
-        when(productBuilder.getName())
-                .thenReturn(PRODUCT_01);
-        when(productBuilder.getFinalPrice())
-                .thenReturn(_45_80);
-        when(productBuilder.getLoyaltyPointsEarned())
-                .thenReturn(_13);
-        when(productBuilder.getElements())
-                .thenReturn(new ArrayList<>());
-        productUnderTest = new Product(productBuilder);
+        productUnderTest = new Product(_45_80, PROD_01, PRODUCT_01, _13);
     }
 
     @Test
@@ -55,11 +43,5 @@ class ProductTest {
     void getLoyaltyPointsEarned() {
         assertThat(productUnderTest.getLoyaltyPointsEarned())
                 .isEqualTo(_13);
-    }
-
-    @Test
-    void getElements() {
-        assertThat(productUnderTest.getElements())
-                .isEmpty();
     }
 }

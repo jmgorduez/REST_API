@@ -16,6 +16,7 @@ public class Constants {
     public static final String V1_PRODUCTS_CODE = "/v1/products/{code}";
     public static final String V1_PRODUCTS_SET_CODE = "/v1/products/set-code";
     public static final String V1_PRODUCTS_SET_NAME = "/v1/products/set-name";
+    public static final String V1_PRODUCTS_ADD_ELEMENT = "/v1/products/add-element";
     public static final String V1_SHOPPING_CART_CREATE = "/v1/shopping-cart/create";
     public static final String V1_SHOPPING_CART_ADD_PRODUCT = "/v1/shopping-cart/add-product";
     public static final String V1_SHOPPING_CART_REMOVE_PRODUCT = "/v1/shopping-cart/remove-product";

@@ -67,11 +67,6 @@ public class ShoppingCart implements IShoppingCart {
     }
 
     @Override
-    public Order checkout() {
-        return new Order(this);
-    }
-
-    @Override
     public Double totalPrice() {
         Double price = products.stream()
                 .mapToDouble(Product::getPrice)
@@ -84,5 +79,10 @@ public class ShoppingCart implements IShoppingCart {
         return products.stream()
                 .mapToInt(Product::getLoyaltyPointsEarned)
                 .sum();
+    }
+
+    @Override
+    public Order checkout() {
+        return new Order(customer, totalPrice(), products);
     }
 }

@@ -9,31 +9,20 @@ import java.util.List;
 
 public class Product implements Serializable {
 
-    private final double price;
-    private final String productCode;
-    private final String name;
-    private final Integer loyaltyPointsEarned;
-    private final List<Product> elements;
+    protected final double price;
+    protected final String productCode;
+    protected final String name;
+    protected final Integer loyaltyPointsEarned;
 
     public Product(@JsonProperty("price") double price,
                    @JsonProperty("productCode") String productCode,
                    @JsonProperty("name") String name,
-                   @JsonProperty("loyaltyPointsEarned") Integer loyaltyPointsEarned,
-                   @JsonProperty("elements") List<Product> elements){
+                   @JsonProperty("loyaltyPointsEarned") Integer loyaltyPointsEarned){
 
         this.price = price;
         this.productCode = productCode;
         this.name = name;
         this.loyaltyPointsEarned = loyaltyPointsEarned;
-        this.elements = elements;
-    }
-
-    public Product(IProductBuilder builder) {
-        this.productCode = builder.getProductCode();
-        this.name = builder.getName();
-        this.price = builder.getFinalPrice();
-        this.loyaltyPointsEarned = builder.getLoyaltyPointsEarned();
-        this.elements = builder.getElements();
     }
 
     public Double getPrice() { return price; }
@@ -50,7 +39,4 @@ public class Product implements Serializable {
         return loyaltyPointsEarned;
     }
 
-    public List<Product> getElements(){
-        return new ArrayList<>(elements);
-    }
 }

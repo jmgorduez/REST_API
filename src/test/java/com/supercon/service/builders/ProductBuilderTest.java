@@ -1,11 +1,16 @@
 package com.supercon.service.builders;
 
 import com.supercon.model.Product;
+import com.supercon.model.ProductPackage;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import com.supercon.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
+import static com.supercon.utils.Constants.discount10Percent;
+import static com.supercon.utils.Constants.priceDividedBy5;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -86,17 +91,27 @@ class ProductBuilderTest {
 
     @Test
     void build() throws Exception {
-        Product productExpected = new ProductBuilder()
-                .setProductCode(PROD_01)
-                .setName(PRODUCT_01)
-                .setPrice(_1_35)
-                .setDiscountStrategy(Constants::discount10Percent)
-                .setLoyaltyPointsStrategy(Constants::priceDividedBy5)
-                .build();
+        Product productExpected = new Product(discount10Percent(_1_35),
+                PROD_01, PRODUCT_01, priceDividedBy5(_1_35));
         productBuilderUnderTest
                 .setPrice(_1_35)
                 .setDiscountStrategy(Constants::discount10Percent)
                 .setLoyaltyPointsStrategy(Constants::priceDividedBy5);
+        assertThat(productBuilderUnderTest.build())
+                .isEqualToComparingFieldByFieldRecursively(productExpected);
+    }
+
+    @Test
+    void build_ProductPackage() throws Exception {
+        ProductPackage productExpected
+                = new ProductPackage(discount10Percent(PRODUCT_02_OBJECT.getPrice()),
+                PROD_01, PRODUCT_01,
+                priceDividedBy5(PRODUCT_02_OBJECT.getPrice()),
+                Arrays.asList(PRODUCT_02_OBJECT));
+        productBuilderUnderTest
+                .setDiscountStrategy(Constants::discount10Percent)
+                .setLoyaltyPointsStrategy(Constants::priceDividedBy5)
+                .addElement(PRODUCT_02_OBJECT);
         assertThat(productBuilderUnderTest.build())
                 .isEqualToComparingFieldByFieldRecursively(productExpected);
     }
