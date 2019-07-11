@@ -42,19 +42,19 @@ public class ProductController {
         }
     }
 
-    @PostMapping(V1_PRODUCTS_SET_CODE)
+    @PutMapping(V1_PRODUCTS_SET_CODE)
     public ResponseEntity<Product> setCodeProduct(@RequestBody String codeProduct){
         productBuilder.setProductCode(codeProduct);
         return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
     }
 
-    @PostMapping(V1_PRODUCTS_SET_NAME)
+    @PutMapping(V1_PRODUCTS_SET_NAME)
     public ResponseEntity<Product> setNameProduct(@RequestBody String nameProduct){
         productBuilder.setName(nameProduct);
         return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
     }
 
-    @PostMapping(V1_PRODUCTS_ADD_ELEMENT)
+    @PutMapping(V1_PRODUCTS_ADD_ELEMENT)
     public ResponseEntity<Product> addElement(@RequestBody String codeProduct){
         Product product = productService.getProduct(codeProduct).get();
         productBuilder.addElement(product);

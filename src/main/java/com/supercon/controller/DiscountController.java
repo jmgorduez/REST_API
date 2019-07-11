@@ -26,7 +26,7 @@ public class DiscountController {
 
     @PutMapping(V1_DISCOUNT_MANAGER_APPLY)
     public ResponseEntity<Product> applyDiscountToProduct(@RequestBody final Product product) {
-        Product productWithDiscount = productBuilder.getInstance(product)
+        Product productWithDiscount = productBuilder.instance(product)
                 .setDiscountStrategy(discountManager.getDiscountStrategy(product.getProductCode()))
                 .build();
         return new ResponseEntity<>(productWithDiscount, HttpStatus.OK);

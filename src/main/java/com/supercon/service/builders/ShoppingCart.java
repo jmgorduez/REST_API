@@ -57,16 +57,6 @@ public class ShoppingCart implements IShoppingCart {
     }
 
     @Override
-    public List<Product> getProducts() {
-        return new ArrayList<>(products);
-    }
-
-    @Override
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    @Override
     public Double totalPrice() {
         Double price = products.stream()
                 .mapToDouble(Product::getPrice)

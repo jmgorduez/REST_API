@@ -2,6 +2,7 @@ package com.supercon.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.supercon.model.Product;
+import com.supercon.model.ProductPackage;
 import com.supercon.service.ProductService;
 import com.supercon.service.abstractions.IProductService;
 import com.supercon.service.builders.ProductBuilder;
@@ -15,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
+import java.util.Arrays;
+
 import static com.supercon.utils.Constants.*;
 import static com.supercon.utils.DataTestGenerator.*;
 import static java.util.Optional.empty;
@@ -22,8 +25,7 @@ import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 class ProductControllerTest {
@@ -102,7 +104,7 @@ class ProductControllerTest {
                         .setProductCode(PROD_01)
                         .build());
 
-        RequestBuilder requestBuilder = post(V1_PRODUCTS_SET_CODE)
+        RequestBuilder requestBuilder = put(V1_PRODUCTS_SET_CODE)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(PROD_01)
                 .accept(MediaType.APPLICATION_JSON);
@@ -129,7 +131,7 @@ class ProductControllerTest {
                         .setName(PRODUCT_01)
                         .build());
 
-        RequestBuilder requestBuilder = post(V1_PRODUCTS_SET_NAME)
+        RequestBuilder requestBuilder = put(V1_PRODUCTS_SET_NAME)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(PRODUCT_01)
                 .accept(MediaType.APPLICATION_JSON);
@@ -152,13 +154,12 @@ class ProductControllerTest {
                 .thenReturn(new ProductBuilder()
                         .addElement(PRODUCT_02_OBJECT));
         when(productBuilder.build())
-                .thenReturn(new ProductBuilder()
-                        .addElement(PRODUCT_02_OBJECT)
-                        .build());
+                .thenReturn( new ProductPackage(PRODUCT_02_OBJECT.getPrice(),
+                        PROD_02, PRODUCT_02, _3, Arrays.asList(PRODUCT_02_OBJECT)));
         when(productService.getProduct(any()))
                 .thenReturn(ofNullable(PRODUCT_02_OBJECT));
 
-        RequestBuilder requestBuilder = post(V1_PRODUCTS_ADD_ELEMENT)
+        RequestBuilder requestBuilder = put(V1_PRODUCTS_ADD_ELEMENT)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(PROD_01)
                 .accept(MediaType.APPLICATION_JSON);

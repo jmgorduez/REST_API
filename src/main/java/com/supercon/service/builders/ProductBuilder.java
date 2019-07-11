@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -44,7 +43,7 @@ public class ProductBuilder implements IProductBuilder {
     }
 
     @Override
-    public IProductBuilder getInstance(Product product) {
+    public IProductBuilder instance(Product product) {
         return new ProductBuilder(product);
     }
 
@@ -85,16 +84,7 @@ public class ProductBuilder implements IProductBuilder {
     }
 
     @Override
-    public String getProductCode() {
-        return productCode;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public Double getFinalPrice() {
+    public Double finalPrice() {
         price += elements.stream()
                 .mapToDouble(Product::getPrice)
                 .sum();
@@ -102,22 +92,17 @@ public class ProductBuilder implements IProductBuilder {
     }
 
     @Override
-    public Integer getLoyaltyPointsEarned() {
+    public Integer loyaltyPointsEarned() {
         return loyaltyPointsStrategy.apply(price);
     }
 
     @Override
     public Product build() {
         if (elements.isEmpty()) {
-            return new Product(getFinalPrice(), productCode, name,
-                    getLoyaltyPointsEarned());
+            return new Product(finalPrice(), productCode, name,
+                    loyaltyPointsEarned());
         }
-        return new ProductPackage(getFinalPrice(), productCode, name,
-                getLoyaltyPointsEarned(),elements);
-    }
-
-    @Override
-    public List<Product> getElements() {
-        return new ArrayList<>(elements);
+        return new ProductPackage(finalPrice(), productCode, name,
+                loyaltyPointsEarned(), elements);
     }
 }

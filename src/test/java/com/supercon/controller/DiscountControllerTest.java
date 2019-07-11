@@ -5,7 +5,6 @@ import com.supercon.service.DiscountManager;
 import com.supercon.service.abstractions.IDiscountManager;
 import com.supercon.service.builders.ProductBuilder;
 import com.supercon.service.builders.abstractions.IProductBuilder;
-import com.supercon.service.enums.TypeDiscount;
 import com.supercon.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,16 +39,16 @@ class DiscountControllerTest {
                 .thenReturn(_2);
 
         productBuilder = mock(ProductBuilder.class);
-        when(productBuilder.getInstance(any()))
+        when(productBuilder.instance(any()))
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT));
+                        .instance(PRODUCT_01_OBJECT));
         when(productBuilder.setDiscountStrategy(any()))
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT)
+                        .instance(PRODUCT_01_OBJECT)
                         .setDiscountStrategy(Constants::discount10Percent));
         when(productBuilder.build())
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT)
+                        .instance(PRODUCT_01_OBJECT)
                         .setDiscountStrategy(Constants::discount10Percent)
                         .build());
 

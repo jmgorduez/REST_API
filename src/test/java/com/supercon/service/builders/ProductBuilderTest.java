@@ -56,36 +56,24 @@ class ProductBuilderTest {
     }
 
     @Test
-    void getProductCode() throws Exception {
-        assertThat(productBuilderUnderTest.getProductCode())
-                .isEqualTo(PROD_01);
-    }
-
-    @Test
-    void getName() throws Exception {
-        assertThat(productBuilderUnderTest.getName())
-                .isEqualTo(PRODUCT_01);
-    }
-
-    @Test
-    void getFinalPrice() throws Exception {
+    void finalPrice() throws Exception {
         productBuilderUnderTest.setPrice(_1_50);
-        assertThat(productBuilderUnderTest.getFinalPrice())
+        assertThat(productBuilderUnderTest.finalPrice())
                 .isEqualTo(_1_50);
         productBuilderUnderTest.setDiscountStrategy(Constants::discount10Percent);
-        assertThat(productBuilderUnderTest.getFinalPrice())
+        assertThat(productBuilderUnderTest.finalPrice())
                 .isEqualTo(_1_35);
     }
 
     @Test
-    void getLoyaltyPointsEarned() throws Exception {
+    void loyaltyPointsEarned() throws Exception {
         productBuilderUnderTest.setPrice(_45_80)
                 .setLoyaltyPointsStrategy(Constants::priceDividedBy5);
-        assertThat(productBuilderUnderTest.getLoyaltyPointsEarned())
+        assertThat(productBuilderUnderTest.loyaltyPointsEarned())
                 .isEqualTo(_9);
 
         productBuilderUnderTest.setLoyaltyPointsStrategy(Constants::priceDividedBy10);
-        assertThat(productBuilderUnderTest.getLoyaltyPointsEarned())
+        assertThat(productBuilderUnderTest.loyaltyPointsEarned())
                 .isEqualTo(_4);
     }
 
@@ -126,8 +114,8 @@ class ProductBuilderTest {
     }
 
     @Test
-    void getInstance() {
-        assertThat(productBuilderUnderTest.getInstance(PRODUCT_01_OBJECT))
+    void instance() {
+        assertThat(productBuilderUnderTest.instance(PRODUCT_01_OBJECT))
                 .isEqualToComparingFieldByFieldRecursively(new ProductBuilder()
                         .setProductCode(PROD_01)
                         .setName(PRODUCT_01)

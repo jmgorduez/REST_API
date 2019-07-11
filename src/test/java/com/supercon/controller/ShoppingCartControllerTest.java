@@ -14,8 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 
-import static com.supercon.utils.Constants.V1_SHOPPING_CART;
-import static com.supercon.utils.Constants._1;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static com.supercon.utils.Constants.*;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -37,8 +39,7 @@ class ShoppingCartControllerTest {
 
     @Test
     void createShoppingCart() throws Exception {
-        Order order = new ShoppingCart()
-                .setCustomer(new Customer(JOHN)).checkout();
+        Order order = new Order(new Customer(JOHN), _0, new ArrayList<>());
         when(shoppingCart.checkout())
                 .thenReturn(order);
 
@@ -58,9 +59,8 @@ class ShoppingCartControllerTest {
 
     @Test
     void addProductToShoppingCart() throws Exception {
-        Order order = new ShoppingCart()
-                .setCustomer(new Customer(JOHN))
-                .addProduct(PRODUCT_01_OBJECT).checkout();
+        Order order = new Order(new Customer(JOHN), _1_50, Arrays.asList(PRODUCT_01_OBJECT));
+
         when(shoppingCart.checkout())
                 .thenReturn(order);
 
@@ -80,9 +80,8 @@ class ShoppingCartControllerTest {
 
     @Test
     void removeProductToShoppingCart() throws Exception {
-        Order order = new ShoppingCart()
-                .setCustomer(new Customer(JOHN))
-                .addProduct(PRODUCT_02_OBJECT).checkout();
+        Order order = new Order(new Customer(JOHN), _3_45, Arrays.asList(PRODUCT_02_OBJECT));
+
         when(shoppingCart.checkout())
                 .thenReturn(order);
 
@@ -114,9 +113,7 @@ class ShoppingCartControllerTest {
     @Test
     void getShoppingCart() throws Exception {
         when(shoppingCart.checkout())
-                .thenReturn(new ShoppingCart()
-                        .setCustomer(new Customer(JOHN))
-                        .addProduct(PRODUCT_02_OBJECT).checkout());
+                .thenReturn(new Order(new Customer(JOHN), _3_45, Arrays.asList(PRODUCT_02_OBJECT)));
 
         RequestBuilder requestBuilder = get(V1_SHOPPING_CART)
                 .accept(MediaType.APPLICATION_JSON);

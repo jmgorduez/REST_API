@@ -41,22 +41,6 @@ class ShoppingCartTest {
     }
 
     @Test
-    void getProducts() {
-        assertThat(shoppingCartUnderTest.getProducts())
-                .isEmpty();
-        shoppingCartUnderTest.addProduct(PRODUCT_01_OBJECT);
-        shoppingCartUnderTest.addProduct(PRODUCT_02_OBJECT);
-        assertThat(shoppingCartUnderTest.getProducts())
-                .containsExactly(PRODUCT_01_OBJECT, PRODUCT_02_OBJECT);
-    }
-
-    @Test
-    void getCustomer() {
-        assertThat(shoppingCartUnderTest.getCustomer())
-                .isEqualToComparingFieldByField(new Customer(JOHN));
-    }
-
-    @Test
     void checkout() {
         Order orderExpected = new ShoppingCart()
                 .setCustomer(new Customer(JOHN))

@@ -12,8 +12,6 @@ public interface IShoppingCart {
     IShoppingCart addProduct(Product product);
     IShoppingCart removeProduct(Product product);
     IShoppingCart setDiscountStrategy(Function<Double, Double> discountStrategy);
-    List<Product> getProducts();
-    Customer getCustomer();
     Order checkout();
     Double totalPrice();
     Integer loyaltyPointsEarned();

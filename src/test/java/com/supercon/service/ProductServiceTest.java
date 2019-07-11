@@ -12,8 +12,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-import static com.supercon.utils.Constants._0;
-import static com.supercon.utils.Constants._1;
+import static com.supercon.utils.Constants.*;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -37,16 +36,16 @@ public class ProductServiceTest {
                 .thenReturn(Double::doubleValue);
 
         productBuilder = mock(ProductBuilder.class);
-        when(productBuilder.getInstance(any()))
+        when(productBuilder.instance(any()))
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT));
+                        .instance(PRODUCT_01_OBJECT));
         when(productBuilder.setDiscountStrategy(any()))
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT)
+                        .instance(PRODUCT_01_OBJECT)
                         .setDiscountStrategy(Constants::discount10Percent));
         when(productBuilder.build())
                 .thenReturn(new ProductBuilder()
-                        .getInstance(PRODUCT_01_OBJECT)
+                        .instance(PRODUCT_01_OBJECT)
                         .setDiscountStrategy(Constants::discount10Percent)
                         .build());
 
@@ -55,11 +54,9 @@ public class ProductServiceTest {
 
     @Test
     public void getProducts_shouldReturnAllProducts() throws Exception {
-        Product product01Expected = new ProductBuilder()
-                .setProductCode(PROD_01)
-                .setName(PRODUCT_01)
-                .setPrice(_1_67)
-                .setDiscountStrategy(Constants::discount10Percent).build();
+        Product product01Expected = new Product(
+                discount10Percent(_1_67)
+                , PROD_01, PRODUCT_01, _1);
         assertThat(productServiceUnderTest.getProducts().get(_0))
                 .isEqualToComparingFieldByFieldRecursively(product01Expected);
     }
@@ -67,10 +64,7 @@ public class ProductServiceTest {
     @Test
     public void getProduct_shouldReturnProductForKnownCode() throws Exception {
         assertThat(productServiceUnderTest.getProduct(PROD_01).get())
-                .isEqualToComparingFieldByField(new ProductBuilder()
-                        .setProductCode(PROD_01)
-                        .setName(PRODUCT_01)
-                        .setPrice(_1_50).build());
+                .isEqualToComparingFieldByField(new Product(_1_50, PROD_01, PRODUCT_01, _1));
     }
 
     @Test
