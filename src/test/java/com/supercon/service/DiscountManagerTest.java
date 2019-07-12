@@ -1,6 +1,5 @@
 package com.supercon.service;
 
-import com.supercon.service.abstractions.IDiscountManager;
 import com.supercon.utils.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

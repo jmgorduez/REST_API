@@ -4,7 +4,7 @@ import com.supercon.model.Product;
 import com.supercon.model.ProductPackage;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import static com.supercon.utils.Constants.EMPTY_STRING;
 import static com.supercon.utils.Constants._0;
 
 @Service
-@SessionScope
+@RequestScope
 public class ProductBuilder implements IProductBuilder {
 
     private String productCode;

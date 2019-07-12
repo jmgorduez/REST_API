@@ -1,19 +1,12 @@
 package com.supercon.model;
 
-import com.supercon.service.builders.ProductBuilder;
-import com.supercon.service.builders.abstractions.IProductBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.supercon.utils.DataTestGenerator.*;
-import static com.supercon.utils.DataTestGenerator._13;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class ProductPackageTest {
 

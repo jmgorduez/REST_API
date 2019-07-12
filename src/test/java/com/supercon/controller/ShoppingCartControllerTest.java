@@ -3,8 +3,6 @@ package com.supercon.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.supercon.model.Customer;
 import com.supercon.model.Order;
-import com.supercon.service.ProductService;
-import com.supercon.service.abstractions.IProductService;
 import com.supercon.service.builders.ShoppingCart;
 import com.supercon.service.builders.abstractions.IShoppingCart;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +19,6 @@ import static com.supercon.utils.Constants.*;
 import static com.supercon.utils.DataTestGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 

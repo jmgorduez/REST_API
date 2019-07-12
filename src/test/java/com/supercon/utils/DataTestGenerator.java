@@ -11,7 +11,11 @@ public class DataTestGenerator {
     public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/create";
     public static final String V1_PRODUCTS_PROD1 = "/v1/products/PROD1";
     public static final String V1_PRODUCTS_PRODX = "/v1/products/PRODX";
+
     public static final String JOHN = "JOHN";
+
+    public static final String NAME = "name";
+    public static final String CODE_PRODUCT = "codeProduct";
 
     public static final String PROD_01 = "PROD_01";
     public static final String PROD_02 = "PROD_02";
@@ -74,12 +78,6 @@ public class DataTestGenerator {
     public static final String ORDER_JOHN_PROD_01_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1}],*totalPrice*:1.5}"
             .replace("*","\"");
     public static final String ORDER_JOHN_PROD_02_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3}],*totalPrice*:3.45}"
-            .replace("*","\"");
-    public static final String PROD1_JSON_0 = "{*price*:0.0,*productCode*:*PROD_01*,*name*:**,*loyaltyPointsEarned*:0}"
-            .replace("*","\"");
-    public static final String PROD1_JSON_1 = "{*price*:0.0,*productCode*:**,*name*:*Product 01*,*loyaltyPointsEarned*:0}"
-            .replace("*","\"");
-    public static final String PROD1_JSON_2 = "{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3,*elements*:[{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3}]}"
             .replace("*","\"");
 
     public static final String TYPE_DISCOUNT = "typeDiscount";

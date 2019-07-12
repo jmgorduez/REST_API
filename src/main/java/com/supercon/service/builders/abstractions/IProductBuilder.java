@@ -2,7 +2,6 @@ package com.supercon.service.builders.abstractions;
 
 import com.supercon.model.Product;
 
-import java.util.List;
 import java.util.function.Function;
 
 public interface IProductBuilder {

@@ -37,28 +37,20 @@ public class ProductController {
             final Product product = productService.getProduct(code)
                     .orElseThrow(IllegalArgumentException::new);
             return new ResponseEntity<>(product, HttpStatus.OK);
-        }catch (IllegalArgumentException error){
+        } catch (IllegalArgumentException error) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-    @PutMapping(V1_PRODUCTS_SET_CODE)
-    public ResponseEntity<Product> setCodeProduct(@RequestBody String codeProduct){
-        productBuilder.setProductCode(codeProduct);
+    @PutMapping(V1_PACKAGE_PRODUCTS_CREATE)
+    public ResponseEntity<Product> createProductPackage(@RequestAttribute String codeProduct,
+                                                        @RequestAttribute String name,
+                                                        @RequestBody List<Product> products) {
+        productBuilder
+                .setProductCode(codeProduct)
+                .setName(name);
+        products.stream()
+                .forEach(productBuilder::addElement);
         return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
     }
-
-    @PutMapping(V1_PRODUCTS_SET_NAME)
-    public ResponseEntity<Product> setNameProduct(@RequestBody String nameProduct){
-        productBuilder.setName(nameProduct);
-        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
-    }
-
-    @PutMapping(V1_PRODUCTS_ADD_ELEMENT)
-    public ResponseEntity<Product> addElement(@RequestBody String codeProduct){
-        Product product = productService.getProduct(codeProduct).get();
-        productBuilder.addElement(product);
-        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
-    }
-
 }

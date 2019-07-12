@@ -4,7 +4,6 @@ import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.model.Product;
 
-import java.util.List;
 import java.util.function.Function;
 
 public interface IShoppingCart {

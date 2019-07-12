@@ -1,18 +1,20 @@
 package com.supercon.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ProductPackage extends Product {
+public class ProductPackage extends Product implements Serializable {
 
     private final List<Product> elements;
 
-    public ProductPackage(double price,
-                          String productCode,
-                          String name,
-                          Integer loyaltyPointsEarned,
-                          List<Product> elements) {
+    public ProductPackage(@JsonProperty("price") double price,
+                          @JsonProperty("productCode") String productCode,
+                          @JsonProperty("name") String name,
+                          @JsonProperty("loyaltyPointsEarned") Integer loyaltyPointsEarned,
+                          @JsonProperty("elements") List<Product> elements) {
         super(price, productCode, name, loyaltyPointsEarned);
         this.elements = new ArrayList<>(elements);
     }
