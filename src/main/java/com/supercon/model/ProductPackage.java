@@ -2,11 +2,10 @@ package com.supercon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductPackage extends Product implements Serializable {
+public class ProductPackage extends Product {
 
     private final List<Product> elements;
 

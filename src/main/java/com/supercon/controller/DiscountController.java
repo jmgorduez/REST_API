@@ -38,6 +38,4 @@ public class DiscountController {
         Integer index = discountManager.plainDiscountToProduct(product.getProductCode(), typeDiscount.getDiscountStrategy());
         return new ResponseEntity<>(index, HttpStatus.OK);
     }
-
-
 }

@@ -42,7 +42,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping(V1_PACKAGE_PRODUCTS_CREATE)
+    @PostMapping(V1_PACKAGE_PRODUCTS_CREATE)
     public ResponseEntity<Product> createProductPackage(@RequestAttribute String codeProduct,
                                                         @RequestAttribute String name,
                                                         @RequestBody List<Product> products) {
@@ -51,6 +51,6 @@ public class ProductController {
                 .setName(name);
         products.stream()
                 .forEach(productBuilder::addElement);
-        return new ResponseEntity<>(productBuilder.build(), HttpStatus.OK);
+        return new ResponseEntity<>(productBuilder.build(), HttpStatus.CREATED);
     }
 }

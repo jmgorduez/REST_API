@@ -1,11 +1,13 @@
 package com.supercon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
+@Document
+public class Customer {
 
-public class Customer implements Serializable {
-
+    @Id
     private final String name;
 
     public Customer(@JsonProperty("name") String name) {

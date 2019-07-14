@@ -37,7 +37,7 @@ public class ShoppingCartController {
     @DeleteMapping(V1_SHOPPING_CART_REMOVE_PRODUCT)
     public ResponseEntity<Order> removeProductToShoppingCart(@RequestBody final Product product){
         shoppingCart.removeProduct(product);
-        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
+        return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(V1_SHOPPING_CART)

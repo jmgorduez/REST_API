@@ -2,9 +2,7 @@ package com.supercon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
-
-public class Product implements Serializable {
+public class Product {
 
     protected final double price;
     protected final String productCode;

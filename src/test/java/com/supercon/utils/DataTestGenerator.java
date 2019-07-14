@@ -6,6 +6,8 @@ import com.supercon.service.builders.ProductBuilder;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.supercon.utils.Constants._1;
+
 public class DataTestGenerator {
 
     public static final String V1_SHOPPING_CART_JOHN = "/v1/shopping-cart/create";
@@ -16,6 +18,7 @@ public class DataTestGenerator {
 
     public static final String NAME = "name";
     public static final String CODE_PRODUCT = "codeProduct";
+    public static final String TYPE_DISCOUNT = "typeDiscount";
 
     public static final String PROD_01 = "PROD_01";
     public static final String PROD_02 = "PROD_02";
@@ -31,7 +34,6 @@ public class DataTestGenerator {
     public static final double _1_50 = 1.50;
     public static final double _1_67 = 1.67;
     public static final double _3_45 = 3.45;
-    public static final double _3_83 = 3.83;
     public static final double _4_95 = 4.95;
     public static final double _45_80 = 45.80;
 
@@ -44,6 +46,8 @@ public class DataTestGenerator {
             .setProductCode(PROD_01)
             .setName(PRODUCT_01)
             .setPrice(_1_50).build();
+    public static final Product PRODUCT_01_10_PER_CENT_DISCOUNT_OBJECT = new Product(_1_35,
+            PROD_01, PRODUCT_01, _1);
     public static final Product PRODUCT_02_OBJECT = new ProductBuilder()
             .setProductCode(PROD_02)
             .setName(PRODUCT_02)
@@ -62,24 +66,4 @@ public class DataTestGenerator {
     public static final List<Product> PRODUCTS = Arrays.asList(
             PRODUCT_01_OBJECT, PRODUCT_02_OBJECT
     );
-
-    public static final List<String> PRODUCTS_CODES = Arrays.asList(
-            PROD_01, PROD_02, PROD_03, PROD_04
-    );
-
-    public static final String PRODUCTS_JSON = "[{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1},{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3}]"
-            .replace("*","\"");
-    public static final String PRODUCT_WITH_DISCOUNT_JSON = "{*price*:1.35,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1}"
-            .replace("*","\"");
-    public static final String PROD1_JSON = "{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1}"
-            .replace("*","\"");
-    public static final String ORDER_JOHN_JSON = "{*customer*:{*name*:*JOHN*},*products*:[],*totalPrice*:0.0}"
-            .replace("*","\"");
-    public static final String ORDER_JOHN_PROD_01_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:1.5,*productCode*:*PROD_01*,*name*:*Product 01*,*loyaltyPointsEarned*:1}],*totalPrice*:1.5}"
-            .replace("*","\"");
-    public static final String ORDER_JOHN_PROD_02_JSON = "{*customer*:{*name*:*JOHN*},*products*:[{*price*:3.45,*productCode*:*PROD_02*,*name*:*Product 02*,*loyaltyPointsEarned*:3}],*totalPrice*:3.45}"
-            .replace("*","\"");
-
-    public static final String TYPE_DISCOUNT = "typeDiscount";
-
 }

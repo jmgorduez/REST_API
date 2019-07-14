@@ -5,8 +5,10 @@ import com.supercon.model.Customer;
 import com.supercon.model.Order;
 import com.supercon.service.builders.ShoppingCart;
 import com.supercon.service.builders.abstractions.IShoppingCart;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,7 +27,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 class ShoppingCartControllerTest {
 
     private MockMvc mockMvc;
-
     private IShoppingCart shoppingCart;
 
     @BeforeEach
@@ -50,8 +51,8 @@ class ShoppingCartControllerTest {
         verify(shoppingCart, times(_1))
                 .setCustomer(any());
 
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(ORDER_JOHN_JSON);
+        assertThat(new ObjectMapper().readValue(result.getResponse().getContentAsString(), Order.class))
+                .isEqualToComparingFieldByFieldRecursively(order);
     }
 
     @Test
@@ -71,52 +72,74 @@ class ShoppingCartControllerTest {
         verify(shoppingCart, times(_1))
                 .addProduct(any());
 
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(ORDER_JOHN_PROD_01_JSON);
+        assertThat(new ObjectMapper().readValue(result.getResponse().getContentAsString(), Order.class))
+                .isEqualToComparingFieldByFieldRecursively(order);
     }
 
     @Test
     void removeProductToShoppingCart() throws Exception {
+
         Order order = new Order(new Customer(JOHN), _3_45, Arrays.asList(PRODUCT_02_OBJECT));
 
         when(shoppingCart.checkout())
                 .thenReturn(order);
 
+        addTwoProductToShoppingCart();
+
+        MvcResult result = executeRemoveProductToShoppingCart();
+
+        verify(shoppingCart, times(_1))
+                .removeProduct(any());
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.NO_CONTENT.value());
+
+        assertThat(new ObjectMapper().readValue(result.getResponse().getContentAsString(), Order.class))
+                .isEqualToComparingFieldByFieldRecursively(order);
+    }
+
+    private MvcResult executeRemoveProductToShoppingCart() throws Exception {
+        RequestBuilder requestBuilder = delete(V1_SHOPPING_CART_REMOVE_PRODUCT)
+                .content(new ObjectMapper().writeValueAsString(PRODUCT_01_OBJECT))
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaType.APPLICATION_JSON);
+        return mockMvc.perform(requestBuilder).andReturn();
+    }
+
+    private void addTwoProductToShoppingCart() throws Exception {
         RequestBuilder requestBuilder = put(V1_SHOPPING_CART_ADD_PRODUCT)
                 .content(new ObjectMapper().writeValueAsString(PRODUCT_01_OBJECT))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON);
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        mockMvc.perform(requestBuilder).andReturn();
 
         requestBuilder = put(V1_SHOPPING_CART_ADD_PRODUCT)
                 .content(new ObjectMapper().writeValueAsString(PRODUCT_02_OBJECT))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON);
-        result = mockMvc.perform(requestBuilder).andReturn();
-
-        requestBuilder = delete(V1_SHOPPING_CART_REMOVE_PRODUCT)
-                .content(new ObjectMapper().writeValueAsString(PRODUCT_01_OBJECT))
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON);
-        result = mockMvc.perform(requestBuilder).andReturn();
-
-        verify(shoppingCart, times(_1))
-                .removeProduct(any());
-
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(ORDER_JOHN_PROD_02_JSON);
+        mockMvc.perform(requestBuilder).andReturn();
     }
 
     @Test
     void getShoppingCart() throws Exception {
+        Order order = new Order(new Customer(JOHN), _3_45, Arrays.asList(PRODUCT_02_OBJECT));
         when(shoppingCart.checkout())
-                .thenReturn(new Order(new Customer(JOHN), _3_45, Arrays.asList(PRODUCT_02_OBJECT)));
+                .thenReturn(order);
 
         RequestBuilder requestBuilder = get(V1_SHOPPING_CART)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(ORDER_JOHN_PROD_02_JSON);
+        verify(shoppingCart, times(_1))
+                .checkout();
+
+        assertThat(new ObjectMapper().readValue(result.getResponse().getContentAsString(), Order.class))
+                .isEqualToComparingFieldByFieldRecursively(order);
+    }
+
+    @AfterEach
+    void clean() {
+        mockMvc = null;
+        shoppingCart = null;
     }
 }

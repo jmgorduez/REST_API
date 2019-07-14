@@ -1,11 +1,13 @@
 package com.supercon.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.supercon.model.Product;
 import com.supercon.service.DiscountManager;
 import com.supercon.service.abstractions.IDiscountManager;
 import com.supercon.service.builders.ProductBuilder;
 import com.supercon.service.builders.abstractions.IProductBuilder;
 import com.supercon.utils.Constants;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -26,7 +28,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 class DiscountControllerTest {
 
     private MockMvc mockMvc;
-
     private IDiscountManager discountManager;
     private IProductBuilder productBuilder;
 
@@ -68,8 +69,8 @@ class DiscountControllerTest {
         verify(discountManager, times(_1))
                 .getDiscountStrategy(PRODUCT_01_OBJECT.getProductCode());
 
-        assertThat(result.getResponse().getContentAsString())
-                .isEqualTo(PRODUCT_WITH_DISCOUNT_JSON);
+        assertThat(new ObjectMapper().readValue(result.getResponse().getContentAsString(), Product.class))
+                .isEqualToComparingFieldByFieldRecursively(PRODUCT_01_10_PER_CENT_DISCOUNT_OBJECT);
     }
 
     @Test
@@ -88,5 +89,12 @@ class DiscountControllerTest {
 
         assertThat(result.getResponse().getContentAsString())
                 .isEqualTo(_2.toString());
+    }
+
+    @AfterEach
+    void clean() {
+        mockMvc = null;
+        productBuilder = null;
+        discountManager = null;
     }
 }
