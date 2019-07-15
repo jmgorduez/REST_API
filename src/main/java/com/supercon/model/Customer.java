@@ -1,10 +1,11 @@
 package com.supercon.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Customer {
 
     @Id
@@ -12,6 +13,10 @@ public class Customer {
 
     public Customer(@JsonProperty("name") String name) {
         this.name = name;
+    }
+
+    public Customer(){
+        name = "";
     }
 
     public String getName() {

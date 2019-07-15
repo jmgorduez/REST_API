@@ -9,10 +9,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class DemoApplication implements CommandLineRunner {
+
+	@Autowired
+	ICustomerRepository customerRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		customerRepository.save(new Customer("Juan"));
+		Customer customer = customerRepository.findByName("Juan");
+	}
 }

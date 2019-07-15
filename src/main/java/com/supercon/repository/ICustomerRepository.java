@@ -1,9 +1,9 @@
 package com.supercon.repository;
 
 import com.supercon.model.Customer;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ICustomerRepository extends MongoRepository<Customer, String>{
+public interface ICustomerRepository extends CrudRepository<Customer, String> {
 
     Customer findByName(String name);
 }

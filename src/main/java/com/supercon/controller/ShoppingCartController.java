@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import static com.supercon.utils.Constants.*;
 
 @RestController
@@ -23,19 +26,19 @@ public class ShoppingCartController {
     }
 
     @PostMapping(V1_SHOPPING_CART_CREATE)
-    public ResponseEntity<Order> createShoppingCart(@RequestBody final Customer customer){
+    public ResponseEntity<Order> createShoppingCart(@NotNull @RequestBody final Customer customer){
         shoppingCart.setCustomer(customer);
         return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
     @PutMapping(V1_SHOPPING_CART_ADD_PRODUCT)
-    public ResponseEntity<Order> addProductToShoppingCart(@RequestBody final Product product){
+    public ResponseEntity<Order> addProductToShoppingCart(@NotNull @RequestBody final Product product){
         shoppingCart.addProduct(product);
         return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.OK);
     }
 
     @DeleteMapping(V1_SHOPPING_CART_REMOVE_PRODUCT)
-    public ResponseEntity<Order> removeProductToShoppingCart(@RequestBody final Product product){
+    public ResponseEntity<Order> removeProductToShoppingCart(@NotNull @Valid @RequestBody final Product product){
         shoppingCart.removeProduct(product);
         return new ResponseEntity<>(shoppingCart.checkout(), HttpStatus.NO_CONTENT);
     }
