@@ -9,10 +9,14 @@
 #      database: shopping_cart
 
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    datasource:
+      url:
+        jdbc:oracle:thin:@localhost:1521:xe
+      username:
+        <your username>
+      password:
+        <your password>
+      driver-class-oracle:
+        jdbc:
+          driver:
+            OracleDriver
