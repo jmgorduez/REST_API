@@ -3,6 +3,8 @@ package com.gestorinc.controller.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import java.util.List;
+
 public final class ConsultaClienteResponse {
 
     @Getter
@@ -10,7 +12,7 @@ public final class ConsultaClienteResponse {
     @Getter
     private final String fondo;
     @Getter
-    private final String cuentaAPV;
+    private final List<String> cuentaAPV;
     @Getter
     private final String resultado;
     @Getter
@@ -18,7 +20,7 @@ public final class ConsultaClienteResponse {
 
     public ConsultaClienteResponse(@JsonProperty("nombre") String nombre,
                                    @JsonProperty("fondo") String fondo,
-                                   @JsonProperty("cuentaAPV") String cuentaAPV,
+                                   @JsonProperty("cuentaAPV") List<String> cuentaAPV,
                                    @JsonProperty("resultado") String resultado,
                                    @JsonProperty("error") String error) {
         this.nombre = nombre;
