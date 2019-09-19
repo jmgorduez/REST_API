@@ -1,4 +1,4 @@
-package com.gestorinc.security.service.jwt;
+package com.gestorinc.exception.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 

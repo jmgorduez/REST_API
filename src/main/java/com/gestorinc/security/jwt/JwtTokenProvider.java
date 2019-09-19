@@ -1,5 +1,6 @@
-package com.gestorinc.security.service.jwt;
+package com.gestorinc.security.jwt;
 
+import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.gestorinc.utils.Constants.*;
@@ -25,11 +25,15 @@ public class JwtTokenProvider {
 
     private static final String CREDENTIALS = "";
     @Value($_SECURITY_JWT_TOKEN_SECRET_KEY_SECRET)
-    private String secretKey = SECRET;
+    private String secretKey;
     @Value($_SECURITY_JWT_TOKEN_EXPIRE_LENGTH_3600000)
-    private long validityInMilliseconds = 3600000; // 1h
-    @Autowired
+    private long validityInMilliseconds;
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    public JwtTokenProvider(UserDetailsService userDetailsService){
+        this.userDetailsService = userDetailsService;
+    }
 
     @PostConstruct
     protected void init() {

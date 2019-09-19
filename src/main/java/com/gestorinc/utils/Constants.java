@@ -15,8 +15,10 @@ public class Constants {
     public static final String $_SECURITY_JWT_TOKEN_SECRET_KEY_SECRET = "${security.jwt.token.secret-key:secret}";
     public static final String $_SECURITY_JWT_TOKEN_EXPIRE_LENGTH_3600000 = "${security.jwt.token.expire-length:3600000}";
     public static final String AUTHORIZATION = "Authorization";
-    public static final String BEARER_ = "Bearer ";
     public static final String USERNAME = "username";
     public static final String TOKEN = "token";
-
+    public static final String OK = "OK";
+    public static final String ER = "ER";
+    public static final String EXCEPTION_ = "Exception: ";
+    public static final String APPLICATION_JSON = "application/json";
 }
