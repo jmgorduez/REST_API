@@ -11,6 +11,7 @@ import com.gestorinc.service.ClientQueryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -57,6 +58,9 @@ class SavingsFundContributionsControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
 
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ClientQueryResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(
