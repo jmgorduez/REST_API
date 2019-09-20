@@ -1,6 +1,6 @@
 package com.gestorinc;
 
-import com.gestorinc.repository.ISolicitudAporteRepository;
+import com.gestorinc.repository.IContributionPetitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AportesAPVApplication implements CommandLineRunner {
 
 	@Autowired
-    ISolicitudAporteRepository customerRepository;
+    IContributionPetitionRepository customerRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AportesAPVApplication.class, args);
