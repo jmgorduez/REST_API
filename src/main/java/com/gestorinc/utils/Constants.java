@@ -1,5 +1,7 @@
 package com.gestorinc.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Constants {
 
     public static final String V1_CONSULTAR_CLIENTE = "/v1/consultarCliente";
@@ -21,4 +23,9 @@ public class Constants {
     public static final String ER = "ER";
     public static final String EXCEPTION_ = "Exception: ";
     public static final String APPLICATION_JSON = "application/json";
+    public static final String NPE = "NPE";
+    public static final String FONDO_ = "Fondo ";
+    public static final String BLANK_SPACE = " ";
+
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 }

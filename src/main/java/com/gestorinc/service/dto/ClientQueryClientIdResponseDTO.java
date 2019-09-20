@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @Builder
-public class ConsultaClienteIdClienteRespuestaDTO {
-    private List<String> cuentaAPV;
+public class ClientQueryClientIdResponseDTO {
+    private List<String> savingsFundAccount;
 }

@@ -1,7 +1,7 @@
 package com.gestorinc.service.abstractions;
 
-import com.gestorinc.service.dto.AuditoriaDTO;
+import com.gestorinc.service.dto.AuditDTO;
 
 public interface ILogManager {
-    void guardarLog(AuditoriaDTO auditoriaDTO);
+    void guardarLog(AuditDTO auditDTO);
 }

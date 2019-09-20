@@ -7,13 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AportesAPVApplication implements CommandLineRunner {
+public class SavingsFundContributionsApplication implements CommandLineRunner {
 
 	@Autowired
     IContributionPetitionRepository customerRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(AportesAPVApplication.class, args);
+		SpringApplication.run(SavingsFundContributionsApplication.class, args);
 	}
 
 	@Override

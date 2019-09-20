@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class ConfirmacionAporteResponse extends AbstractResponse {
+public class ContributionConfirmationResponse extends AbstractResponse {
 
 
-    public ConfirmacionAporteResponse(@JsonProperty("respuesta") String respuesta,
-                                      @JsonProperty("error") String error) {
+    public ContributionConfirmationResponse(@JsonProperty("respuesta") String respuesta,
+                                            @JsonProperty("error") String error) {
         super(respuesta, error);
     }
 }

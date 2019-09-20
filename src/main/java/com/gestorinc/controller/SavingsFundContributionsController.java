@@ -3,6 +3,9 @@ package com.gestorinc.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestorinc.controller.model.*;
+import com.gestorinc.service.abstractions.IClientQueryService;
+import com.gestorinc.service.dto.ClientQueryClientIdResponseDTO;
+import com.gestorinc.service.dto.ClientQueryNPEResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,29 +16,33 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 
 import static com.gestorinc.utils.Constants.*;
-import static com.gestorinc.utils.HttpRequestUtil.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class AportesAPVController {
+public class SavingsFundContributionsController {
+
+    private IClientQueryService clientQueryService;
 
     @Autowired
-    public AportesAPVController() {
+    public SavingsFundContributionsController(IClientQueryService clientQueryService) {
+        this.clientQueryService = clientQueryService;
     }
 
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
-    public ResponseEntity<ConsultaClienteResponse> consultarCliente(@NotNull @RequestBody final ConsultaClienteRequest consultaClienteRequest)
+    public ResponseEntity<ClientQueryResponse> clientQuery(@NotNull @RequestBody final ClientQueryRequest clientQueryRequest)
             throws JsonProcessingException {
-        String ip = clientIpAddress();
-        String user = authenticatedBank();
-        String json= jsonRequest(consultaClienteRequest);
+        ClientQueryNPEResponseDTO clientQueryClientIdResponseDTO
+                = clientQueryService.queryByNPE(clientQueryRequest.getIdentificador());
+        return ok(buildClientQueryResponse(clientQueryClientIdResponseDTO));
+    }
 
-        return ok(
-                ConsultaClienteResponse.builder()
-                        .fondo(json)
-                        .nombre("")
-                        .respuesta(OK)
-                        .build());
+    private ClientQueryResponse buildClientQueryResponse(ClientQueryNPEResponseDTO clientQueryClientIdResponseDTO) {
+        return ClientQueryResponse.builder()
+                .nombre(clientQueryClientIdResponseDTO.getName())
+                .fondo(clientQueryClientIdResponseDTO.getProduct())
+                .monto(clientQueryClientIdResponseDTO.getAmount())
+                .respuesta(OK)
+                .build();
     }
 
     private String jsonRequest(AbstractRequest body)
@@ -45,12 +52,12 @@ public class AportesAPVController {
     }
 
     @PutMapping(produces = APPLICATION_JSON, path = V1_NOTIFICAR_APORTE)
-    public ResponseEntity<NotificacionPagoAporteResponse> notificarAporte(@NotNull @RequestBody final ConsultaClienteRequest notiConsultaClienteRequest) {
+    public ResponseEntity<ContributionNotificationResponse> contributionNotification(@NotNull @RequestBody final ContributionNotificationRequest contributionNotificationRequest) {
         return null;
     }
 
     @PutMapping(produces = APPLICATION_JSON, path = V1_CONFIRMAR_APORTE)
-    public ResponseEntity<ConfirmacionAporteResponse> confirmarAporte(@NotNull @RequestBody final ConfirmacionAporteRequest confirmacionAporteRequest) {
+    public ResponseEntity<ContributionConfirmationResponse> contributionConfirmation(@NotNull @RequestBody final ContributionConfirmationRequest contributionConfirmationRequest) {
         return null;
     }
 }

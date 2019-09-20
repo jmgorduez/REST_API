@@ -6,12 +6,13 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "AUD_INTERFAZ_LOG")
 @Getter
 @Setter
 @AllArgsConstructor
-public class InterfazLog {
+public class LogInterfaces implements Serializable {
 
     public enum EstadoLog {OK, ER}
 
@@ -23,30 +24,30 @@ public class InterfazLog {
 
     @Column(name = "USUARIO")
     @NonNull
-    private String usuario;
+    private String user;
 
     @Column(name = "OPERACION")
     @NonNull
-    private String operación;
+    private String operation;
 
     @Column(name = "FONDO")
     @NonNull
-    private String fondo;
+    private String product;
 
     @Column(name = "PARTICIPE")
     @NonNull
-    private String participe;
+    private String participant;
 
     @Column(name = "TRAMA_PEDIDO")
-    private String tramaPedido;
+    private String requestFrame;
 
     @Column(name = "TRAMA_RESPUESTA")
-    private String tramaRespuesta;
+    private String responseFrame;
 
     @Column(name = "ESTADO")
     @Enumerated(EnumType.STRING)
-    private EstadoLog estado;
+    private EstadoLog status;
 
     @Column(name = "MENSAJE")
-    private String mensajeLog;
+    private String logMessage;
 }

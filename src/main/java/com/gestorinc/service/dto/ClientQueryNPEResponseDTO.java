@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 
 @Getter
 @Builder
-public class ConsultaClienteNPERespuestaDTO {
-    private String nombre;
-    private String fondo;
-    private BigDecimal monto;
+public class ClientQueryNPEResponseDTO {
+    private String name;
+    private String product;
+    private BigDecimal amount;
 }

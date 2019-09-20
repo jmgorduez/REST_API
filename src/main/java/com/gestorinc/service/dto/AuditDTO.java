@@ -5,12 +5,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class AuditoriaDTO {
-    private String usuario;
-    private String operacion;
-    private String fondo;
-    private String producto;
+public class AuditDTO {
+    private String user;
+    private String operation;
+    private String product;
+    private String participant;
     private String ip;
-    private String jsonTramaRequest;
-    private String jsonTramaResponse;
+    private String jsonRequestFrame;
+    private String jsonResponseFrame;
 }

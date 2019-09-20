@@ -1,8 +1,10 @@
 package com.gestorinc.repository;
 
-import com.gestorinc.repository.entity.ContributionIntention;
+import com.gestorinc.repository.entity.IntencionAporte;
+import com.gestorinc.repository.entity.IntencionAportePK;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-public interface IIntencionAporteRepository extends CrudRepository<ContributionIntention, String> {
-    ContributionIntention findByNPE(String npe);
+public interface IContributionIntentionRepository extends CrudRepository<IntencionAporte, IntencionAportePK> {
+     IntencionAporte findByNPE(String npe);
 }
