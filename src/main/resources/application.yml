@@ -8,15 +8,15 @@
 #      password: admin
 #      database: shopping_cart
 
-spring:
-    datasource:
-      url:
-        jdbc:oracle:thin:@192.9.200.210:1521:oradesa
-      username:
-        AFPCONFIABE
-      password:
-        AFPCONFIABE
-      driver-class-oracle:
-        jdbc:
-          driver:
-            OracleDriver
+#spring:
+#    datasource:
+#      url:
+#        jdbc:oracle:thin:@192.9.200.210:1521:oradesa
+#      username:
+#        AFPCONFIABE
+#      password:
+#        AFPCONFIABE
+#      driver-class-oracle:
+#        jdbc:
+#          driver:
+#            OracleDriver

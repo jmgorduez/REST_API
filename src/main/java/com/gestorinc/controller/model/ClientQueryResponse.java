@@ -1,7 +1,6 @@
 package com.gestorinc.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.gestorinc.service.dto.ClientQueryNPEResponseDTO;
 import lombok.Builder;
 import lombok.Getter;
 

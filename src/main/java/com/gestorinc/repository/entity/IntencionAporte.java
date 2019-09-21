@@ -2,15 +2,20 @@ package com.gestorinc.repository.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "FID_INTENCION_APORTE")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class IntencionAporte implements Serializable {
@@ -23,8 +28,6 @@ public class IntencionAporte implements Serializable {
     private String nPE;
     @Column(name = "COD_PERSONA")
     private Long codigoPersona;
-    @Column(name = "COD_PRODUCTO")
-    private String codigoProducto;
     @Column(name = "MONTO")
     private BigDecimal monto;
     @Column(name = "CUENTA_PARTICIPE")

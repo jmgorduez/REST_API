@@ -38,7 +38,7 @@ public class ClientQueryService implements IClientQueryService {
     }
 
     private String getProductInformationToShow(IntencionAporte intencionAporte) {
-        return FONDO_.concat(intencionAporte.getCodigoProducto()).concat(BLANK_SPACE).concat(intencionAporte.getCuentaParticipe());
+        return FONDO_.concat(intencionAporte.getPk().getCodigoProducto()).concat(BLANK_SPACE).concat(intencionAporte.getCuentaParticipe());
     }
 
     @Override
