@@ -21,15 +21,10 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 public class AuthenticationController {
 
-    private AuthenticationManager authenticationManager;
-    private JwtTokenProvider jwtTokenProvider;
-
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager,
-                                    JwtTokenProvider jwtTokenProvider){
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping(AUTENTICACION)
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
