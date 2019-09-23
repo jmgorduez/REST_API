@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class LogicBusinessException extends RuntimeException {
-    @Getter
+
     private Error error;
+    //private OperationEndpoint operationEndpoint;
 }

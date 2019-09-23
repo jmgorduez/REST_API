@@ -12,20 +12,17 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ADM_PRODUCTO")
+@Table(name = "ADM_PERSONA_IDENTIFICACION")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Producto implements Serializable {
+public class PersonaIdentificacion implements Serializable {
 
-    private static final long serialVersionUID = -2941552295788165801L;
+    private static final long serialVersionUID = 7955620518359150939L;
+
     @EmbeddedId
-    private ProductoPK pk;
-
-    @Column(name = "NOMBRE", nullable = false, length = 100)
-    private String nombre;
-
-    @Column(name = "GLN", nullable = false, length = 100)
-    private Integer gNL;
+    private PersonaIdentificacionPK pk;
+    @Column(name = "IDENTIFICACION", nullable = false, length = 30)
+    private String identificacion;
 }

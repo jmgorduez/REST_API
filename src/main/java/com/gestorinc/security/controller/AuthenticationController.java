@@ -31,7 +31,7 @@ public class AuthenticationController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @PostMapping(AUTH_SIGNIN)
+    @PostMapping(AUTENTICACION)
     public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
         try {
             String username = data.getUsername();

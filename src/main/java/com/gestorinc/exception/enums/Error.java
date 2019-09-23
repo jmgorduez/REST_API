@@ -1,28 +1,26 @@
 package com.gestorinc.exception.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum Error {
-    NPE_PAGADO("1"),
-    NPE_VENCIDO("2"),
-    NPE_NO_ENCONTRADO("3"),
-    CLIENTE_NO_ENCONTRADO("4"),
-    CLIENTE_NO_POSEE_CUENTA_ACTIVA("5"),
-    HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE("6"),
-    ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS("7"),
-    ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO("8"),
-    CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES("9"),
-    ERROR_EN_LOS_PARAMETROS_RECIBIDOS("10"),
-    NPE_NOTIFICADO("11"),
-    CLIENTE_BLOQUEADO_POR_ACCIONES_LEGALES("12"),
-    NO_EXISTE_UN_SOLICITUD_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO("13"),
-    NO_EXISTE_LA_CUENTA_BANCARIA_DESTINO_REGISTRADA_PARA_EL_PRODUCTO_ACTUAL("14");
+    NPE_PAGADO_COD_1("1", "ERROR: NPE ya ha sido Pagado."),
+    NPE_VENCIDO_COD_2("2", "ERROR: NPE se ha Vencido."),
+    NPE_NO_ENCONTRADO_COD_3("3", "ERROR: NPE no encontrado."),
+    CLIENTE_NO_ENCONTRADO_COD_4("4", "ERROR: Cliente no encontrado."),
+    CLIENTE_NO_POSEE_CUENTA_ACTIVA_COD_5("5", "ERROR: Cliente no posee una cuenta de participe Activa."),
+    HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6("6", "ERROR: Ha ocurrido un error en el proceso, favor intente mas tarde"),
+    ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7("7", "ERROR: Error de autenticacion, credenciales del banco invalidas."),
+    ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8("8", "ERROR: Error de autenticacion, token no valido o expirado."),
+    CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES_COD_9("9", "ERROR: Cliente debe actualizar su informacion en Confia para poder realizar transacciones."),
+    ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10("10", "ERROR: Error en los parametros recibidos."),
+    NPE_NOTIFICADO_COD_11("11", "ERROR: NPE ya ha sido Notificado."),
+    CLIENTE_BLOQUEADO_POR_ACCIONES_LEGALES_COD_12("12", "ERROR: Cliente bloqueado por acciones legales."),
+    NO_EXISTE_UN_SOLICITUD_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13("13", "ERROR: No existe una solicitud de aporte en estado Ingresada con este correlativo."),
+    NO_EXISTE_LA_CUENTA_BANCARIA_DESTINO_REGISTRADA_PARA_EL_PRODUCTO_ACTUAL_COD_14("14", "ERROR: No existe la cuenta bancaria destino registrada para el producto actual.");
 
-    private final String codigo;
-
-    Error(String codigo){
-        this.codigo = codigo;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
+    private final String code;
+    private final String message;
 }

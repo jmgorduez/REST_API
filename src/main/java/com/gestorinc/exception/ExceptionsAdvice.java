@@ -1,7 +1,9 @@
 package com.gestorinc.exception;
 
-import com.gestorinc.controller.model.AbstractResponse;
-import com.gestorinc.controller.model.ErrorResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gestorinc.controller.AbstractController;
+import com.gestorinc.controller.model.AbstractRestControllerResponse;
+import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
+
 import static com.gestorinc.exception.enums.Error.*;
 import static com.gestorinc.utils.Constants.ER;
 import static com.gestorinc.utils.Constants.EXCEPTION_;
@@ -19,40 +23,45 @@ import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionsAdvice {
+public class ExceptionsAdvice extends AbstractController {
 
     @ExceptionHandler({LogicBusinessException.class})
-    public ResponseEntity<AbstractResponse> handleBusinessException(LogicBusinessException e) {
-        return error(INTERNAL_SERVER_ERROR,
-                e.getError(), e);
+    public ResponseEntity<AbstractRestControllerResponse> handleBusinessException(LogicBusinessException e)
+            throws IOException {
+        generateAuditLogError(errorResponse(e.getError()), e.getError().getMessage());
+        return error(INTERNAL_SERVER_ERROR, e.getError(), e);
     }
 
     @ExceptionHandler({MissingServletRequestParameterException.class})
-    public ResponseEntity<AbstractResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+    public ResponseEntity<AbstractRestControllerResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
         return error(BAD_REQUEST,
-                ERROR_EN_LOS_PARAMETROS_RECIBIDOS, e);
+                ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10, e);
     }
 
     @ExceptionHandler({BadCredentialsException.class})
-    public ResponseEntity<AbstractResponse> handleBadCredentialsException(BadCredentialsException e) {
+    public ResponseEntity<AbstractRestControllerResponse> handleBadCredentialsException(BadCredentialsException e) {
         return error(UNAUTHORIZED,
-                ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS, e);
+                ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7, e);
     }
 
     @ExceptionHandler({InvalidJwtAuthenticationException.class})
-    public ResponseEntity<AbstractResponse> handleInvalidJwtAuthenticationException(InvalidJwtAuthenticationException e) {
+    public ResponseEntity<AbstractRestControllerResponse> handleInvalidJwtAuthenticationException(InvalidJwtAuthenticationException e) {
         return error(UNAUTHORIZED,
-                ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO, e);
+                ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8, e);
     }
 
-    @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<AbstractResponse> handleRunTimeException(RuntimeException e) {
+    @ExceptionHandler({RuntimeException.class, JsonProcessingException.class, IOException.class})
+    public ResponseEntity<AbstractRestControllerResponse> handleRunTimeException(RuntimeException e) {
         return error(INTERNAL_SERVER_ERROR,
-                HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE, e);
+                HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6, e);
     }
 
-    private ResponseEntity<AbstractResponse> error(HttpStatus status, Error error, Exception e) {
+    private ResponseEntity<AbstractRestControllerResponse> error(HttpStatus status, Error error, Exception e) {
         log.error(EXCEPTION_, e);
-        return ResponseEntity.status(status).body(new ErrorResponse(ER, error.getCodigo()));
+        return ResponseEntity.status(status).body(errorResponse(error));
+    }
+
+    private ErrorRestControllerResponse errorResponse(Error error) {
+        return new ErrorRestControllerResponse(ER, error.getCode());
     }
 }

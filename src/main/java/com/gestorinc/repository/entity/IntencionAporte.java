@@ -1,5 +1,6 @@
 package com.gestorinc.repository.entity;
 
+import com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,8 @@ public class IntencionAporte implements Serializable {
     private BigDecimal monto;
     @Column(name = "CUENTA_PARTICIPE")
     private String cuentaParticipe;
+    @Column(name = "ESTADO")
+    private EnumEstadoIntencionAporte estado;
 
     public PersonaPK getPersonaPK(){
         return new PersonaPK(pk.numLicencia, codigoPersona);

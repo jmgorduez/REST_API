@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.gestorinc.utils.Constants.ME;
 import static com.gestorinc.utils.Constants.USERNAME;
+import static com.gestorinc.utils.Constants.USUARIO_AUTENTICADO;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 public class UserinfoController {
 
-    @GetMapping(ME)
+    @GetMapping(USUARIO_AUTENTICADO)
     public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
         Map<Object, Object> model = new HashMap<>();
         model.put(USERNAME, userDetails.getUsername());

@@ -1,53 +1,52 @@
 package com.gestorinc.repository.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Entity(name = "AUD_INTERFAZ_LOG")
+@Entity
+@Table(name = "AUD_INTERFAZ_LOG")
 @Getter
 @Setter
 @AllArgsConstructor
-public class LogInterfaces implements Serializable {
+@NoArgsConstructor
+public class LogInterfaz implements Serializable {
 
     public enum EstadoLog {OK, ER}
 
     @Id
     @Column(name = "ID")
     @NonNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USUARIO")
     @NonNull
-    private String user;
+    private String usuario;
 
     @Column(name = "OPERACION")
     @NonNull
-    private String operation;
+    private String operacion;
 
     @Column(name = "FONDO")
-    @NonNull
-    private String product;
+    private String producto;
 
     @Column(name = "PARTICIPE")
-    @NonNull
-    private String participant;
+    private String participe;
 
     @Column(name = "TRAMA_PEDIDO")
-    private String requestFrame;
+    private String TramaRequest;
 
     @Column(name = "TRAMA_RESPUESTA")
-    private String responseFrame;
+    private String tramaResponse;
 
     @Column(name = "ESTADO")
     @Enumerated(EnumType.STRING)
-    private EstadoLog status;
+    @NotNull
+    private EstadoLog estado;
 
     @Column(name = "MENSAJE")
-    private String logMessage;
+    @NotNull
+    private String mensaje;
 }
