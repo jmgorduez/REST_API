@@ -2,7 +2,10 @@ package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
 import com.gestorinc.repository.*;
-import com.gestorinc.repository.entity.*;
+import com.gestorinc.repository.entity.Cliente;
+import com.gestorinc.repository.entity.IntencionAporte;
+import com.gestorinc.repository.entity.Persona;
+import com.gestorinc.repository.entity.Producto;
 import com.gestorinc.service.abstractions.IClientQueryService;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
 import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;

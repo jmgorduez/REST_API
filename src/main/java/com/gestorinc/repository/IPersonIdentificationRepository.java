@@ -1,9 +1,7 @@
 package com.gestorinc.repository;
 
-import com.gestorinc.repository.entity.Persona;
 import com.gestorinc.repository.entity.PersonaIdentificacion;
 import com.gestorinc.repository.entity.PersonaIdentificacionPK;
-import com.gestorinc.repository.entity.PersonaPK;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
