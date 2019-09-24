@@ -31,8 +31,9 @@ public class AuthenticationController {
         try {
             String username = data.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider
-                    .createToken(username);
+
+            String token = jwtTokenProvider.createToken(username);
+
             return ok(getModel(username, token));
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(INVALID_USERNAME_PASSWORD_SUPPLIED);

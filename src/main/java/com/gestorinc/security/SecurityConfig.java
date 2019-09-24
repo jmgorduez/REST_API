@@ -1,5 +1,6 @@
 package com.gestorinc.security;
 
+import com.gestorinc.security.jwt.JwtAuthenticationEntryPoint;
 import com.gestorinc.security.jwt.JwtSecurityConfigurer;
 import com.gestorinc.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
-    JwtTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
 
     @Bean
     @Override
@@ -32,11 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and()
-                .authorizeRequests()
+                .and().authorizeRequests()
                 .antMatchers(AUTENTICACION).permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .apply(new JwtSecurityConfigurer(jwtTokenProvider));
+                .and().apply(new JwtSecurityConfigurer(jwtTokenProvider))
+                .and().exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint());
     }
 }

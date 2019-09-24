@@ -1,6 +1,8 @@
 package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.AbstractRestControllerResponse;
+import com.gestorinc.controller.model.ErrorRestControllerResponse;
+import com.gestorinc.exception.enums.Error;
 import com.gestorinc.service.abstractions.ILogManager;
 import com.gestorinc.service.dto.AbstractServiceResponseDTO;
 import com.gestorinc.service.dto.AuditDTO;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+import static com.gestorinc.utils.Constants.ER;
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
 
 public abstract class AbstractController {
@@ -47,6 +50,10 @@ public abstract class AbstractController {
                 .status(AuditDTO.Status.ER)
                 .message(message)
                 .build());
+    }
+
+    public static ErrorRestControllerResponse errorResponse(Error error) {
+        return new ErrorRestControllerResponse(ER, error.getCode());
     }
 
     private String operationURL() {

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -18,11 +17,9 @@ import java.io.IOException;
 
 import static com.gestorinc.exception.enums.Error.HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6;
 import static com.gestorinc.utils.Constants.ER;
-import static com.gestorinc.utils.Constants.EXPIRED_OR_INVALID_JWT_TOKEN;
 import static java.util.Optional.of;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
-import static org.ietf.jgss.GSSException.UNAUTHORIZED;
 
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
@@ -37,9 +34,8 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             throws IOException, ServletException {
         HttpServletResponse httpServletResponse =(HttpServletResponse) response;
         try {
-            String token = jwtTokenProvider.resolveToken((HttpServletRequest) request)
-                    .orElseThrow(this::invalidJwtAuthenticationException);
-            this.authenticate(token);
+            jwtTokenProvider.resolveToken((HttpServletRequest) request)
+                    .ifPresent(this::authenticate);
             filterChain.doFilter(request, response);
         }catch (InvalidJwtAuthenticationException e) {
             httpServletResponse.setStatus(SC_UNAUTHORIZED);
@@ -64,9 +60,5 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             of(jwtTokenProvider.getAuthentication(token))
                     .ifPresent(SecurityContextHolder.getContext()::setAuthentication);
         }
-    }
-
-    private InvalidJwtAuthenticationException invalidJwtAuthenticationException(){
-        return  new InvalidJwtAuthenticationException(EXPIRED_OR_INVALID_JWT_TOKEN);
     }
 }

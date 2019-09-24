@@ -3,13 +3,13 @@ package com.gestorinc.exception;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gestorinc.controller.AbstractController;
 import com.gestorinc.controller.model.AbstractRestControllerResponse;
-import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.io.IOException;
 
 import static com.gestorinc.exception.enums.Error.*;
-import static com.gestorinc.utils.Constants.ER;
 import static com.gestorinc.utils.Constants.EXCEPTION_;
 import static org.springframework.http.HttpStatus.*;
 
@@ -50,7 +49,8 @@ public class ExceptionsAdvice extends AbstractController {
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8, e);
     }
 
-    @ExceptionHandler({RuntimeException.class, JsonProcessingException.class, IOException.class})
+    @ExceptionHandler({RuntimeException.class, JsonProcessingException.class, IOException.class,
+            HttpMediaTypeNotSupportedException.class})
     public ResponseEntity<AbstractRestControllerResponse> handleRunTimeException(RuntimeException e) {
         return error(INTERNAL_SERVER_ERROR,
                 HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6, e);
@@ -59,9 +59,5 @@ public class ExceptionsAdvice extends AbstractController {
     private ResponseEntity<AbstractRestControllerResponse> error(HttpStatus status, Error error, Exception e) {
         log.error(EXCEPTION_, e);
         return ResponseEntity.status(status).body(errorResponse(error));
-    }
-
-    private ErrorRestControllerResponse errorResponse(Error error) {
-        return new ErrorRestControllerResponse(ER, error.getCode());
     }
 }

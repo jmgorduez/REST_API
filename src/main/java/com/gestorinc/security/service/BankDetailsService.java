@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.gestorinc.utils.Constants.USER;
+
 @Component
 public class BankDetailsService implements UserDetailsService {
 
@@ -20,7 +22,7 @@ public class BankDetailsService implements UserDetailsService {
 
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return Stream.of("USER")
+                return Stream.of(USER)
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
             }

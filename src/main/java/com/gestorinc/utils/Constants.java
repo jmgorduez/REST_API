@@ -21,6 +21,7 @@ public class Constants {
     public static final String TOKEN = "token";
     public static final String OK = "OK";
     public static final String ER = "ER";
+    public static final String USER = "USER";
     public static final String EXCEPTION_ = "Exception: ";
     public static final String APPLICATION_JSON = "application/json";
     public static final String NPE = "NPE";

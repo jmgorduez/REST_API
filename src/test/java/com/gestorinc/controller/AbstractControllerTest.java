@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
-import static com.gestorinc.utils.TestUtil.BANCO_1;
+import static com.gestorinc.utils.TestUtil.BANCO1;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 public abstract class AbstractControllerTest {
@@ -41,7 +41,7 @@ public abstract class AbstractControllerTest {
         RequestBuilder requestBuilder = post(operationEndpoint.getUrl())
                 .content(OBJECT_MAPPER.writeValueAsBytes(request))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .principal(new UsernamePasswordAuthenticationToken(BANCO_1, BANCO_1))
+                .principal(new UsernamePasswordAuthenticationToken(BANCO1, BANCO1))
                 .accept(MediaType.APPLICATION_JSON);
         return mockMvc.perform(requestBuilder).andReturn();
     }

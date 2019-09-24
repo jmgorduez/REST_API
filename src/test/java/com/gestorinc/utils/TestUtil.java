@@ -21,6 +21,13 @@ import static com.gestorinc.utils.Constants.*;
 
 public class TestUtil {
 
+    public static final String GRANT_TYPE = "grant_type";
+    public static final String CLIENT_ID = "client_id";
+    public static final String PASSWORD = "password";
+    public static final String FOO_CLIENT_ID_PASSWORD = "fooClientIdPassword";
+    public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json;charset=UTF-8";
+    public static final String ACCESS_TOKEN = "access_token";
+
     public static final String _11111111111111111111111111111111111 = "11111111111111111111111111111111111";
     public static final String _11111111111111111111111111111111112 = "11111111111111111111111111111111112";
     public static final String _11111111111111111111111111111111113 = "11111111111111111111111111111111113";
@@ -33,7 +40,7 @@ public class TestUtil {
     public static final String FONDO_APV01 = "Fondo APV01";
     public static final String APV01 = "APV01";
     public static final String COD_EMPRESA = "1";
-    public static final String BANCO_1 = "BANCO_1";
+    public static final String BANCO1 = "BANCO1";
 
     public static final String APV0000000001 = "APV0000000001";
     public static final String _____0001 = _____.concat("0001");
@@ -155,7 +162,7 @@ public class TestUtil {
                                                LogInterfaz.EstadoLog status,
                                                String message) {
         try {
-            return new LogInterfaz(id, BANCO_1, operation, product, participat,
+            return new LogInterfaz(id, BANCO1, operation, product, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerResponse),
                     status, message);
@@ -172,7 +179,7 @@ public class TestUtil {
                                                AbstractRestControllerResponse abstractRestControllerResponse,
                                                String message) {
         try {
-            return new LogInterfaz(id, BANCO_1, operation, APV01, participat,
+            return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerResponse),
                     LogInterfaz.EstadoLog.OK, message);
