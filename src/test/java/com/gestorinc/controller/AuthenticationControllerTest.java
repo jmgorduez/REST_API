@@ -80,7 +80,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void givenValidUserAndPassword_whenGetSecureRequest_thenSucces() throws Exception {
+    public void givenValidUserAndPassword_whenGetSecureRequest_thenOk() throws Exception {
 
         String accessToken = obtainAccessToken(BANCO1, BANCO1);
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
