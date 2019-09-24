@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends AbstractControllerTest {
 
+
     @Before
     public void setUp() throws Exception {
         mockMvc = webAppContextSetup(this.wac).build();
@@ -45,11 +46,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_NO_ENCONTRADO_COD_4.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_4_RESPONSE);
     }
 
     @Test
@@ -61,11 +58,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_NO_ENCONTRADO_COD_4.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_4_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(2l))
                 .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_4_2);
@@ -80,11 +73,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_NO_POSEE_CUENTA_ACTIVA_COD_5.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_5_RESPONSE);
     }
 
     @Test
@@ -96,11 +85,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_NO_POSEE_CUENTA_ACTIVA_COD_5.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_5_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(2l))
                 .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_5_2);
@@ -115,10 +100,6 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES_COD_9.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_9_RESPONSE);
     }
 }

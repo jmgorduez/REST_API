@@ -1,9 +1,11 @@
 package com.gestorinc.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gestorinc.controller.abstracts.IInteractionLogManager;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -15,8 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.gestorinc.exception.enums.Error.ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8;
 import static com.gestorinc.exception.enums.Error.HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6;
-import static com.gestorinc.utils.Constants.ER;
+import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.of;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -24,6 +27,9 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
     private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private IInteractionLogManager logManager;
 
     public JwtTokenAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -39,19 +45,23 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
             filterChain.doFilter(request, response);
         }catch (InvalidJwtAuthenticationException e) {
             httpServletResponse.setStatus(SC_UNAUTHORIZED);
-            handleException(httpServletResponse, Error.ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
+            handleException(httpServletResponse, ERROR_8_RESPONSE,
+                    ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
         }
         catch (RuntimeException e) {
             httpServletResponse.setStatus(SC_INTERNAL_SERVER_ERROR);
-            handleException(httpServletResponse, HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6);
+            handleException(httpServletResponse, ERROR_6_RESPONSE,
+                    HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6);
         }
     }
 
-    private void handleException(HttpServletResponse response, Error error) throws IOException {
+    private void handleException(HttpServletResponse response, ErrorRestControllerResponse errorResponse, Error error) throws IOException {
+
+        logManager.generateAuditLogError(errorResponse, error.getMessage());
+
         response.getWriter().write(
                 new ObjectMapper()
-                        .writeValueAsString(
-                                new ErrorRestControllerResponse(ER, error.getCode())));
+                        .writeValueAsString(errorResponse));
     }
 
     private void authenticate(String token) {

@@ -1,5 +1,6 @@
 package com.gestorinc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.security.controller.model.AuthenticationRequest;
@@ -39,7 +40,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest
 public class AuthenticationControllerTest extends AbstractControllerTest {
 
-    public static final String BEARER_ = "Bearer ";
     private MockMvc mockMvc;
 
     @Autowired
@@ -61,7 +61,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void givenNoToken_whenGetSecureRequest_thenUnauthorized() throws Exception {
+    public void givenNoToken_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
 
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
                 .content(OBJECT_MAPPER.writeValueAsBytes(CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST))
@@ -72,11 +72,10 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(UNAUTHORIZED.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
+
+        assertThat(interfaceLogRepository.findOne(1l))
+                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1);
     }
 
     @Test
@@ -84,7 +83,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
 
         String accessToken = obtainAccessToken(BANCO1, BANCO1);
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
-                .header(AUTHORIZATION, BEARER_ + accessToken)
+                .header(AUTHORIZATION, BEARER_.concat(accessToken))
                 .content(OBJECT_MAPPER
                         .writeValueAsBytes(CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST))
                 .contentType(APPLICATION_JSON_UTF8)
@@ -98,27 +97,60 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);
     }
 
+    @Test
+    public void givenInvalidToken_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
+
+        String accessToken = obtainAccessToken(BANCO1, BANCO1);
+        RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
+                .header(AUTHORIZATION, BEARER_.concat(accessToken.concat(_12345678910)))
+                .content(OBJECT_MAPPER
+                        .writeValueAsBytes(CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST))
+                .contentType(APPLICATION_JSON_UTF8)
+                .accept(APPLICATION_JSON_UTF8);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(UNAUTHORIZED.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
+        assertThat(interfaceLogRepository.findOne(1l))
+                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1);
+    }
+
+    @Test
+    public void givenInvalidCredentials_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
+
+        MvcResult result = login(BANCO1, BANCO1.concat(_12345678910));
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(UNAUTHORIZED.value());
+       assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_7_RESPONSE);
+       assertThat(interfaceLogRepository.findOne(1l))
+                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1);
+    }
+
     private String obtainAccessToken(String username, String password) throws Exception {
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add(GRANT_TYPE, PASSWORD);
-        params.add(CLIENT_ID, FOO_CLIENT_ID_PASSWORD);
+        MvcResult result = login(username, password);
 
-        ResultActions result
-                = mockMvc.perform(post(AUTENTICACION)
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
+
+        String resultString = result.getResponse().getContentAsString();
+
+        JacksonJsonParser jsonParser = new JacksonJsonParser();
+        return jsonParser.parseMap(resultString).get(TOKEN).toString();
+    }
+
+    private MvcResult login(String username, String password) throws Exception {
+        return mockMvc.perform(post(AUTENTICACION)
                 .content(OBJECT_MAPPER
                         .writeValueAsBytes(AuthenticationRequest.builder()
                                 .username(username)
                                 .password(password).build()))
                 .contentType(APPLICATION_JSON_UTF8)
-                .params(params)
-                .accept(APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(APPLICATION_JSON_UTF8));
-
-        String resultString = result.andReturn().getResponse().getContentAsString();
-
-        JacksonJsonParser jsonParser = new JacksonJsonParser();
-        return jsonParser.parseMap(resultString).get(TOKEN).toString();
+                .accept(APPLICATION_JSON_UTF8)).andReturn();
     }
 }

@@ -1,5 +1,6 @@
 package com.gestorinc.controller;
 
+import com.gestorinc.controller.abstracts.IInteractionLogManager;
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.service.abstractions.IClientQueryService;
@@ -18,10 +19,12 @@ import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class ClientQueryController extends AbstractController {
+public class ClientQueryController {
 
     @Autowired
     private IClientQueryService clientQueryService;
+    @Autowired
+    private IInteractionLogManager logManager;
 
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(@NotNull @RequestBody final ClientQueryRestControllerRequest clientQueryRequest)
@@ -43,7 +46,7 @@ public class ClientQueryController extends AbstractController {
 
         ClientQueryRestControllerResponse clientQueryResponse = buildClientQueryResponse(clientQueryClientIdResponseDTO);
 
-        generateAuditLog(clientQueryResponse,
+        logManager.generateAuditLog(clientQueryResponse,
                 clientQueryClientIdResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
 
         return ok(buildClientQueryResponse(clientQueryClientIdResponseDTO));
@@ -56,7 +59,7 @@ public class ClientQueryController extends AbstractController {
 
         ClientQueryRestControllerResponse clientQueryResponse = buildClientQueryResponse(clientQueryNPEResponseDTO);
 
-        generateAuditLog(clientQueryResponse,
+        logManager. generateAuditLog(clientQueryResponse,
                 clientQueryNPEResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
 
         return ok(clientQueryResponse);

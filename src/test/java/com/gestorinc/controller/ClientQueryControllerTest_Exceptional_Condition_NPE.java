@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 public class ClientQueryControllerTest_Exceptional_Condition_NPE extends AbstractControllerTest {
 
+
     @Before
     public void setUp() throws Exception {
         mockMvc = webAppContextSetup(this.wac).build();
@@ -44,11 +45,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(NPE_PAGADO_COD_1.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_1_RESPONSE);
     }
 
     @Test
@@ -61,11 +58,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(NPE_PAGADO_COD_1.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_1_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(1l))
                 .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_NPE_ER_1_1);
@@ -81,11 +74,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(NPE_VENCIDO_COD_2.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_2_RESPONSE);
     }
 
     @Test
@@ -98,11 +87,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(NPE_NOTIFICADO_COD_11.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_11_RESPONSE);
 
     }
 
@@ -115,11 +100,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(NPE_NO_ENCONTRADO_COD_3.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_3_RESPONSE);
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.gestorinc.security;
 
 import com.gestorinc.security.jwt.JwtAuthenticationEntryPoint;
 import com.gestorinc.security.jwt.JwtSecurityConfigurer;
+import com.gestorinc.security.jwt.JwtTokenAuthenticationFilter;
 import com.gestorinc.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers(AUTENTICACION).permitAll()
                 .anyRequest().authenticated()
-                .and().apply(new JwtSecurityConfigurer(jwtTokenProvider))
-                .and().exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint());
+                .and().apply(new JwtSecurityConfigurer(jwtTokenAuthenticationFilter()))
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint());
+    }
+
+    @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint(){
+        return new JwtAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter(){
+        return new JwtTokenAuthenticationFilter(jwtTokenProvider);
     }
 }

@@ -1,31 +1,34 @@
 package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.AbstractRestControllerResponse;
-import com.gestorinc.controller.model.ErrorRestControllerResponse;
-import com.gestorinc.exception.enums.Error;
-import com.gestorinc.service.abstractions.ILogManager;
+import com.gestorinc.repository.IInterfaceLogRepository;
+import com.gestorinc.repository.entity.LogInterfaz;
+import com.gestorinc.controller.abstracts.IInteractionLogManager;
 import com.gestorinc.service.dto.AbstractServiceResponseDTO;
 import com.gestorinc.service.dto.AuditDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-import static com.gestorinc.utils.Constants.ER;
-import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
+import static com.gestorinc.utils.Constants.*;
+import static java.util.Optional.ofNullable;
 
-public abstract class AbstractController {
+@Component
+public class InteractionLogManager implements IInteractionLogManager {
 
     @Autowired
-    protected ILogManager logManager;
+    private IInterfaceLogRepository interfaceLogRepository;
     @Autowired
     protected HttpServletRequest request;
 
-    protected void generateAuditLog(AbstractRestControllerResponse abstractRestControllerResponse,
+    @Override
+    public void generateAuditLog(AbstractRestControllerResponse abstractRestControllerResponse,
                                     AbstractServiceResponseDTO abstractServiceResponseDTO,
                                     String message) throws IOException {
-        logManager.saveLog(AuditDTO.builder()
+        saveLog(AuditDTO.builder()
                 .user(authenticatedBank())
                 .product(abstractServiceResponseDTO.getProductCodeAud())
                 .participant(abstractServiceResponseDTO.getParticipantAccountAud())
@@ -38,10 +41,11 @@ public abstract class AbstractController {
                 .build());
     }
 
-    protected void generateAuditLogError(AbstractRestControllerResponse abstractRestControllerResponse,
+    @Override
+    public void generateAuditLogError(AbstractRestControllerResponse abstractRestControllerResponse,
                                          String message) throws IOException {
 
-        logManager.saveLog(AuditDTO.builder()
+        saveLog(AuditDTO.builder()
                 .user(authenticatedBank())
                 .operation(operationURL())
                 .ip(clientIpAddress())
@@ -52,8 +56,18 @@ public abstract class AbstractController {
                 .build());
     }
 
-    public static ErrorRestControllerResponse errorResponse(Error error) {
-        return new ErrorRestControllerResponse(ER, error.getCode());
+    private synchronized void saveLog(AuditDTO auditDTO) {
+
+        Long autoIncrementedId = interfaceLogRepository.nextSequence() != null ?
+                interfaceLogRepository.nextSequence() :
+                1L;
+
+        LogInterfaz logInterfaz =
+                new LogInterfaz(autoIncrementedId,
+                        auditDTO.getUser(), auditDTO.getOperation(), auditDTO.getProduct(),
+                        auditDTO.getParticipant(), auditDTO.getJsonRequestFrame(), auditDTO.getJsonResponseFrame(),
+                        LogInterfaz.EstadoLog.valueOf(auditDTO.getStatus().name()), auditDTO.getMessage());
+        interfaceLogRepository.save(logInterfaz);
     }
 
     private String operationURL() {
@@ -61,8 +75,11 @@ public abstract class AbstractController {
     }
 
     private String authenticatedBank() {
-        return request.getUserPrincipal()
-                .getName();
+
+        if (ofNullable(request.getUserPrincipal()).isPresent()) {
+            return request.getUserPrincipal().getName();
+        }
+        return ANONYMOUS;
     }
 
     private String clientIpAddress() {

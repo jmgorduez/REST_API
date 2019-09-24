@@ -1,6 +1,10 @@
 package com.gestorinc.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gestorinc.controller.model.ErrorRestControllerResponse;
+import com.gestorinc.exception.enums.Error;
+
+import static com.gestorinc.exception.enums.Error.*;
 
 public class Constants {
 
@@ -33,7 +37,36 @@ public class Constants {
     public static final String EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE = "Ejecución de consulta de cliente por Id cliente";
     public static final String DUI_CODE = "10";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String ANONYMOUS = "anonymous";
 
     public static final ObjectMapper
             OBJECT_MAPPER = new ObjectMapper();
+
+    public static final ErrorRestControllerResponse ERROR_1_RESPONSE =
+            errorResponse(NPE_PAGADO_COD_1);
+    public static final ErrorRestControllerResponse ERROR_2_RESPONSE =
+            errorResponse(NPE_VENCIDO_COD_2);
+    public static final ErrorRestControllerResponse ERROR_3_RESPONSE =
+            errorResponse(NPE_NO_ENCONTRADO_COD_3);;
+    public static final ErrorRestControllerResponse ERROR_4_RESPONSE =
+            errorResponse(CLIENTE_NO_ENCONTRADO_COD_4);
+    public static final ErrorRestControllerResponse ERROR_5_RESPONSE =
+            errorResponse(CLIENTE_NO_POSEE_CUENTA_ACTIVA_COD_5);
+    public static final ErrorRestControllerResponse ERROR_6_RESPONSE =
+            errorResponse(HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6);
+    public static final ErrorRestControllerResponse ERROR_7_RESPONSE =
+            errorResponse(ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7);
+    public static final ErrorRestControllerResponse ERROR_8_RESPONSE =
+            errorResponse(ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
+    public static final ErrorRestControllerResponse ERROR_9_RESPONSE =
+            errorResponse(CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES_COD_9);
+    public static final ErrorRestControllerResponse ERROR_11_RESPONSE =
+            errorResponse(NPE_NOTIFICADO_COD_11);
+
+    public static ErrorRestControllerResponse errorResponse(Error error){
+        return ErrorRestControllerResponse.builder()
+                .respuesta(ER)
+                .error(error.getCode())
+                .build();
+    }
 }
