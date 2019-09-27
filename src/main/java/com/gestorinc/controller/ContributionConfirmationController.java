@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 
-import static com.gestorinc.utils.Constants.APPLICATION_JSON;
-import static com.gestorinc.utils.Constants.V1_CONFIRMAR_APORTE;
+import static com.gestorinc.utils.Constants.*;
 
 @RestController
 public class ContributionConfirmationController {
 
     @PutMapping(produces = APPLICATION_JSON, path = V1_CONFIRMAR_APORTE)
     public ResponseEntity<ContributionConfirmationRestControllerResponse> contributionConfirmation(@NotNull @RequestBody final ContributionConfirmationRequest contributionConfirmationRequest) {
-        return null;
+
+        return ResponseEntity.ok(ContributionConfirmationRestControllerResponse.builder()
+                .respuesta(OK)
+                .build());
+
     }
 }

@@ -1,10 +1,13 @@
 package com.gestorinc.utils;
 
+import com.gestorinc.controller.AuthenticationControllerTest;
 import com.gestorinc.controller.model.*;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.entity.*;
 import com.gestorinc.repository.entity.enums.EnumEstadoParticipe;
 import com.gestorinc.repository.entity.enums.EnumSiNo;
+import com.gestorinc.security.controller.AuthenticationController;
+import com.gestorinc.security.controller.model.AuthenticationRequest;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -102,6 +105,8 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(ID, _12345678911);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678912);
+    public static final AuthenticationRequest LOGIN_BANCO1_REST_CONTROLLER_REQUEST =
+            new AuthenticationRequest(BANCO1, BANCO1.concat(_12345678910));
 
     public static final List<String> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -164,10 +169,8 @@ public class TestUtil {
             V1_CONSULTAR_CLIENTE,
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
             ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
-    public static final LogInterfaz LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1 = getLogErrorInterface(1l, ANONYMOUS,
-            AUTENTICACION,
-            CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
-            ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7);
+    public static final LogInterfaz LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1 = getLogErrorInterface(1l,
+            LOGIN_BANCO1_REST_CONTROLLER_REQUEST);
 
     private static LogInterfaz getLogInterfaceBasic(long id,
                                                     String user,
@@ -190,11 +193,11 @@ public class TestUtil {
     }
 
     private static LogInterfaz getLogInterface(long id,
-                                                    String operation,
-                                                    String participat,
-                                                    AbstractRestControllerRequest abstractRestControllerRequest,
-                                                    AbstractRestControllerResponse abstractRestControllerResponse,
-                                                    String message) {
+                                               String operation,
+                                               String participat,
+                                               AbstractRestControllerRequest abstractRestControllerRequest,
+                                               AbstractRestControllerResponse abstractRestControllerResponse,
+                                               String message) {
         try {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
@@ -216,6 +219,18 @@ public class TestUtil {
                 new ErrorRestControllerResponse(ER, error.getCode()),
                 LogInterfaz.EstadoLog.ER,
                 error.getMessage());
+    }
+
+    private static LogInterfaz getLogErrorInterface(long id, AuthenticationRequest authenticationRequest) {
+        try {
+            return new LogInterfaz(id, ANONYMOUS, AUTENTICACION, null, null,
+                    OBJECT_MAPPER.writeValueAsString(authenticationRequest),
+                    OBJECT_MAPPER.writeValueAsString(ERROR_7_RESPONSE),
+                    LogInterfaz.EstadoLog.ER, ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private static Date getDate(String value) {
