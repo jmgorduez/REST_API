@@ -69,4 +69,62 @@ public class Constants {
                 .error(error.getCode())
                 .build();
     }
+
+    public static final String NOMBRE_DEL_PARTICIPANTE_SOLO_APLICA_CUANDO_SE_CONSULTA_POR_TIPO_IDENTIFICADOR_NPE = "Nombre del participante. Solo aplica cuando se consulta por tipoIdentificador NPE.";
+    public static final String NOMBRE_DEL_FONDO_DE_AHORRO_SOLO_APLICA_CUANDO_SE_CONSULTA_POR_TIPO_IDENTIFICADOR_NPE = "Nombre del fondo de ahorro. Solo aplica cuando se consulta por tipoIdentificador NPE.";
+    public static final String MONTO_DEL_APORTE_SOLO_APLICA_CUANDO_SE_CONSULTA_POR_TIPO_IDENTIFICADOR_NPE = "Monto del aporte. Solo aplica cuando se consulta por tipoIdentificador NPE.";
+    public static final String LISTA_DE_CUENTAS_DE_AHORRO_SOLO_APLICA_CUANDO_SE_CONSULTA_POR_TIPO_IDENTIFICADOR_ID = "Lista de cuentas de ahorro. Solo aplica cuando se consulta por tipoIdentificador ID.";
+    public static final String RESPUESTA_DE_LA_OPERACIÓN = "Respuesta de la operación.";
+    public static final String DESCRIPCIÓN_DE_LA_CUENTA_DEL_PARTICIPANTE_CAMPO_PENSADO_PARA_MOSTRAR_DE_CARA_AL_CLIENTE = "Descripción de la cuenta del participante, campo pensado para mostrar de cara al cliente.";
+    public static final String NÚMERO_DE_CUENTA_DEL_PARTICIPANTE = "Número de cuenta del participante, identificador de la cuenta del participante.";
+    public static final String CÓDIGO_GNL_DEL_FONDO_CÓDIGO_IDENTIFICADOR_DEL_FONDO = "Código GNL del fondo, código identificador del fondo.";
+    public static final String TIPO_DE_IDENTIFICADOR = "Tipo de identificador.";
+    public static final String IDENTIFICADOR = "Identificador.";
+    public static final String NPE_ID = "NPE, ID";
+    public static final String OK_ER = "OK, ER";
+    public static final String CÓDIGO_DE_BANCO = "Código de banco.";
+    public static final String CONTRASEÑA_DE_ACCESO = "Contraseña de acceso.";
+    public static final String CORRELATIVO_IDENTIFICADOR_DE_LA_NOTIFICACIÓN_DE_APORTE = "Correlativo identificador de la notificación de aporte.";
+    public static final String REFERENCIA_DE_LA_TRANSACCIÓN_BANCARIA = "Referencia de la transacción bancaria.";
+    public static final String FECHA_DEL_APORTE = "Fecha del aporte";
+    public static final String MEDIO_DE_PAGO_DEL_APORTE = "Medio de pago del aporte";
+    public static final String CUENTA_DEL_PARTICIPANTE = "Cuenta del participante.";
+    public static final String MUESTRA_INFORMACIÓN_DEL_NPE_O_DE_LAS_CUENTAS_DEL_PARTICIPANTE_EN_DEPENDENCIA_DEL_TIPO_IDENTIFICADOR_RECIBIDO
+            = "Muestra información del NPE o de las Cuentas del participante en dependencia del tipoIdentificador recibido.";
+    public static final String INFORMACIÓN_DEL_NPE_O_LA_CUENTA_DEL_PARTICIPANTE_ENCONTRADA
+            = "Información del NPE o la Cuenta del participante encontrada.";
+    public static final String CONFIRMA_EL_PAGO_DE_LA_NOTIFICACIÓN_DE_APORTE = "Confirma el pago de la notificación de aporte.";
+    public static final String CONFIRMADA_LA_NOTIFICACIÓN_DE_APORTE = "Confirmada la notificación de aporte.";
+    public static final String REGISTRA_UNA_NOTIFICACION_DE_APORTE = "Registra una notificacion de aporte";
+    public static final String CREADA_NOTIFICACIÓN_DE_APORTE = "Creada notificación de aporte";
+    public static final String CONSULTAR_CLIENTE = "Consultar cliente";
+    public static final String TOKEN_DE_ACCESO_OBTENIDO_LUEGO_DE_AUTENTICARSE = "Token de acceso obtenido luego de autenticarse.";
+    public static final String STRING = "string";
+    public static final String CONSULTAR_USUARIO_AUTENTICADO = "Consultar usuario autenticado";
+    public static final String MUESTRA_EL_USUARIO_AUTENTICADO = "Muestra el usuario autenticado.";
+    public static final String USUARIO_AUTENTICADO_ENCONTRADO = "Usuario autenticado encontrado.";
+    public static final String AUTHENTICATION_HEADER_PARAM = "Authentication header param";
+    public static final String AUTENTICACIÓN_CORRECTA = "Autenticación correcta.";
+    public static final String AUTENTICAR_USUARIO = "Autenticar usuario";
+    public static final String ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE = "Entrada para la consulta de cliente.";
+    public static final String ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE = "Entrada para la notificación de aporte";
+    public static final String ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE = "Entrada para la confirmación de aporte";
+    public static final String ENTRADA_PARA_LA_AUTENTICACIÓN_DEL_USUARIO = "Entrada para la autenticación del usuario";
+    public static final String DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN
+            = "Debe autenticarse usando '/autenticar' y enviar el token recibido via Header Authentication Bearer TOKEN. Códigos de error:\n" +
+            " 7- Error de autenticacion, credenciales del banco invalidas.\n" +
+            " 8- Error de autenticacion, token no valido o expirado.";
+    public static final String PARAMETROS_INCORRECTOS = "Parametros incorrectos. Código de error 10.";
+    public static final String REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION = "Regla de negocio no cumplida. Códigos de error: \n" +
+            "  1- NPE ya ha sido Pagado.\n" +
+            "  2- NPE se ha Vencido.\n" +
+            "  3- NPE no encontrado.\n" +
+            "  4- Cliente no encontrado.\n " +
+            "  5- Cliente no posee una cuenta de participe Activa.\n" +
+            "  6- Ha ocurrido un error en el proceso, favor intente mas tarde.\n"+
+            "  9- Cliente debe actualizar su informacion en Confia para poder realizar transacciones.\n" +
+            "  11- NPE ya ha sido Notificado.\n"+
+            "  12- Cliente bloqueado por acciones legales.";
+    public static final String REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONFIRMACION = "Regla de negocio no cumplida. Códigos de error: \n" +
+            "  13- No existe una notificación de aporte en estado Ingresada con este correlativo.";
 }

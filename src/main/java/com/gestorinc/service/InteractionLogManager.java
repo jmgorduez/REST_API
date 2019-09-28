@@ -1,11 +1,11 @@
 package com.gestorinc.service;
 
-import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.controller.model.AbstractRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.repository.IInterfaceLogRepository;
 import com.gestorinc.repository.entity.LogInterfaz;
 import com.gestorinc.security.CustomRequestWrapper;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.service.dto.AbstractServiceResponseDTO;
 import com.gestorinc.service.dto.AuditDTO;
 import org.springframework.beans.factory.annotation.Autowired;

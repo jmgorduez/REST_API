@@ -1,11 +1,11 @@
 package com.gestorinc.security.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
 import com.gestorinc.security.CustomRequestWrapper;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

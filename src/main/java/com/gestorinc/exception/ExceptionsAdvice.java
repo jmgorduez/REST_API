@@ -1,10 +1,10 @@
 package com.gestorinc.exception;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
