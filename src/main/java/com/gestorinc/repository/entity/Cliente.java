@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Cliente implements Serializable {
+public class Cliente implements Serializable, Comparable {
 
     private static final long serialVersionUID = -2109414478011458398L;
     @EmbeddedId
@@ -25,4 +25,10 @@ public class Cliente implements Serializable {
     private EnumEstadoParticipe estadoParticipe;
     @Column(name = "NUMERO_CUENTA", length = 30)
     private String numeroCuenta;
+
+    @Override
+    public int compareTo(Object o) {
+        return numeroCuenta
+                .compareTo(((Cliente) o).getNumeroCuenta());
+    }
 }

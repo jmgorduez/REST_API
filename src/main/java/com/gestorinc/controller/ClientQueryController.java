@@ -1,5 +1,6 @@
 package com.gestorinc.controller;
 
+import com.gestorinc.controller.abstracts.IDTOMapper;
 import com.gestorinc.controller.abstracts.IInteractionLogManager;
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
@@ -25,6 +26,8 @@ public class ClientQueryController {
     private IClientQueryService clientQueryService;
     @Autowired
     private IInteractionLogManager logManager;
+    @Autowired
+    private IDTOMapper dtoMapper;
 
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(@NotNull @RequestBody final ClientQueryRestControllerRequest clientQueryRequest)
@@ -44,12 +47,12 @@ public class ClientQueryController {
         ClientQueryClientIdServiceResponseDTO clientQueryClientIdResponseDTO
                 = clientQueryService.queryByClientId(clientQueryRequest.getIdentificador());
 
-        ClientQueryRestControllerResponse clientQueryResponse = buildClientQueryResponse(clientQueryClientIdResponseDTO);
+        ClientQueryRestControllerResponse clientQueryResponse = dtoMapper.buildClientQueryResponse(clientQueryClientIdResponseDTO);
 
         logManager.generateAuditLog(clientQueryResponse,
                 clientQueryClientIdResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
 
-        return ok(buildClientQueryResponse(clientQueryClientIdResponseDTO));
+        return ok(clientQueryResponse);
     }
 
     private ResponseEntity<ClientQueryRestControllerResponse> clientQueryByNPE(ClientQueryRestControllerRequest clientQueryRequest) throws IOException {
@@ -57,29 +60,11 @@ public class ClientQueryController {
         ClientQueryNPEServiceResponseDTO clientQueryNPEResponseDTO
                 = clientQueryService.queryByNPE(clientQueryRequest.getIdentificador());
 
-        ClientQueryRestControllerResponse clientQueryResponse = buildClientQueryResponse(clientQueryNPEResponseDTO);
+        ClientQueryRestControllerResponse clientQueryResponse = dtoMapper.buildClientQueryResponse(clientQueryNPEResponseDTO);
 
         logManager. generateAuditLog(clientQueryResponse,
                 clientQueryNPEResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
 
         return ok(clientQueryResponse);
-    }
-
-    private ClientQueryRestControllerResponse buildClientQueryResponse(ClientQueryNPEServiceResponseDTO clientQueryClientIdResponseDTO) {
-
-        return ClientQueryRestControllerResponse.builder()
-                .nombre(clientQueryClientIdResponseDTO.getName())
-                .fondo(clientQueryClientIdResponseDTO.getProduct())
-                .monto(clientQueryClientIdResponseDTO.getAmount())
-                .respuesta(OK)
-                .build();
-    }
-
-    private ClientQueryRestControllerResponse buildClientQueryResponse(ClientQueryClientIdServiceResponseDTO clientQueryClientIdResponseDTO) {
-
-        return ClientQueryRestControllerResponse.builder()
-                .cuentaAPV(clientQueryClientIdResponseDTO.getSavingsFundAccount())
-                .respuesta(OK)
-                .build();
     }
 }

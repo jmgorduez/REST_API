@@ -23,9 +23,15 @@
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:dummydb
     driverClassName: org.h2.Driver
     username: sa
     password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    dialect: com.x.data.core.hibernate.dialect.ExtendedH2Dialect
+  h2:
+   console:
+    enabled: true
+  jackson:
+    default-property-inclusion: NON_NULL

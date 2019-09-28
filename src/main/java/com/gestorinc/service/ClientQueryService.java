@@ -9,6 +9,7 @@ import com.gestorinc.repository.entity.Producto;
 import com.gestorinc.service.abstractions.IClientQueryService;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
 import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
+import com.gestorinc.service.dto.SavingFundAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,16 +88,17 @@ public class ClientQueryService implements IClientQueryService {
     }
 
     private String getProductInformationToShow(IntencionAporte intencionAporte) {
-        return FONDO_.concat(intencionAporte.getPk().getCodigoProducto()).concat(BLANK_SPACE).concat(intencionAporte.getCuentaParticipe());
+        return FONDO_.concat(intencionAporte.getPk().getCodigoProducto()).concat(BLANK_SPACE)
+                .concat(intencionAporte.getCuentaParticipe());
     }
 
     @Override
     public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId) {
 
         List<Cliente> clienteList = getClientList(clientId);
-        List<String> participantAccountToShow = clienteList.stream()
-                .map(this::toParticipantAccountToShow)
-                .sorted(String::compareTo)
+        List<SavingFundAccountDTO> participantAccountToShow = clienteList.stream()
+                .sorted(Cliente::compareTo)
+                .map(this::toParticipantAccount)
                 .collect(toList());
         String participantAccounts = clienteList.stream()
                 .map(Cliente::getNumeroCuenta)
@@ -109,7 +111,9 @@ public class ClientQueryService implements IClientQueryService {
         return buildResponse(participantAccountToShow, participantAccounts, productCodes);
     }
 
-    private ClientQueryClientIdServiceResponseDTO buildResponse(List<String> participantAccountToShow, String participantAccounts, String productCodes) {
+    private ClientQueryClientIdServiceResponseDTO buildResponse(List<SavingFundAccountDTO> participantAccountToShow,
+                                                                String participantAccounts,
+                                                                String productCodes) {
         return ClientQueryClientIdServiceResponseDTO.builder()
                 .savingsFundAccount(participantAccountToShow)
                 .productCodeAud(productCodes)
@@ -137,7 +141,7 @@ public class ClientQueryService implements IClientQueryService {
         if (isLocal(persona) && isAdult(persona)) {
             personIdentificationRepository.findPersonIdentification(persona.getPk().getNumLicencia(),
                     persona.getPk().getCodigoPersona(), DUI_CODE)
-                    .orElseThrow(this::localAdutClientWithoutDUIIdentificationException);
+                    .orElseThrow(this::localAdultClientWithoutDUIIdentificationException);
         }
     }
 
@@ -156,7 +160,7 @@ public class ClientQueryService implements IClientQueryService {
         return new LogicBusinessException(CLIENTE_NO_ENCONTRADO_COD_4);
     }
 
-    private LogicBusinessException localAdutClientWithoutDUIIdentificationException() {
+    private LogicBusinessException localAdultClientWithoutDUIIdentificationException() {
         return new LogicBusinessException(CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES_COD_9);
     }
 
@@ -165,13 +169,14 @@ public class ClientQueryService implements IClientQueryService {
     }
 
 
-    private String toParticipantAccountToShow(Cliente cliente) {
+    private SavingFundAccountDTO toParticipantAccount(Cliente cliente) {
         Producto producto = productRepository.findOne(cliente.getPk().getProductoPK());
-        return FONDO_
-                .concat(cliente.getPk().getCodigoProducto()).concat(BLANK_SPACE)
-                .concat(maskParticipantAccount(cliente.getNumeroCuenta())).concat(BLANK_SPACE)
-                .concat(cliente.getNumeroCuenta()).concat(BLANK_SPACE)
-                .concat(producto.getGNL().toString());
+        return SavingFundAccountDTO.builder()
+                .accountDescription(FONDO_.concat(cliente.getPk().getCodigoProducto()).concat(BLANK_SPACE)
+                        .concat(maskParticipantAccount(cliente.getNumeroCuenta())))
+                .accountNumber(cliente.getNumeroCuenta())
+                .gLNCode(producto.getGNL().toString())
+                .build();
     }
 
     private String toProductCode(Cliente cliente) {

@@ -1,54 +1,57 @@
-package com.gestorinc.controller;
+package com.gestorinc.security;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.gestorinc.utils.Constants.ANONYMOUS;
+import static com.gestorinc.utils.Constants.BLANK_SPACE;
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 
-public class CurrentRequestWrapper extends HttpServletRequestWrapper {
+public class CustomRequestWrapper extends HttpServletRequestWrapper {
 
-    private final String body;
+    private String body;
     private final String ip;
     private final String operation;
     private final String authenticatedBank;
 
-    public CurrentRequestWrapper(HttpServletRequest request) throws IOException {
+    public CustomRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
 
         ip = request.getRemoteAddr();
         operation = request.getRequestURI();
         authenticatedBank = authenticatedBank(request);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
+        Optional<BufferedReader> bufferedReader = empty();
         try {
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                char[] charBuffer = new char[128];
-                int bytesRead = -1;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            } else {
-                stringBuilder.append("");
-            }
-        } catch (IOException ex) {
-            throw ex;
+            bufferedReader =
+                    ofNullable(new BufferedReader(new InputStreamReader(request.getInputStream())));
+            bufferedReader.ifPresent(this::readBodyRequest);
         } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException ex) {
-                    throw ex;
-                }
-            }
+            bufferedReader.ifPresent(this::closeBufferedReader);
         }
-        body = stringBuilder.toString();
+    }
+
+    private void readBodyRequest(BufferedReader bufferedReader) {
+        body = ofNullable(bufferedReader
+                .lines().collect(Collectors.joining()))
+                .orElse(BLANK_SPACE);
+    }
+
+    private void closeBufferedReader(BufferedReader bufferedReader) {
+        try {
+            bufferedReader.close();
+        } catch (IOException ex) {
+            throw new RuntimeException();
+        }
     }
 
     private String authenticatedBank(HttpServletRequest request) {
@@ -58,7 +61,7 @@ public class CurrentRequestWrapper extends HttpServletRequestWrapper {
         }
         return ANONYMOUS;
     }
- 
+
     @Override
     public ServletInputStream getInputStream() throws IOException {
         final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes());
@@ -75,7 +78,7 @@ public class CurrentRequestWrapper extends HttpServletRequestWrapper {
 
             @Override
             public boolean isReady() {
-                return true;
+                return false;
             }
 
             @Override
@@ -103,7 +106,6 @@ public class CurrentRequestWrapper extends HttpServletRequestWrapper {
     }
 
     public String authenticatedBank() {
-
         return authenticatedBank;
     }
 

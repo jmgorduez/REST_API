@@ -7,12 +7,13 @@ import java.util.List;
 
 @Getter
 public class ClientQueryClientIdServiceResponseDTO extends AbstractServiceResponseDTO {
-    private List<String> savingsFundAccount;
+
+    private List<SavingFundAccountDTO> savingsFundAccount;
 
     @Builder
     public ClientQueryClientIdServiceResponseDTO(String participantAccountAud,
                                                  String productCodeAud,
-                                                 List<String> savingsFundAccount) {
+                                                 List<SavingFundAccountDTO> savingsFundAccount) {
         super(participantAccountAud, productCodeAud);
         this.savingsFundAccount = savingsFundAccount;
     }

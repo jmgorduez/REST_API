@@ -16,7 +16,8 @@ import java.util.Date;
 import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.PEN;
 import static com.gestorinc.repository.entity.enums.EnumEstadoParticipe.A;
 import static com.gestorinc.repository.entity.enums.EnumTipoCliente.PAR;
-import static com.gestorinc.utils.Constants.*;
+import static com.gestorinc.utils.Constants.DUI_CODE;
+import static com.gestorinc.utils.Constants.YYYY_MM_DD;
 
 @SpringBootApplication
 public class SavingsFundContributionsApplication implements CommandLineRunner {

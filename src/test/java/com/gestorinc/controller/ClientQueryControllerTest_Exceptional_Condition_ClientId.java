@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUERY;
-import static com.gestorinc.exception.enums.Error.*;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;

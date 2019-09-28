@@ -1,5 +1,7 @@
-package com.gestorinc.security.controller;
+package com.gestorinc.controller;
 
+import com.gestorinc.controller.model.AuthenticationResponse;
+import com.gestorinc.controller.model.UserinfoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +19,9 @@ import static org.springframework.http.ResponseEntity.ok;
 public class UserinfoController {
 
     @GetMapping(USUARIO_AUTENTICADO)
-    public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
-        Map<Object, Object> model = new HashMap<>();
-        model.put(USERNAME, userDetails.getUsername());
-        return ok(model);
+    public ResponseEntity<UserinfoResponse> currentUser(@AuthenticationPrincipal UserDetails userDetails){
+        return ok(UserinfoResponse.builder()
+                .username(userDetails.getUsername())
+                .build());
     }
 }

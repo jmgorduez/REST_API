@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUERY;
-import static com.gestorinc.exception.enums.Error.*;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -112,10 +111,6 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(
-                        ErrorRestControllerResponse.builder()
-                                .respuesta(ER)
-                                .error(CLIENTE_DEBE_ACTUALIZAR_SU_INFORMACIÓN_EN_CONFIA_PARA_PODER_REALIZAR_TRANSACCIONES_COD_9.getCode())
-                                .build());
+                .isEqualToComparingFieldByFieldRecursively(ERROR_9_RESPONSE);
     }
 }

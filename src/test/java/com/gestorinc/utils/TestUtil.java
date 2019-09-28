@@ -1,13 +1,10 @@
 package com.gestorinc.utils;
 
-import com.gestorinc.controller.AuthenticationControllerTest;
 import com.gestorinc.controller.model.*;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.entity.*;
 import com.gestorinc.repository.entity.enums.EnumEstadoParticipe;
 import com.gestorinc.repository.entity.enums.EnumSiNo;
-import com.gestorinc.security.controller.AuthenticationController;
-import com.gestorinc.security.controller.model.AuthenticationRequest;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -23,11 +20,6 @@ import static com.gestorinc.repository.entity.enums.EnumTipoCliente.PAR;
 import static com.gestorinc.utils.Constants.*;
 
 public class TestUtil {
-
-    public static final String GRANT_TYPE = "grant_type";
-    public static final String CLIENT_ID = "client_id";
-    public static final String PASSWORD = "password";
-    public static final String FOO_CLIENT_ID_PASSWORD = "fooClientIdPassword";
 
     public static final String _11111111111111111111111111111111111 = "11111111111111111111111111111111111";
     public static final String _11111111111111111111111111111111112 = "11111111111111111111111111111111112";
@@ -108,16 +100,20 @@ public class TestUtil {
     public static final AuthenticationRequest LOGIN_BANCO1_REST_CONTROLLER_REQUEST =
             new AuthenticationRequest(BANCO1, BANCO1.concat(_12345678910));
 
-    public static final List<String> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
+    public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
-            FONDO_.concat(APV01).concat(BLANK_SPACE)
-                    .concat(_____0001).concat(BLANK_SPACE)
-                    .concat(APV0000000001).concat(BLANK_SPACE)
-                    .concat(_4321.toString()),
-            FONDO_.concat(APV01).concat(BLANK_SPACE)
-                    .concat(_____0002).concat(BLANK_SPACE)
-                    .concat(APV0000000002).concat(BLANK_SPACE)
-                    .concat(_4321.toString()));
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(APV01).concat(BLANK_SPACE)
+                            .concat(_____0001))
+                    .numeroCuenta(APV0000000001)
+                    .codigoGLN(_4321.toString())
+                    .build(),
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(APV01).concat(BLANK_SPACE)
+                            .concat(_____0002))
+                    .numeroCuenta(APV0000000002)
+                    .codigoGLN(_4321.toString())
+                    .build());
 
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_NPE_RESPONSE_1
             = ClientQueryRestControllerResponse.builder()
@@ -178,13 +174,13 @@ public class TestUtil {
                                                     String participat,
                                                     String product,
                                                     AbstractRestControllerRequest abstractRestControllerRequest,
-                                                    AbstractRestControllerResponse abstractRestControllerResponse,
+                                                    AbstractRestControllerResponse RestControllerResponse,
                                                     LogInterfaz.EstadoLog status,
                                                     String message) {
         try {
             return new LogInterfaz(id, user, operation, product, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
-                    OBJECT_MAPPER.writeValueAsString(abstractRestControllerResponse),
+                    OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
                     status, message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -196,12 +192,12 @@ public class TestUtil {
                                                String operation,
                                                String participat,
                                                AbstractRestControllerRequest abstractRestControllerRequest,
-                                               AbstractRestControllerResponse abstractRestControllerResponse,
+                                               AbstractRestControllerResponse RestControllerResponse,
                                                String message) {
         try {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
-                    OBJECT_MAPPER.writeValueAsString(abstractRestControllerResponse),
+                    OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
                     LogInterfaz.EstadoLog.OK, message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -216,7 +212,10 @@ public class TestUtil {
                                                     Error error) {
         return getLogInterfaceBasic(id, user, operation, null, null,
                 abstractRestControllerRequest,
-                new ErrorRestControllerResponse(ER, error.getCode()),
+                ErrorRestControllerResponse.builder()
+                        .respuesta(ER)
+                        .error(error.getCode())
+                        .build(),
                 LogInterfaz.EstadoLog.ER,
                 error.getMessage());
     }

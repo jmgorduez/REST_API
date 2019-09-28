@@ -1,6 +1,7 @@
-package com.gestorinc.security.controller;
+package com.gestorinc.controller;
 
-import com.gestorinc.security.controller.model.AuthenticationRequest;
+import com.gestorinc.controller.model.AuthenticationRequest;
+import com.gestorinc.controller.model.AuthenticationResponse;
 import com.gestorinc.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.ResponseEntity.ok;
@@ -27,23 +25,19 @@ public class AuthenticationController {
     private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping(AUTENTICACION)
-    public ResponseEntity signin(@RequestBody AuthenticationRequest data) {
+    public ResponseEntity<AuthenticationResponse> signin(@RequestBody AuthenticationRequest data) {
         try {
             String username = data.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
 
             String token = jwtTokenProvider.createToken(username);
 
-            return ok(getModel(username, token));
+            return ok(AuthenticationResponse.builder()
+                    .username(username)
+                    .token(token)
+                    .build());
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(INVALID_USERNAME_PASSWORD_SUPPLIED);
         }
-    }
-
-    private Map<Object, Object> getModel(String username, String token) {
-        Map<Object, Object> model = new HashMap<>();
-        model.put(USERNAME, username);
-        model.put(TOKEN, token);
-        return model;
     }
 }
