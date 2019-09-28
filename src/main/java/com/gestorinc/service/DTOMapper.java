@@ -1,6 +1,6 @@
-package com.gestorinc.controller;
+package com.gestorinc.service;
 
-import com.gestorinc.controller.abstracts.IDTOMapper;
+import com.gestorinc.service.abstractions.IDTOMapper;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.controller.model.SavingFundAccountResponse;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;

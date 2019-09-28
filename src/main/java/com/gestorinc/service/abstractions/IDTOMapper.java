@@ -1,4 +1,4 @@
-package com.gestorinc.controller.abstracts;
+package com.gestorinc.service.abstractions;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;

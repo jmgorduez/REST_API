@@ -1,6 +1,6 @@
-package com.gestorinc.controller;
+package com.gestorinc.service;
 
-import com.gestorinc.controller.abstracts.IInteractionLogManager;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.controller.model.AbstractRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.repository.IInterfaceLogRepository;

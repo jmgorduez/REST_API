@@ -1,6 +1,6 @@
 package com.gestorinc.security.jwt;
 
-import com.gestorinc.controller.abstracts.IInteractionLogManager;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

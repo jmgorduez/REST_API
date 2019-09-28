@@ -1,7 +1,7 @@
 package com.gestorinc.controller;
 
-import com.gestorinc.controller.abstracts.IDTOMapper;
-import com.gestorinc.controller.abstracts.IInteractionLogManager;
+import com.gestorinc.service.abstractions.IDTOMapper;
+import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.service.abstractions.IClientQueryService;
