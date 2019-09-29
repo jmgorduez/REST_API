@@ -10,13 +10,10 @@ run:
 	@ $(gradle)
 
 jar:
-	@ $(gradle) jar
+	@ $(gradle) build
 
 test:
 	@ $(gradle) test
 
-it:
-	@ $(gradle) integrationTest
-
 coverage:
-	@ $(gradle) test integrationTest jacocoTestReport
+	@ $(gradle) test jacocoTestReport
