@@ -18,7 +18,7 @@ import static java.util.Optional.ofNullable;
 
 public class CustomRequestWrapper extends HttpServletRequestWrapper {
 
-    private String body = "";
+    private String body;
     private final String ip;
     private final String operation;
     private final String authenticatedBank;
