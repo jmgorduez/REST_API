@@ -41,25 +41,26 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletResponse httpServletResponse =(HttpServletResponse) response;
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         try {
             jwtTokenProvider.resolveToken((HttpServletRequest) request)
                     .ifPresent(this::authenticate);
-            filterChain.doFilter(new CustomRequestWrapper((HttpServletRequest) request), response);
+            filterChain.doFilter(new CustomRequestWrapper(httpServletRequest), response);
         }catch (InvalidJwtAuthenticationException e) {
             httpServletResponse.setStatus(SC_UNAUTHORIZED);
-            handleException(httpServletResponse, ERROR_8_RESPONSE,
+            handleException(httpServletRequest, httpServletResponse, ERROR_8_RESPONSE,
                     ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
         }
         catch (RuntimeException e) {
             httpServletResponse.setStatus(SC_INTERNAL_SERVER_ERROR);
-            handleException(httpServletResponse, ERROR_6_RESPONSE,
+            handleException(httpServletRequest, httpServletResponse, ERROR_6_RESPONSE,
                     HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6);
         }
     }
 
-    private void handleException(HttpServletResponse response, ErrorRestControllerResponse errorResponse, Error error) throws IOException {
+    private void handleException(HttpServletRequest httpServletRequest, HttpServletResponse response, ErrorRestControllerResponse errorResponse, Error error) throws IOException {
 
-        logManager.generateAuditLogError(errorResponse, error.getMessage());
+        logManager.generateAuditLogError(httpServletRequest, errorResponse, error.getMessage());
 
         response.getWriter().write(
                 new ObjectMapper()

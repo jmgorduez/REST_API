@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
@@ -29,6 +30,8 @@ public class ClientQueryController {
     private IInteractionLogManager logManager;
     @Autowired
     private IDTOMapper dtoMapper;
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @ApiOperation(value = CONSULTAR_CLIENTE, response = ClientQueryRestControllerResponse.class,
             notes = MUESTRA_INFORMACIÓN_DEL_NPE_O_DE_LAS_CUENTAS_DEL_PARTICIPANTE_EN_DEPENDENCIA_DEL_TIPO_IDENTIFICADOR_RECIBIDO)
@@ -61,7 +64,7 @@ public class ClientQueryController {
 
         ClientQueryRestControllerResponse clientQueryResponse = dtoMapper.buildClientQueryResponse(clientQueryClientIdResponseDTO);
 
-        logManager.generateAuditLog(clientQueryResponse,
+        logManager.generateAuditLog(httpServletRequest, clientQueryResponse,
                 clientQueryClientIdResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
 
         return clientQueryResponse;
@@ -74,7 +77,7 @@ public class ClientQueryController {
 
         ClientQueryRestControllerResponse clientQueryResponse = dtoMapper.buildClientQueryResponse(clientQueryNPEResponseDTO);
 
-        logManager.generateAuditLog(clientQueryResponse,
+        logManager.generateAuditLog(httpServletRequest, clientQueryResponse,
                 clientQueryNPEResponseDTO, EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
 
         return clientQueryResponse;

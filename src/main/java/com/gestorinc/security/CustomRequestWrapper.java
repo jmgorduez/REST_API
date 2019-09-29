@@ -18,7 +18,7 @@ import static java.util.Optional.ofNullable;
 
 public class CustomRequestWrapper extends HttpServletRequestWrapper {
 
-    private String body;
+    private String body = "";
     private final String ip;
     private final String operation;
     private final String authenticatedBank;
@@ -41,6 +41,7 @@ public class CustomRequestWrapper extends HttpServletRequestWrapper {
     }
 
     private void readBodyRequest(BufferedReader bufferedReader) {
+
         body = ofNullable(bufferedReader
                 .lines().collect(Collectors.joining()))
                 .orElse(BLANK_SPACE);

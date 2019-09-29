@@ -15,7 +15,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import static com.gestorinc.exception.enums.Error.*;
 import static com.gestorinc.utils.Constants.EXCEPTION_;
@@ -28,11 +30,13 @@ public class ExceptionsAdvice {
 
     @Autowired
     private IInteractionLogManager logManager;
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @ExceptionHandler({LogicBusinessException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleBusinessException(LogicBusinessException e)
             throws IOException {
-        logManager.generateAuditLogError(errorResponse(e.getError()),e.getError().getMessage());
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(e.getError()),e.getError().getMessage());
         return error(INTERNAL_SERVER_ERROR, e.getError(), e);
     }
 
@@ -45,7 +49,7 @@ public class ExceptionsAdvice {
     @ExceptionHandler({BadCredentialsException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleBadCredentialsException(BadCredentialsException e)
             throws IOException {
-        logManager.generateAuditLogError(errorResponse(ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7),
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7),
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7.getMessage());
         return error(UNAUTHORIZED,
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7, e);

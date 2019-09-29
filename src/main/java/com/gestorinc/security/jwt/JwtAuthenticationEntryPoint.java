@@ -22,11 +22,12 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
 ;
-        logManager.generateAuditLogError(ERROR_8_RESPONSE,
+        logManager.generateAuditLogError(request, ERROR_8_RESPONSE,
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, JWT_AUTHENTICATION_FAILED);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter()
                 .write(OBJECT_MAPPER
                         .writeValueAsString(ERROR_8_RESPONSE));
+        response.getWriter().flush();
     }
 }

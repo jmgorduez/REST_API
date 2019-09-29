@@ -90,6 +90,23 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void givenEmptyToken_whenGetSecureRequest_thenUnauthorized() throws Exception {
+
+        RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
+                .content(OBJECT_MAPPER
+                        .writeValueAsBytes(CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST))
+                .contentType(APPLICATION_JSON_UTF8)
+                .accept(APPLICATION_JSON_UTF8);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(UNAUTHORIZED.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
+    }
+
+    @Test
     public void givenInvalidToken_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
 
         String accessToken = obtainAccessToken(BANCO1, BANCO1);

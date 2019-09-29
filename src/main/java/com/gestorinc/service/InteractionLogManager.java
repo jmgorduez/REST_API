@@ -21,16 +21,14 @@ public class InteractionLogManager implements IInteractionLogManager {
 
     @Autowired
     private IInterfaceLogRepository interfaceLogRepository;
-    @Autowired
-    private HttpServletRequest request;
-
     private CustomRequestWrapper currentRequestWrapper;
 
     @Override
-    public void generateAuditLog(AbstractRestControllerResponse restControllerResponse,
+    public void generateAuditLog(HttpServletRequest httpServletRequest,
+                                 AbstractRestControllerResponse restControllerResponse,
                                  AbstractServiceResponseDTO abstractServiceResponseDTO,
                                  String message) throws IOException {
-        currentRequestWrapper = new CustomRequestWrapper(request);
+        currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
         saveLog(AuditDTO.builder()
                 .user(currentRequestWrapper.authenticatedBank())
                 .product(abstractServiceResponseDTO.getProductCodeAud())
@@ -45,9 +43,10 @@ public class InteractionLogManager implements IInteractionLogManager {
     }
 
     @Override
-    public void generateAuditLogError(ErrorRestControllerResponse restControllerResponse,
+    public void generateAuditLogError(HttpServletRequest httpServletRequest,
+                                      ErrorRestControllerResponse restControllerResponse,
                                       String message) throws IOException {
-        currentRequestWrapper = new CustomRequestWrapper(request);
+        currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
         saveLog(AuditDTO.builder()
                 .user(currentRequestWrapper.authenticatedBank())
                 .operation(currentRequestWrapper.operationURL())
