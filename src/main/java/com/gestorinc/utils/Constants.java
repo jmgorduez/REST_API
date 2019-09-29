@@ -11,7 +11,7 @@ public class Constants {
     public static final String V1_CONSULTAR_CLIENTE = "/v1/consultarCliente";
     public static final String V1_NOTIFICAR_APORTE = "/v1/notificarAporte";
     public static final String V1_CONFIRMAR_APORTE = "/v1/confirmarAporte";
-    public static final String AUTENTICACION = "/autenticar";
+    public static final String AUTENTICAR = "/autenticar";
     public static final String USUARIO_AUTENTICADO = "/usuarioAutenticado";
 
     public static final String JWT_AUTHENTICATION_FAILED = "Jwt authentication failed";
@@ -110,6 +110,8 @@ public class Constants {
     public static final String ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE = "Entrada para la notificación de aporte";
     public static final String ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE = "Entrada para la confirmación de aporte";
     public static final String ENTRADA_PARA_LA_AUTENTICACIÓN_DEL_USUARIO = "Entrada para la autenticación del usuario";
+    public static final String PAGO_APORTES = "Pago aportes";
+    public static final String AUTENTICACION = "Autenticación";
     public static final String DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN
             = "Debe autenticarse usando '/autenticar' y enviar el token recibido via Header Authentication Bearer TOKEN. Códigos de error:\n" +
             " 7- Error de autenticacion, credenciales del banco invalidas.\n" +

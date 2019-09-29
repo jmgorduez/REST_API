@@ -65,14 +65,10 @@ dependencies {
     implementation "com.sun.xml.bind:jaxb-impl:2.2.11"
     implementation "javax.activation:activation:1.1.1"
 
-    compile 'io.springfox:springfox-swagger2:2.8.0'
-    compile 'io.springfox:springfox-swagger-ui:2.8.0'
+    compile 'io.springfox:springfox-swagger2:2.7.0'
+    compile 'io.springfox:springfox-swagger-ui:2.7.0'
 
-    task integrationTest(type: Test) {
-        useJUnitPlatform()
-        testLogging {
-            events 'passed', 'skipped', 'failed'
-            exceptionFormat = 'full'
-        }
+    task runapp(type: Exec) {
+        commandLine 'java', '-jar', "build/libs/REST_API-${version}.jar"
     }
 }

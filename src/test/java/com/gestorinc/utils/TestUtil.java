@@ -222,7 +222,7 @@ public class TestUtil {
 
     private static LogInterfaz getLogErrorInterface(long id, AuthenticationRequest authenticationRequest) {
         try {
-            return new LogInterfaz(id, ANONYMOUS, AUTENTICACION, null, null,
+            return new LogInterfaz(id, ANONYMOUS, AUTENTICAR, null, null,
                     OBJECT_MAPPER.writeValueAsString(authenticationRequest),
                     OBJECT_MAPPER.writeValueAsString(ERROR_7_RESPONSE),
                     LogInterfaz.EstadoLog.ER, ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7.getMessage());

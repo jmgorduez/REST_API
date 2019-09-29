@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.ResponseEntity.ok;
 
+@Api(PAGO_APORTES)
 @RestController
 public class ClientQueryController {
 
@@ -33,16 +35,15 @@ public class ClientQueryController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @ApiOperation(value = CONSULTAR_CLIENTE, response = ClientQueryRestControllerResponse.class,
-            notes = MUESTRA_INFORMACIÓN_DEL_NPE_O_DE_LAS_CUENTAS_DEL_PARTICIPANTE_EN_DEPENDENCIA_DEL_TIPO_IDENTIFICADOR_RECIBIDO)
+    @ApiOperation(value = CONSULTAR_CLIENTE, nickname = CONSULTAR_CLIENTE,response = ClientQueryRestControllerResponse.class,
+            notes = MUESTRA_INFORMACIÓN_DEL_NPE_O_DE_LAS_CUENTAS_DEL_PARTICIPANTE_EN_DEPENDENCIA_DEL_TIPO_IDENTIFICADOR_RECIBIDO,
+            tags = PAGO_APORTES)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = INFORMACIÓN_DEL_NPE_O_LA_CUENTA_DEL_PARTICIPANTE_ENCONTRADA),
             @ApiResponse(code = 401, message = DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN),
             @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS),
             @ApiResponse(code = 500, message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION)
     })
-    @ApiImplicitParam(name = TOKEN, value = TOKEN_DE_ACCESO_OBTENIDO_LUEGO_DE_AUTENTICARSE, required = true, dataType = STRING,
-            paramType = AUTHENTICATION_HEADER_PARAM)
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(
             @NotNull @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE) final ClientQueryRestControllerRequest clientQueryRequest)

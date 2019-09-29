@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import static com.gestorinc.utils.Constants.AUTENTICACION;
+import static com.gestorinc.utils.Constants.AUTENTICAR;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()*/
-                .antMatchers(AUTENTICACION).permitAll()
+                .antMatchers(AUTENTICAR).permitAll()
                 .anyRequest().authenticated()
                 .and().apply(new JwtSecurityConfigurer(jwtTokenAuthenticationFilter()))
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint());

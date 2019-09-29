@@ -7,7 +7,7 @@ refresh:
 	@ sh gradlew --refresh-dependencies
 
 run:
-	@ $(gradle)
+	@ $(gradle) build runapp
 
 jar:
 	@ $(gradle) build

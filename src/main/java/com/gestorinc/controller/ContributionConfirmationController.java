@@ -3,7 +3,6 @@ package com.gestorinc.controller;
 import com.gestorinc.controller.model.ContributionConfirmationRequest;
 import com.gestorinc.controller.model.ContributionConfirmationRestControllerResponse;
 import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +13,14 @@ import javax.validation.constraints.NotNull;
 
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.CREATED;
 
+@Api(PAGO_APORTES)
 @RestController
 public class ContributionConfirmationController {
 
     @ApiOperation(value = CONFIRMA_EL_PAGO_DE_LA_NOTIFICACIÓN_DE_APORTE,
-            response = ContributionConfirmationRequest.class)
+            response = ContributionConfirmationRequest.class,
+            tags = PAGO_APORTES)
     @ApiResponses(value = {
             @ApiResponse(code = 202, message = CONFIRMADA_LA_NOTIFICACIÓN_DE_APORTE),
             @ApiResponse(code = 401, message = DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN),

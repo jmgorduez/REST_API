@@ -15,11 +15,13 @@ import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
 
+@Api(PAGO_APORTES)
 @RestController
 public class ContributionNotificationController {
 
     @ApiOperation(value = REGISTRA_UNA_NOTIFICACION_DE_APORTE,
-            response = ContributionNotificationRestControllerRequest.class)
+            response = ContributionNotificationRestControllerRequest.class,
+            tags = PAGO_APORTES)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = CREADA_NOTIFICACIÓN_DE_APORTE),
             @ApiResponse(code = 401, message = DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN),

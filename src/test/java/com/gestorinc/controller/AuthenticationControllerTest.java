@@ -154,7 +154,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     }
 
     private MvcResult login(String username, String password) throws Exception {
-        return mockMvc.perform(post(AUTENTICACION)
+        return mockMvc.perform(post(AUTENTICAR)
                 .content(OBJECT_MAPPER
                         .writeValueAsBytes(AuthenticationRequest.builder()
                                 .username(username)

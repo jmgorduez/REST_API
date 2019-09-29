@@ -2,12 +2,8 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.AuthenticationRequest;
 import com.gestorinc.controller.model.AuthenticationResponse;
-import com.gestorinc.controller.model.UserinfoResponse;
 import com.gestorinc.security.jwt.JwtTokenProvider;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +18,7 @@ import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
+@Api(tags = AUTENTICACION)
 public class AuthenticationController {
 
     @Autowired
@@ -35,7 +32,7 @@ public class AuthenticationController {
             @ApiResponse(code = 200, message = AUTENTICACIÓN_CORRECTA),
             @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS)
     })
-    @PostMapping(produces = APPLICATION_JSON, path = AUTENTICACION)
+    @PostMapping(produces = APPLICATION_JSON, path = AUTENTICAR)
     public ResponseEntity<AuthenticationResponse> signin(
             @RequestBody @ApiParam(value = ENTRADA_PARA_LA_AUTENTICACIÓN_DEL_USUARIO)
                     AuthenticationRequest data) {
