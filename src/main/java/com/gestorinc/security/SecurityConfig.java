@@ -34,29 +34,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**").permitAll()
-                /*.antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/*.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()*/
+                .antMatchers(swaggerURLs()).permitAll()
+                .antMatchers(h2ConsoleURLs()).permitAll()
                 .antMatchers(AUTENTICAR).permitAll()
                 .anyRequest().authenticated()
                 .and().apply(new JwtSecurityConfigurer(jwtTokenAuthenticationFilter()))
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint());
     }
 
+    private String h2ConsoleURLs() {
+        return "/h2-console/**";
+    }
+
+    private String[] swaggerURLs() {
+        return new String[]{"/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**"};
+    }
+
     @Bean
-    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint(){
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
         return new JwtAuthenticationEntryPoint();
     }
 
     @Bean
-    public JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter(){
+    public JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter() {
         return new JwtTokenAuthenticationFilter(jwtTokenProvider);
     }
 }
