@@ -1,4 +1,4 @@
-# Bowling Game. 
+# Confía REST API. 
 ### Run indications.
 
 #### Run app.
