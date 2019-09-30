@@ -9,5 +9,4 @@ import lombok.Getter;
 public class LogicBusinessException extends RuntimeException {
 
     private Error error;
-    //private OperationEndpoint operationEndpoint;
 }

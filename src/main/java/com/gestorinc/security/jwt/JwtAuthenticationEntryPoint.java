@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.gestorinc.exception.enums.Error.ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8;
-import static com.gestorinc.utils.Constants.*;
+import static com.gestorinc.utils.Constants.ERROR_8_RESPONSE;
+import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

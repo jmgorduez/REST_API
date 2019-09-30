@@ -1,23 +1,23 @@
 package com.gestorinc.swagger;
 
-import com.gestorinc.utils.Constants;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static com.gestorinc.utils.Constants.AUTHORIZATION;
+import static com.gestorinc.utils.Constants.*;
+import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
+import static springfox.documentation.swagger.web.UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS;
 
 @Configuration
 @EnableSwagger2
@@ -25,16 +25,20 @@ public class SwaggerConfig {
 
     public static final String COM_GESTORINC_CONTROLLER = "com.gestorinc";
     public static final String DEFAULT_INCLUDE_PATTERN = "/v1/.*";
+    public static final String HEADER = "header";
+    public static final String LIST = "list";
+    public static final String ALPHA = "alpha";
+    public static final String SCHEMA = "schema";
 
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(COM_GESTORINC_CONTROLLER))
+                .apis(basePackage(COM_GESTORINC_CONTROLLER))
                 .build()
                 .apiInfo(metaData())
-                .tags(new Tag(Constants.PAGO_APORTES, ""),
-                        new Tag(Constants.AUTENTICACION, ""))
+                .tags(new Tag(PAGO_APORTES, ""),
+                        new Tag(AUTENTICACION, ""))
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
                 .useDefaultResponseMessages(false);
@@ -51,9 +55,8 @@ public class SwaggerConfig {
                 .build();
     }
 
-
     private ApiKey apiKey() {
-        return new ApiKey(AUTHORIZATION, AUTHORIZATION, "header");
+        return new ApiKey(AUTHORIZATION, AUTHORIZATION, HEADER);
     }
 
     private SecurityContext securityContext() {
@@ -62,4 +65,9 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public UiConfiguration uiConfig() {
+        return new UiConfiguration(null, LIST,
+                ALPHA, SCHEMA, DEFAULT_SUBMIT_METHODS, false, true, null);
+    }
 }

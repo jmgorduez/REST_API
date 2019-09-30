@@ -1,5 +1,6 @@
 package com.gestorinc.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gestorinc.controller.model.*;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.entity.*;
@@ -97,8 +98,6 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(ID, _12345678911);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678912);
-    public static final AuthenticationRequest LOGIN_BANCO1_REST_CONTROLLER_REQUEST =
-            new AuthenticationRequest(BANCO1, BANCO1.concat(_12345678910));
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -166,7 +165,9 @@ public class TestUtil {
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
             ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8);
     public static final LogInterfaz LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1 = getLogErrorInterface(1l,
-            LOGIN_BANCO1_REST_CONTROLLER_REQUEST);
+            ERROR_7_RESPONSE, ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7);
+    public static final LogInterfaz LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_10_1 = getLogErrorInterface(1l,
+            ERROR_10_RESPONSE, ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10);
 
     private static LogInterfaz getLogInterfaceBasic(long id,
                                                     String user,
@@ -183,7 +184,6 @@ public class TestUtil {
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
                     status, message);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -200,7 +200,6 @@ public class TestUtil {
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
                     LogInterfaz.EstadoLog.OK, message);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -209,25 +208,27 @@ public class TestUtil {
                                                     String user,
                                                     String operation,
                                                     AbstractRestControllerRequest abstractRestControllerRequest,
-                                                    Error error) {
-        return getLogInterfaceBasic(id, user, operation, null, null,
-                abstractRestControllerRequest,
-                ErrorRestControllerResponse.builder()
-                        .respuesta(ER)
-                        .error(error.getCode())
-                        .build(),
-                LogInterfaz.EstadoLog.ER,
-                error.getMessage());
+                                                    Error error)  {
+        try {
+            return new LogInterfaz(id, user, operation, null, null,
+                    OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
+                    OBJECT_MAPPER.writeValueAsString(ErrorRestControllerResponse.builder()
+                            .error(error.getCode())
+                            .build()),
+                    LogInterfaz.EstadoLog.ER, error.getMessage());
+        } catch (JsonProcessingException e) {
+            return null;
+        }
     }
 
-    private static LogInterfaz getLogErrorInterface(long id, AuthenticationRequest authenticationRequest) {
+    private static LogInterfaz getLogErrorInterface(long id, ErrorRestControllerResponse errorRestControllerResponse,
+                                                    Error error) {
         try {
             return new LogInterfaz(id, ANONYMOUS, AUTENTICAR, null, null,
-                    OBJECT_MAPPER.writeValueAsString(authenticationRequest),
-                    OBJECT_MAPPER.writeValueAsString(ERROR_7_RESPONSE),
-                    LogInterfaz.EstadoLog.ER, ERROR_DE_AUTENTICACIÓN_DE_BANCO_CREDENCIALES_NO_VALIDAS_COD_7.getMessage());
+                    "",
+                    OBJECT_MAPPER.writeValueAsString(errorRestControllerResponse),
+                    LogInterfaz.EstadoLog.ER, error.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }

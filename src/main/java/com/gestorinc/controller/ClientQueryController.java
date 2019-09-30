@@ -2,6 +2,7 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
+import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.service.abstractions.IClientQueryService;
 import com.gestorinc.service.abstractions.IDTOMapper;
 import com.gestorinc.service.abstractions.IInteractionLogManager;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
@@ -35,14 +35,20 @@ public class ClientQueryController {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @ApiOperation(value = CONSULTAR_CLIENTE, nickname = CONSULTAR_CLIENTE,response = ClientQueryRestControllerResponse.class,
+    @ApiOperation(value = CONSULTAR_CLIENTE, response = ClientQueryRestControllerResponse.class,
             notes = MUESTRA_INFORMACIÓN_DEL_NPE_O_DE_LAS_CUENTAS_DEL_PARTICIPANTE_EN_DEPENDENCIA_DEL_TIPO_IDENTIFICADOR_RECIBIDO,
             tags = PAGO_APORTES)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = INFORMACIÓN_DEL_NPE_O_LA_CUENTA_DEL_PARTICIPANTE_ENCONTRADA),
-            @ApiResponse(code = 401, message = DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN),
-            @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS),
-            @ApiResponse(code = 500, message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION)
+            @ApiResponse(code = 200,
+                    message = INFORMACIÓN_DEL_NPE_O_LA_CUENTA_DEL_PARTICIPANTE_ENCONTRADA,
+                    response = ClientQueryRestControllerResponse.class),
+            @ApiResponse(code = 401,
+                    message = DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN,
+                    response = ErrorRestControllerResponse.class),
+            @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS,
+                    response = ErrorRestControllerResponse.class),
+            @ApiResponse(code = 500, message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION,
+                    response = ErrorRestControllerResponse.class)
     })
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(

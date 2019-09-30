@@ -1,6 +1,5 @@
 package com.gestorinc.controller;
 
-import com.gestorinc.controller.model.AuthenticationRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import org.junit.Before;
@@ -21,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -130,19 +130,32 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     @Test
     public void givenInvalidCredentials_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
 
-        MvcResult result = login(BANCO1, BANCO1.concat(_12345678910));
+        MvcResult result = login(CLIENT_CREDENTIALS, BANCO1, BANCO1.concat(_12345678910));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(UNAUTHORIZED.value());
-       assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_7_RESPONSE);
-       assertThat(interfaceLogRepository.findOne(1l))
+        assertThat(interfaceLogRepository.findOne(1l))
                 .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1);
+    }
+
+    @Test
+    public void givenValidCredentialsWithoutValidGrantType_whenGetSecureRequest_thenBadRequest_log() throws Exception {
+
+        MvcResult result = login(BLANK_SPACE, BANCO1, BANCO1);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(BAD_REQUEST.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
+        assertThat(interfaceLogRepository.findOne(1l))
+                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_10_1);
     }
 
     private String obtainAccessToken(String username, String password) throws Exception {
 
-        MvcResult result = login(username, password);
+        MvcResult result = login(CLIENT_CREDENTIALS, username, password);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -150,15 +163,14 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         String resultString = result.getResponse().getContentAsString();
 
         JacksonJsonParser jsonParser = new JacksonJsonParser();
-        return jsonParser.parseMap(resultString).get(TOKEN).toString();
+        return jsonParser.parseMap(resultString).get(ACCESS_TOKEN).toString();
     }
 
-    private MvcResult login(String username, String password) throws Exception {
+    private MvcResult login(String grantType, String username, String password) throws Exception {
         return mockMvc.perform(post(AUTENTICAR)
-                .content(OBJECT_MAPPER
-                        .writeValueAsBytes(AuthenticationRequest.builder()
-                                .username(username)
-                                .password(password).build()))
+                .param(GRANT_TYPE, grantType)
+                .param(CLIENT_ID, username)
+                .param(CLIENT_SECRET, password)
                 .contentType(APPLICATION_JSON_UTF8)
                 .accept(APPLICATION_JSON_UTF8)).andReturn();
     }
