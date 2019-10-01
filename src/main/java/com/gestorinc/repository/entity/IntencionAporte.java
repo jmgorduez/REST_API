@@ -6,15 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "FID_INTENCION_APORTE")
+@Table(name = "FID_INTENCION_APORTE_BE")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,9 +28,12 @@ public class IntencionAporte implements Serializable {
     private Long codigoPersona;
     @Column(name = "MONTO")
     private BigDecimal monto;
+    @Column(name = "COD_MONEDA")
+    private String codigoMoneda;
     @Column(name = "CUENTA_PARTICIPE")
     private String cuentaParticipe;
     @Column(name = "ESTADO")
+    @Enumerated(value = EnumType.STRING)
     private EnumEstadoIntencionAporte estado;
 
     public PersonaPK getPersonaPK(){

@@ -10,6 +10,7 @@ import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest
+@Sql({"/schema-test.sql", "/data-test.sql"})
 public class AuthenticationControllerTest extends AbstractControllerTest {
 
     private MockMvc mockMvc;
@@ -43,13 +45,6 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     public void setUp() throws Exception {
         mockMvc = webAppContextSetup(this.wac)
                 .addFilter(springSecurityFilterChain).build();
-
-        personRepository.save(PERSONA_1234);
-        personIdentificationRepository.save(PERSONA_1234_DUI_ID);
-        personIdentificationRepository.save(PERSONA_1234_CI_ID);
-        productRepository.save(PRODUCTO_APV01);
-        clientRepository.save(CLIENTE_1234_APV0000000001);
-        clientRepository.save(CLIENTE_1234_APV0000000002);
     }
 
     @Test

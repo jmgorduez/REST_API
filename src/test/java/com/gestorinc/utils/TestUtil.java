@@ -27,6 +27,7 @@ public class TestUtil {
     public static final String _11111111111111111111111111111111113 = "11111111111111111111111111111111113";
     public static final String _11111111111111111111111111111111114 = "11111111111111111111111111111111114";
     public static final String _11111111111111111111111111111111115 = "11111111111111111111111111111111115";
+    public static final String _11111111111111111111111111111111116 = "11111111111111111111111111111111116";
 
     public static final String JUAN_MANUEL_GARCIA = "Juan Manuel Garcia";
     public static final String JORGE_MANUEL_GARCIA = "Jorge Manuel Garcia";
@@ -47,6 +48,7 @@ public class TestUtil {
     public static final String _12345678910 = "12345678910";
     public static final String _12345678911 = "12345678911";
     public static final String _12345678912 = "12345678912";
+    public static final String _12345678913 = "12345678913";
 
     public static final BigDecimal _1000 = new BigDecimal(1000).setScale(2);
     public static final Long _1234 = 1234l;
@@ -64,16 +66,17 @@ public class TestUtil {
     public static final PersonaIdentificacion PERSONA_1111_CI_ID = new PersonaIdentificacion(
             new PersonaIdentificacionPK(NUM_LICENCIA, _1111, "3"), _12345678912);
 
+    public static final String USD = "USD";
     public static final IntencionAporte INTENCION_APORTE_1 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l),
-            _11111111111111111111111111111111111, _1234, _1000, APV0000000001, PEN);
+            _11111111111111111111111111111111111, _1234, _1000, USD, APV0000000001, PEN);
     public static final IntencionAporte INTENCION_APORTE_2 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 2l),
-            _11111111111111111111111111111111112, _1234, _1000, APV0000000001, PAG);
+            _11111111111111111111111111111111112, _1234, _1000, USD, APV0000000001, PAG);
     public static final IntencionAporte INTENCION_APORTE_3 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 3l),
-            _11111111111111111111111111111111113, _1234, _1000, APV0000000001, VEN);
+            _11111111111111111111111111111111113, _1234, _1000, USD, APV0000000001, VEN);
     public static final IntencionAporte INTENCION_APORTE_4 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 4l),
-            _11111111111111111111111111111111114, _1234, _1000, APV0000000001, NTF);
+            _11111111111111111111111111111111114, _1234, _1000, USD, APV0000000001, NTF);
     public static final IntencionAporte INTENCION_APORTE_5 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l),
-            _11111111111111111111111111111111115, _1111, _1000, APV0000000004, PEN);
+            _11111111111111111111111111111111115, _1111, _1000, USD, APV0000000004, PEN);
 
     public static final Producto PRODUCTO_APV01 = new Producto(new ProductoPK(NUM_LICENCIA, COD_EMPRESA, APV01), FONDO_APV01, _4321);
 
@@ -86,18 +89,24 @@ public class TestUtil {
     public static final Cliente CLIENTE_1111_APV0000000004 = new Cliente(new ClientePK(NUM_LICENCIA, COD_EMPRESA, APV01, _1111, PAR, 1),
             A, APV0000000004);
 
-    public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_REST_CONTROLLER_REQUEST =
+    public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111111);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111112_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111115_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111115);
+    public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111116_REST_CONTROLLER_REQUEST =
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111116);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678910);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678911_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678911);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678912);
+    public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST =
+            new ClientQueryRestControllerRequest(ID, _12345678913);
+    public static final ClientQueryRestControllerRequest INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST =
+            new ClientQueryRestControllerRequest("XXXXXXX", _12345678913);
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -129,11 +138,11 @@ public class TestUtil {
 
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_NPE_1 = getLogInterface(1l, V1_CONSULTAR_CLIENTE,
             APV0000000001,
-            CLIENT_QUERY_NPE_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
+            CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_NPE_2 = getLogInterface(2l, V1_CONSULTAR_CLIENTE,
             APV0000000001,
-            CLIENT_QUERY_NPE_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
+            CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1 = getLogInterface(1l, V1_CONSULTAR_CLIENTE,
             APV0000000001.concat(BLANK_SPACE).concat(APV0000000002),
@@ -154,7 +163,7 @@ public class TestUtil {
             CLIENTE_NO_ENCONTRADO_COD_4);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_5_2 = getLogErrorInterface(2l, BANCO1,
             V1_CONSULTAR_CLIENTE,
-            CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
+            CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST,
             CLIENTE_NO_POSEE_CUENTA_ACTIVA_COD_5);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_NPE_ER_1_1 = getLogErrorInterface(1l, BANCO1,
             V1_CONSULTAR_CLIENTE,

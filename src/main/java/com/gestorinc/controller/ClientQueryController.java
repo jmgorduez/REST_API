@@ -11,6 +11,7 @@ import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,15 +54,17 @@ public class ClientQueryController {
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(
             @NotNull @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE) final ClientQueryRestControllerRequest clientQueryRequest)
-            throws IOException {
+            throws IOException, MissingServletRequestParameterException {
 
         if (clientQueryRequest.getTipoIdentificador().equals(NPE)) {
 
             return ok(clientQueryByNPE(clientQueryRequest));
-        } else {
+        } else if (clientQueryRequest.getTipoIdentificador().equals(ID)) {
 
             return ok(clientQueryByClientId(clientQueryRequest));
         }
+
+        throw new MissingServletRequestParameterException(TIPO_DE_IDENTIFICADOR, String.class.getName());
     }
 
     private ClientQueryRestControllerResponse clientQueryByClientId(ClientQueryRestControllerRequest clientQueryRequest) throws IOException {

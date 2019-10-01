@@ -123,6 +123,9 @@ public class Constants {
             = "Debe autenticarse usando '/autenticar' y enviar el token recibido via Header Authentication Bearer TOKEN. Códigos de error:\n" +
             " 7- Error de autenticación, credenciales del banco inválidas.\n" +
             " 8- Error de autenticación, token no válido o expirado.";
+    public static final String CREDENCIALES_INVALIDAS
+            = "Credenciales invalidas. Código de error:\n" +
+            " 7- Error de autenticación, credenciales del banco inválidas.";
     public static final String PARAMETROS_INCORRECTOS = "Parámetros incorrectos. Código de error 10.";
     public static final String REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION = "Regla de negocio no cumplida. Códigos de error: \n" +
             "  1- NPE ya ha sido Pagado.\n" +

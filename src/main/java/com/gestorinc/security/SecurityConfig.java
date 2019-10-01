@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
+                .headers().frameOptions().disable()
+                .and().sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().authorizeRequests()
                 .antMatchers(swaggerURLs()).permitAll()
                 .antMatchers(h2ConsoleURLs()).permitAll()

@@ -49,11 +49,6 @@ public abstract class AbstractControllerTest {
     @After
     public void tearDown() throws Exception {
         mockMvc = null;
-        personRepository.deleteAll();
-        personIdentificationRepository.deleteAll();
-        productRepository.deleteAll();
-        clientRepository.deleteAll();
-        contributionIntentionRepository.deleteAll();
         interfaceLogRepository.deleteAll();
     }
 }

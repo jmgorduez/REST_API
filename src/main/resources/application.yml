@@ -27,9 +27,13 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: password
+    initialization-mode: always
+    initialize: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     dialect: com.x.data.core.hibernate.dialect.ExtendedH2Dialect
+    hibernate:
+      ddl-auto: none
   h2:
    console:
     enabled: true

@@ -26,7 +26,7 @@ public class Persona implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_NACIMIENTO", nullable = false)
     private Date fechaNacimiento;
-    @Column(name = "LOCAL", nullable = false, length = 1)
+    @Column(name = "PAIS_LOCAL", nullable = false, length = 1)
     @Enumerated(value = EnumType.STRING)
     private EnumSiNo local;
 }

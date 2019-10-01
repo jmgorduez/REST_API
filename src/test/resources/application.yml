@@ -1,10 +1,15 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
     password: password
+    initialization-mode: always
+    initialize: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    dialect: com.x.data.core.hibernate.dialect.ExtendedH2Dialect
+    hibernate:
+      ddl-auto: none
   jackson:
     default-property-inclusion: NON_NULL

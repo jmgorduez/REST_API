@@ -36,7 +36,10 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = AUTENTICACIÓN_CORRECTA),
             @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS,
-            response = ErrorRestControllerResponse.class)
+            response = ErrorRestControllerResponse.class),
+            @ApiResponse(code = 401,
+                    message = CREDENCIALES_INVALIDAS,
+                    response = ErrorRestControllerResponse.class)
     })
     @PostMapping(produces = APPLICATION_JSON, path = AUTENTICAR)
     public ResponseEntity<AuthenticationResponse> signin(
