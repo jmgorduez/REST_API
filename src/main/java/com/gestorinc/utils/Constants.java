@@ -33,6 +33,8 @@ public class Constants {
     public static final String _____ = "*****";
     public static final String EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE = "Ejecución de consulta de cliente por NPE";
     public static final String EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE = "Ejecución de consulta de cliente por Id cliente";
+    public static final String EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_NPE = "Ejecución de notificacion de aporte por NPE";
+    public static final String EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_IDENTIFICACION_DE_CLIENTE = "Ejecución de notificacion de aporte por identificacion de cliente";
     public static final String DUI_CODE = "10";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String ANONYMOUS = "anonymous";
@@ -72,6 +74,8 @@ public class Constants {
             errorResponse(ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10);
     public static final ErrorRestControllerResponse ERROR_11_RESPONSE =
             errorResponse(NPE_NOTIFICADO_COD_11);
+    public static final ErrorRestControllerResponse ERROR_14_RESPONSE =
+            errorResponse(FORMA_PAGO_NO_EXISTE_14);
 
     public static ErrorRestControllerResponse errorResponse(Error error){
         return ErrorRestControllerResponse.builder()

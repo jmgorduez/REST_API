@@ -28,4 +28,8 @@ public class IntencionAportePK implements Serializable {
     @Column(name = "SEC_INTENCION", nullable = false, length = 15)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected Long secIntencion;
+
+    public ProductoPK getProductoPK(){
+        return new ProductoPK(numLicencia, codigoEmpresa, codigoProducto);
+    }
 }

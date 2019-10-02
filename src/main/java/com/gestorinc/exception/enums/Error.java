@@ -19,7 +19,9 @@ public enum Error {
     NPE_NOTIFICADO_COD_11("11", "ERROR: NPE ya ha sido Notificado."),
     CLIENTE_BLOQUEADO_POR_ACCIONES_LEGALES_COD_12("12", "ERROR: Cliente bloqueado por acciones legales."),
     NO_EXISTE_UNA_NOTIFICACION_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13("13", "ERROR: No existe una notificación de aporte en estado Ingresada con este correlativo."),
-    FORMA_PAGO_NO_EXISTE_14("14", "ERROR: Forma de pago no existe.");
+    FORMA_PAGO_NO_EXISTE_14("14", "ERROR: Forma de pago no existe."),
+    PRODUCTO_CON_GLN_NO_ENCONTRADO("15", "ERROR: No existe un producto registrado con este GNL."),
+    CLIENTE_NO_TIENE_CUENTA_REGISTRADA("16", "ERROR: Cliente no tiene la cuenta registrada.");
 
     private final String code;
     private final String message;

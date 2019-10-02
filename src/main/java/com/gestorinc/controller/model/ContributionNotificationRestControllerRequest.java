@@ -29,7 +29,7 @@ public final class ContributionNotificationRestControllerRequest extends Abstrac
     private final BigDecimal monto;
     @ApiModelProperty(notes = CÓDIGO_GNL_DEL_FONDO_CÓDIGO_IDENTIFICADOR_DEL_FONDO,
             position = 7)
-    private final String codigoGNL;
+    private final Integer codigoGNL;
 
     @Builder
     public ContributionNotificationRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,
@@ -38,7 +38,7 @@ public final class ContributionNotificationRestControllerRequest extends Abstrac
                                                          @JsonProperty("medioPago") Integer medioPago,
                                                          @JsonProperty("cuentaAPV") String cuentaAPV,
                                                          @JsonProperty("monto") BigDecimal monto,
-                                                         @JsonProperty("codigoGNL") String codigoGNL) {
+                                                         @JsonProperty("codigoGNL") Integer codigoGNL) {
         super(tipoIdentificador, identificador);
         this.fechaAporte = fechaAporte;
         this.medioPago = medioPago;

@@ -11,12 +11,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import static com.gestorinc.utils.Constants.AUTENTICAR;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
+@EnableTransactionManagement
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

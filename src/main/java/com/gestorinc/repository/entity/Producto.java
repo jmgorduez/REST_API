@@ -27,5 +27,8 @@ public class Producto implements Serializable {
     private String nombre;
 
     @Column(name = "GLN", nullable = false, length = 100)
-    private Integer gNL;
+    private Integer gLN;
+
+    @Column(name = "COD_MONEDA", nullable = false, length = 4)
+    private String codigoMoneda;
 }

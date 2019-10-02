@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface IContributionNotificationRepository extends CrudRepository<NotificacionAporte, NotificacionAportePK> {
 
-    Optional<NotificacionAporte> findByPk(NotificacionAportePK tipoFormaPagoVistaPK);
+    Optional<NotificacionAporte> findByPk(NotificacionAportePK notificacionAportePK);
 
     @Query(" select max(notif.pk.secNotificacion) + 1 from NotificacionAporte notif " +
             " where notif.pk.numLicencia = ?1 and notif.pk.codigoEmpresa = ?2 " +
