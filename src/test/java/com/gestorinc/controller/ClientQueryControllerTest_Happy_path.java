@@ -22,16 +22,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @Sql({"/schema-test.sql", "/data-test.sql"})
 public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest {
 
-    @Before
-    public void setUp() throws Exception {
-        mockMvc = webAppContextSetup(this.wac).build();
-    }
-
     @Test
     public void clientQueryByNPE_should_return_the_client_query_response_for_the_contribution_intention_by_NPE()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -43,7 +38,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
     public void clientQueryByNPE_should_return_the_client_query_response_for_the_contribution_intention_by_NPE_log1()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -51,7 +46,8 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_NPE_RESPONSE_1);
 
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_NPE_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_NPE_1,
+                        FECHA_HORA_REGISTRO);
 
     }
 
@@ -61,7 +57,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
 
         interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_NPE_1);
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -69,7 +65,8 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_NPE_RESPONSE_1);
 
         assertThat(interfaceLogRepository.findOne(2l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_NPE_2);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_NPE_2,
+                        FECHA_HORA_REGISTRO);
 
     }
 
@@ -77,7 +74,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
     public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -90,7 +87,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
     public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id_log1()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -98,7 +95,8 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);
 
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
@@ -107,7 +105,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
 
         interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
@@ -115,6 +113,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);
 
         assertThat(interfaceLogRepository.findOne(2l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_2);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_2,
+                        FECHA_HORA_REGISTRO);
     }
 }

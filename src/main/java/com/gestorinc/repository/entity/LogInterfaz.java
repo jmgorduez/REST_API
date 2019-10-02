@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "AUD_INTERFAZ_LOG")
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class LogInterfaz implements Serializable {
 
     public enum EstadoLog {OK, ER}
@@ -36,7 +38,7 @@ public class LogInterfaz implements Serializable {
     private String participe;
 
     @Column(name = "TRAMA_PEDIDO")
-    private String TramaRequest;
+    private String tramaRequest;
 
     @Column(name = "TRAMA_RESPUESTA")
     private String tramaResponse;
@@ -49,4 +51,9 @@ public class LogInterfaz implements Serializable {
     @Column(name = "MENSAJE")
     @NotNull
     private String mensaje;
+
+    @Column(name = "FECHA_HORA_REG")
+    @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
+    private Date fechaHoraRegistro;
 }

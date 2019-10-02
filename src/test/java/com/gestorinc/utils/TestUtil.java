@@ -4,20 +4,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gestorinc.controller.model.*;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.entity.*;
-import com.gestorinc.repository.entity.enums.EnumEstadoParticipe;
-import com.gestorinc.repository.entity.enums.EnumSiNo;
+import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static com.gestorinc.exception.enums.Error.*;
-import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.*;
-import static com.gestorinc.repository.entity.enums.EnumEstadoParticipe.A;
-import static com.gestorinc.repository.entity.enums.EnumTipoCliente.PAR;
 import static com.gestorinc.utils.Constants.*;
 
 public class TestUtil {
@@ -30,20 +27,21 @@ public class TestUtil {
     public static final String _11111111111111111111111111111111116 = "11111111111111111111111111111111116";
 
     public static final String JUAN_MANUEL_GARCIA = "Juan Manuel Garcia";
-    public static final String JORGE_MANUEL_GARCIA = "Jorge Manuel Garcia";
     public static final String FONDO_APV01_APV0000000001 = "Fondo APV01 APV0000000001";
-    public static final String FONDO_APV01 = "Fondo APV01";
-    public static final String APV01 = "APV01";
+    public static final Integer NUM_LICENCIA = 1;
     public static final String COD_EMPRESA = "1";
+    public static final String APV01 = "APV01";
     public static final String BANCO1 = "BANCO1";
     public static final String BEARER_ = "Bearer ";
+    public static final String FECHA_HORA_REGISTRO = "fechaHoraRegistro";
+    public static final String PK = "pk";
+    public static final String FECHA_HORA_APORTE = "fechaHoraAporte";
+
 
     public static final String APV0000000001 = "APV0000000001";
     public static final String _____0001 = _____.concat("0001");
     public static final String APV0000000002 = "APV0000000002";
-    public static final String APV0000000003 = "APV0000000003";
     public static final String _____0002 = _____.concat("0002");
-    public static final String APV0000000004 = "APV0000000004";
 
     public static final String _12345678910 = "12345678910";
     public static final String _12345678911 = "12345678911";
@@ -51,43 +49,9 @@ public class TestUtil {
     public static final String _12345678913 = "12345678913";
 
     public static final BigDecimal _1000 = new BigDecimal(1000).setScale(2);
-    public static final Long _1234 = 1234l;
-    public static final Long _1111 = 1111l;
-    public static final Integer NUM_LICENCIA = 1;
     public static final Integer _4321 = 4321;
+    public static final Long _1234 = 1234l;
 
-    public static final Persona PERSONA_1234 = new Persona(new PersonaPK(NUM_LICENCIA, _1234), JUAN_MANUEL_GARCIA, getDate("2000-03-01"), EnumSiNo.N);
-    public static final Persona PERSONA_1111 = new Persona(new PersonaPK(NUM_LICENCIA, _1111), JORGE_MANUEL_GARCIA, getDate("2000-03-01"), EnumSiNo.S);
-
-    public static final PersonaIdentificacion PERSONA_1234_DUI_ID = new PersonaIdentificacion(
-            new PersonaIdentificacionPK(NUM_LICENCIA, _1234, DUI_CODE), _12345678910);
-    public static final PersonaIdentificacion PERSONA_1234_CI_ID = new PersonaIdentificacion(
-            new PersonaIdentificacionPK(NUM_LICENCIA, _1234, "3"), _12345678910);
-    public static final PersonaIdentificacion PERSONA_1111_CI_ID = new PersonaIdentificacion(
-            new PersonaIdentificacionPK(NUM_LICENCIA, _1111, "3"), _12345678912);
-
-    public static final String USD = "USD";
-    public static final IntencionAporte INTENCION_APORTE_1 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l),
-            _11111111111111111111111111111111111, _1234, _1000, USD, APV0000000001, PEN);
-    public static final IntencionAporte INTENCION_APORTE_2 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 2l),
-            _11111111111111111111111111111111112, _1234, _1000, USD, APV0000000001, PAG);
-    public static final IntencionAporte INTENCION_APORTE_3 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 3l),
-            _11111111111111111111111111111111113, _1234, _1000, USD, APV0000000001, VEN);
-    public static final IntencionAporte INTENCION_APORTE_4 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 4l),
-            _11111111111111111111111111111111114, _1234, _1000, USD, APV0000000001, NTF);
-    public static final IntencionAporte INTENCION_APORTE_5 = new IntencionAporte(new IntencionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l),
-            _11111111111111111111111111111111115, _1111, _1000, USD, APV0000000004, PEN);
-
-    public static final Producto PRODUCTO_APV01 = new Producto(new ProductoPK(NUM_LICENCIA, COD_EMPRESA, APV01), FONDO_APV01, _4321);
-
-    public static final Cliente CLIENTE_1234_APV0000000001 = new Cliente(new ClientePK(NUM_LICENCIA, COD_EMPRESA, APV01, _1234, PAR, 1),
-            A, APV0000000001);
-    public static final Cliente CLIENTE_1234_APV0000000002 = new Cliente(new ClientePK(NUM_LICENCIA, COD_EMPRESA, APV01, _1234, PAR, 2),
-            A, APV0000000002);
-    public static final Cliente CLIENTE_1234_APV0000000003 = new Cliente(new ClientePK(NUM_LICENCIA, COD_EMPRESA, APV01, _1234, PAR, 3),
-            EnumEstadoParticipe.I, APV0000000003);
-    public static final Cliente CLIENTE_1111_APV0000000004 = new Cliente(new ClientePK(NUM_LICENCIA, COD_EMPRESA, APV01, _1111, PAR, 1),
-            A, APV0000000004);
 
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111111);
@@ -107,6 +71,16 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(ID, _12345678913);
     public static final ClientQueryRestControllerRequest INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest("XXXXXXX", _12345678913);
+
+    public static final String _2019_02_01 = "2019-02-01";
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(NPE)
+                    .identificador(_11111111111111111111111111111111111)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .build();
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -133,6 +107,12 @@ public class TestUtil {
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_CLIENT_ID_RESPONSE_1
             = ClientQueryRestControllerResponse.builder()
             .cuentaAPV(SAVINGS_ACCOUNTS_APV0000000001_APV0000000002)
+            .respuesta(OK)
+            .build();
+
+    public static final ContributionNotificationRestControllerResponse CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1
+            = ContributionNotificationRestControllerResponse.builder()
+            .correlativo(1l)
             .respuesta(OK)
             .build();
 
@@ -178,6 +158,20 @@ public class TestUtil {
     public static final LogInterfaz LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_10_1 = getLogErrorInterface(1l,
             ERROR_10_RESPONSE, ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10);
 
+    public static final String USD = "USD";
+    public static final NotificacionAporte CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111 = NotificacionAporte.builder()
+            .pk(new NotificacionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l))
+            .codigoPersona(_1234)
+            .numeroCuenta(APV0000000001)
+            .nPE(_11111111111111111111111111111111111)
+            .codigoMoneda(USD)
+            .estado(EnumEstadoNotificacionAporte.ING)
+            .fechaHoraRegistro(Calendar.getInstance().getTime())
+            .fechaHoraAporte(getDate(_2019_02_01))
+            .codigoFormaPago("1")
+            .monto(_1000)
+            .build();
+
     private static LogInterfaz getLogInterfaceBasic(long id,
                                                     String user,
                                                     String operation,
@@ -191,7 +185,7 @@ public class TestUtil {
             return new LogInterfaz(id, user, operation, product, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
-                    status, message);
+                    status, message, getDate(_2019_02_01));
         } catch (Exception e) {
             return null;
         }
@@ -207,7 +201,7 @@ public class TestUtil {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
-                    LogInterfaz.EstadoLog.OK, message);
+                    LogInterfaz.EstadoLog.OK, message, getDate(_2019_02_01));
         } catch (Exception e) {
             return null;
         }
@@ -217,14 +211,14 @@ public class TestUtil {
                                                     String user,
                                                     String operation,
                                                     AbstractRestControllerRequest abstractRestControllerRequest,
-                                                    Error error)  {
+                                                    Error error) {
         try {
             return new LogInterfaz(id, user, operation, null, null,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(ErrorRestControllerResponse.builder()
                             .error(error.getCode())
                             .build()),
-                    LogInterfaz.EstadoLog.ER, error.getMessage());
+                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_2019_02_01));
         } catch (JsonProcessingException e) {
             return null;
         }
@@ -236,13 +230,13 @@ public class TestUtil {
             return new LogInterfaz(id, ANONYMOUS, AUTENTICAR, null, null,
                     "",
                     OBJECT_MAPPER.writeValueAsString(errorRestControllerResponse),
-                    LogInterfaz.EstadoLog.ER, error.getMessage());
+                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_2019_02_01));
         } catch (Exception e) {
             return null;
         }
     }
 
-    private static Date getDate(String value) {
+    public static Date getDate(String value) {
         try {
             return new SimpleDateFormat(YYYY_MM_DD).parse(value);
         } catch (ParseException e) {

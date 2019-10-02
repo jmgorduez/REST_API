@@ -13,6 +13,7 @@ public abstract class AbstractRestControllerRequest {
 
     @ApiModelProperty(notes = TIPO_DE_IDENTIFICADOR,
             required = true, allowableValues = NPE_ID, position = 1)
+    @NotNull
     protected final String tipoIdentificador;
     @NotNull
     @ApiModelProperty(notes = IDENTIFICADOR, required = true, position = 2)

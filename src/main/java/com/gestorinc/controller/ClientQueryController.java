@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
@@ -53,7 +54,8 @@ public class ClientQueryController {
     })
     @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(
-            @NotNull @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE) final ClientQueryRestControllerRequest clientQueryRequest)
+            @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE)
+            final ClientQueryRestControllerRequest clientQueryRequest)
             throws IOException, MissingServletRequestParameterException {
 
         if (clientQueryRequest.getTipoIdentificador().equals(NPE)) {

@@ -23,17 +23,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @Sql({"/schema-test.sql", "/data-test.sql"})
 public class ClientQueryControllerTest_Exceptional_Condition_NPE extends AbstractControllerTest {
 
-
-    @Before
-    public void setUp() throws Exception {
-        mockMvc = webAppContextSetup(this.wac).build();
-    }
-
     @Test
     public void clientQueryByNPE_should_return_ER_1()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY,
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
                 new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112));
 
         assertThat(result.getResponse().getStatus())
@@ -46,7 +40,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
     public void clientQueryByNPE_should_return_ER_1_log()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY,
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
                 CLIENT_QUERY_NPE_11111111111111111111111111111111112_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
@@ -55,14 +49,15 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
                 .isEqualToComparingFieldByFieldRecursively(ERROR_1_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_NPE_ER_1_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_NPE_ER_1_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
     public void clientQueryByNPE_should_return_ER_2()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY,
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
                 new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111113));
 
         assertThat(result.getResponse().getStatus())
@@ -75,7 +70,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
     public void clientQueryByNPE_should_return_ER_11()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY,
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
                 new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111114));
 
         assertThat(result.getResponse().getStatus())
@@ -89,7 +84,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
     public void clientQueryByNPE_should_return_ER_3()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111115_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111115_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -101,7 +96,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
     public void clientQueryByNPE_should_return_ER_9()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111116_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_NPE_11111111111111111111111111111111116_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());

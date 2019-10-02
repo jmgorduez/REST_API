@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import static com.gestorinc.utils.Constants.*;
@@ -36,7 +37,8 @@ public class ContributionConfirmationController {
     @PutMapping(produces = APPLICATION_JSON, path = V1_CONFIRMAR_APORTE)
     @ResponseStatus(ACCEPTED)
     public ResponseEntity<ContributionConfirmationRestControllerResponse> contributionConfirmation(
-            @NotNull @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE) final ContributionConfirmationRequest contributionConfirmationRequest) {
+            @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE)
+            final ContributionConfirmationRequest contributionConfirmationRequest) {
         return new ResponseEntity<ContributionConfirmationRestControllerResponse>(
                 ContributionConfirmationRestControllerResponse.builder()
                         .respuesta(OK)

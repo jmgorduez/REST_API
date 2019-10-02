@@ -18,7 +18,8 @@ public enum Error {
     ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10("10", "ERROR: Error en los parametros recibidos."),
     NPE_NOTIFICADO_COD_11("11", "ERROR: NPE ya ha sido Notificado."),
     CLIENTE_BLOQUEADO_POR_ACCIONES_LEGALES_COD_12("12", "ERROR: Cliente bloqueado por acciones legales."),
-    NO_EXISTE_UNA_NOTIFICACION_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13("13", "ERROR: No existe una notificación de aporte en estado Ingresada con este correlativo.");
+    NO_EXISTE_UNA_NOTIFICACION_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13("13", "ERROR: No existe una notificación de aporte en estado Ingresada con este correlativo."),
+    FORMA_PAGO_NO_EXISTE_14("14", "ERROR: Forma de pago no existe.");
 
     private final String code;
     private final String message;

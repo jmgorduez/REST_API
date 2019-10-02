@@ -23,18 +23,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @Sql({"/schema-test.sql", "/data-test.sql"})
 public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends AbstractControllerTest {
 
-
-    @Before
-    public void setUp() throws Exception {
-        mockMvc = webAppContextSetup(this.wac).build();
-        interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_4_1);
-    }
-
     @Test
     public void clientQueryByClientId_should_return_ER_4_personNotFound()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -46,7 +39,9 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
     public void clientQueryByClientId_should_return_ER_4_personNotFound_log()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
+        interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -54,14 +49,15 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
                 .isEqualToComparingFieldByFieldRecursively(ERROR_4_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(2l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_4_2);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_4_2,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
     public void clientQueryByClientId_should_return_ER_5()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -73,7 +69,9 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
     public void clientQueryByClientId_should_return_ER_5_log()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST);
+        interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -81,14 +79,15 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
                 .isEqualToComparingFieldByFieldRecursively(ERROR_5_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(2l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_5_2);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_5_2,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
     public void clientQueryByClientId_should_return_ER_9()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -100,7 +99,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
     public void clientQueryWithInvalidIdType_should_return_ER_10()
             throws Exception {
 
-        MvcResult result = executeRestInteraction(CLIENT_QUERY, INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST);
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST);
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.BAD_REQUEST.value());

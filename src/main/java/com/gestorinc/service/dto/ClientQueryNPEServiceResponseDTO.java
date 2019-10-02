@@ -8,15 +8,19 @@ import java.math.BigDecimal;
 @Getter
 public class ClientQueryNPEServiceResponseDTO extends AbstractServiceResponseDTO {
 
-    private String name;
-    private String product;
+    private String participantName;
+    private String productNameToShow;
     private BigDecimal amount;
 
     @Builder
-    public ClientQueryNPEServiceResponseDTO(String productCodeAud, String participantAccountAud, String name, String product, BigDecimal amount){
+    public ClientQueryNPEServiceResponseDTO(String productCodeAud,
+                                            String participantAccountAud,
+                                            String participantName,
+                                            String productNameToShow,
+                                            BigDecimal amount){
         super(participantAccountAud, productCodeAud);
-        this.product = product;
-        this.name = name;
+        this.productNameToShow = productNameToShow;
+        this.participantName = participantName;
         this.amount = amount;
     }
 }

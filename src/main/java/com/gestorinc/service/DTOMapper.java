@@ -1,10 +1,12 @@
 package com.gestorinc.service;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
+import com.gestorinc.controller.model.ContributionNotificationRestControllerResponse;
 import com.gestorinc.controller.model.SavingFundAccountResponse;
 import com.gestorinc.service.abstractions.IDTOMapper;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
 import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
+import com.gestorinc.service.dto.ContributionNotificationServiceResponseDTO;
 import com.gestorinc.service.dto.SavingFundAccountDTO;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +23,8 @@ public class DTOMapper implements IDTOMapper {
     public ClientQueryRestControllerResponse buildClientQueryResponse(ClientQueryNPEServiceResponseDTO clientQueryClientIdResponseDTO) {
 
         return ClientQueryRestControllerResponse.builder()
-                .nombre(clientQueryClientIdResponseDTO.getName())
-                .fondo(clientQueryClientIdResponseDTO.getProduct())
+                .nombre(clientQueryClientIdResponseDTO.getParticipantName())
+                .fondo(clientQueryClientIdResponseDTO.getProductNameToShow())
                 .monto(clientQueryClientIdResponseDTO.getAmount())
                 .respuesta(OK)
                 .build();
@@ -38,6 +40,15 @@ public class DTOMapper implements IDTOMapper {
 
         return ClientQueryRestControllerResponse.builder()
                 .cuentaAPV(savingFundAccountResponses)
+                .respuesta(OK)
+                .build();
+    }
+
+    @Override
+    public ContributionNotificationRestControllerResponse buildContributionNotificationResponse(
+            ContributionNotificationServiceResponseDTO contributionNotificationServiceResponseDTO) {
+        return ContributionNotificationRestControllerResponse.builder()
+                .correlativo(contributionNotificationServiceResponseDTO.getCorrelative())
                 .respuesta(OK)
                 .build();
     }

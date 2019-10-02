@@ -8,27 +8,32 @@ import com.gestorinc.security.CustomRequestWrapper;
 import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.service.dto.AbstractServiceResponseDTO;
 import com.gestorinc.service.dto.AuditDTO;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
+import static java.util.Optional.ofNullable;
 
 @Component
 public class InteractionLogManager implements IInteractionLogManager {
 
     @Autowired
     private IInterfaceLogRepository interfaceLogRepository;
-    private CustomRequestWrapper currentRequestWrapper;
 
     @Override
     public void generateAuditLog(HttpServletRequest httpServletRequest,
                                  AbstractRestControllerResponse restControllerResponse,
                                  AbstractServiceResponseDTO abstractServiceResponseDTO,
                                  String message) throws IOException {
-        currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
+        CustomRequestWrapper currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
         saveLog(AuditDTO.builder()
                 .user(currentRequestWrapper.authenticatedBank())
                 .product(abstractServiceResponseDTO.getProductCodeAud())
@@ -46,7 +51,7 @@ public class InteractionLogManager implements IInteractionLogManager {
     public void generateAuditLogError(HttpServletRequest httpServletRequest,
                                       ErrorRestControllerResponse restControllerResponse,
                                       String message) throws IOException {
-        currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
+        CustomRequestWrapper currentRequestWrapper = new CustomRequestWrapper(httpServletRequest);
         saveLog(AuditDTO.builder()
                 .user(currentRequestWrapper.authenticatedBank())
                 .operation(currentRequestWrapper.operationURL())
@@ -60,15 +65,21 @@ public class InteractionLogManager implements IInteractionLogManager {
 
     private synchronized void saveLog(AuditDTO auditDTO) {
 
-        Long autoIncrementedId = interfaceLogRepository.nextSequence() != null ?
-                interfaceLogRepository.nextSequence() :
-                1L;
+        Long autoIncrementedId =
+                interfaceLogRepository.nextSequence().orElse(1L);
 
-        LogInterfaz logInterfaz =
-                new LogInterfaz(autoIncrementedId,
-                        auditDTO.getUser(), auditDTO.getOperation(), auditDTO.getProduct(),
-                        auditDTO.getParticipant(), auditDTO.getJsonRequestFrame(), auditDTO.getJsonResponseFrame(),
-                        LogInterfaz.EstadoLog.valueOf(auditDTO.getStatus().name()), auditDTO.getMessage());
+        LogInterfaz logInterfaz = LogInterfaz.builder()
+                .id(autoIncrementedId)
+                .fechaHoraRegistro(Calendar.getInstance().getTime())
+                .usuario(auditDTO.getUser())
+                .operacion(auditDTO.getOperation())
+                .estado(LogInterfaz.EstadoLog.valueOf(auditDTO.getStatus().name()))
+                .producto(auditDTO.getProduct())
+                .participe(auditDTO.getParticipant())
+                .tramaRequest(auditDTO.getJsonRequestFrame())
+                .tramaResponse(auditDTO.getJsonResponseFrame())
+                .mensaje(auditDTO.getMessage())
+                .build();
         interfaceLogRepository.save(logInterfaz);
     }
 }

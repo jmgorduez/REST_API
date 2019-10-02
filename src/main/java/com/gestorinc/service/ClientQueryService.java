@@ -51,8 +51,8 @@ public class ClientQueryService implements IClientQueryService {
 
     private ClientQueryNPEServiceResponseDTO buildResponse(IntencionAporte intencionAporte, Persona participe) {
         return ClientQueryNPEServiceResponseDTO.builder()
-                .name(participe.getNombres())
-                .product(getProductInformationToShow(intencionAporte))
+                .participantName(participe.getNombres())
+                .productNameToShow(getProductInformationToShow(intencionAporte))
                 .amount(intencionAporte.getMonto())
                 .productCodeAud(intencionAporte.getPk().getCodigoProducto())
                 .participantAccountAud(intencionAporte.getCuentaParticipe())

@@ -62,7 +62,8 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
                 .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
 
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
@@ -119,7 +120,8 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
@@ -132,7 +134,8 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_7_RESPONSE);
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_7_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
@@ -145,7 +148,8 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
         assertThat(interfaceLogRepository.findOne(1l))
-                .isEqualToComparingFieldByFieldRecursively(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_10_1);
+                .isEqualToIgnoringGivenFields(LOG_INTERFACE_LOGIN_INVALID_CREDENTIALS_ER_10_1,
+                        FECHA_HORA_REGISTRO);
     }
 
     private String obtainAccessToken(String username, String password) throws Exception {
