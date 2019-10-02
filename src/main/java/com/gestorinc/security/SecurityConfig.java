@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint());
     }
 
-    private String h2ConsoleURLs() {
-        return "/h2-console/**";
+    private String[] h2ConsoleURLs() {
+        return new String[]{ "/h2-console/**", "/favicon.ico"};
     }
 
     private String[] swaggerURLs() {
