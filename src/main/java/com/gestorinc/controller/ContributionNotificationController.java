@@ -10,6 +10,9 @@ import com.gestorinc.service.dto.ContributionNotificationServiceResponseDTO;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -57,16 +60,41 @@ public class ContributionNotificationController {
     @PutMapping(produces = APPLICATION_JSON, path = V1_NOTIFICAR_APORTE)
     @ResponseStatus(CREATED)
     public ResponseEntity<ContributionNotificationRestControllerResponse> contributionNotification(
-            @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE) final ContributionNotificationRestControllerRequest contributionNotificationRequest) throws IOException {
+            @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE) final ContributionNotificationRestControllerRequest contributionNotificationRequest)
+            throws IOException, MissingServletRequestParameterException {
 
-        if (contributionNotificationRequest.getTipoIdentificador().equals(NPE)) {
+        if (isByNPE(contributionNotificationRequest)) {
             return new ResponseEntity<ContributionNotificationRestControllerResponse>(
                     buildContributionNotificationByNPERestControllerResponse(
                             contributionNotificationRequest), CREATED);
-        } else {
+        } else if (isByClientId(contributionNotificationRequest)){
+            validateMethodParams(contributionNotificationRequest);
             return new ResponseEntity<ContributionNotificationRestControllerResponse>(
                     buildContributionNotificationByClientIdRestControllerResponse(
                             contributionNotificationRequest), CREATED);
+        }
+
+        throw new MissingServletRequestParameterException(TIPO_DE_IDENTIFICADOR, String.class.getName());
+    }
+
+    private boolean isByNPE(ContributionNotificationRestControllerRequest request) {
+        return request.getTipoIdentificador().equals(NPE);
+    }
+
+    private boolean isByClientId(ContributionNotificationRestControllerRequest request) {
+        return request.getTipoIdentificador().equals(ID);
+    }
+
+    private void validateMethodParams(ContributionNotificationRestControllerRequest contributionNotificationRequest)
+            throws MissingServletRequestParameterException {
+        if (contributionNotificationRequest.getCodigoGNL() == null) {
+            throw new MissingServletRequestParameterException(CODIGO_GNL, Integer.class.getName());
+        }
+        if (StringUtils.isEmpty(contributionNotificationRequest.getCuentaAPV())) {
+            throw new MissingServletRequestParameterException(CUENTA_APV, String.class.getName());
+        }
+        if (contributionNotificationRequest.getMonto() == null) {
+            throw new MissingServletRequestParameterException(MONTO, String.class.getName());
         }
     }
 

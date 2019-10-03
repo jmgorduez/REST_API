@@ -3,6 +3,7 @@ package com.gestorinc.controller;
 import com.gestorinc.controller.model.AuthenticationResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.security.jwt.JwtTokenProvider;
+import com.gestorinc.security.service.abstracts.IEncryptionManager;
 import io.swagger.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.ofNullable;
@@ -30,36 +33,33 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private IEncryptionManager encryptionManager;
 
     @ApiOperation(value = AUTENTICAR_USUARIO, response = AuthenticationResponse.class,
             notes = MUESTRA_EL_USUARIO_AUTENTICADO)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = AUTENTICACIÓN_CORRECTA),
             @ApiResponse(code = 400, message = PARAMETROS_INCORRECTOS,
-            response = ErrorRestControllerResponse.class),
+                    response = ErrorRestControllerResponse.class),
             @ApiResponse(code = 401,
                     message = CREDENCIALES_INVALIDAS,
                     response = ErrorRestControllerResponse.class)
     })
     @PostMapping(produces = APPLICATION_JSON, path = AUTENTICAR)
     public ResponseEntity<AuthenticationResponse> signin(
-            @RequestParam(GRANT_TYPE)
-            @NotEmpty
+            @Valid @NotEmpty @RequestParam(GRANT_TYPE)
             @ApiParam(value = TIPO_DE_CONCESIÓN, required = true, defaultValue = CLIENT_CREDENTIALS) final String grantType,
-            @RequestParam(CLIENT_ID)
+            @Valid @NotEmpty @RequestParam(CLIENT_ID)
             @ApiParam(value = CÓDIGO_DE_BANCO, required = true) final String username,
-            @RequestParam(CLIENT_SECRET)
+            @Valid @NotEmpty @RequestParam(CLIENT_SECRET)
             @ApiParam(value = CONTRASEÑA_DE_ACCESO, required = true) final String password)
             throws MissingServletRequestParameterException {
 
-        ofNullable(grantType)
-                .filter(Objects::nonNull)
-                .filter(param -> param.equals(CLIENT_CREDENTIALS))
-                .orElseThrow(() ->
-                        new MissingServletRequestParameterException(GRANT_TYPE, String.class.getTypeName()));
-
+        validateParamGrantType(grantType);
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, encryptionManager.encrypt(password)));
 
             String token = jwtTokenProvider.createToken(username);
 
@@ -73,5 +73,20 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(INVALID_USERNAME_PASSWORD_SUPPLIED);
         }
+    }
+
+    private void validateParamGrantType(String grantType) throws MissingServletRequestParameterException {
+        ofNullable(grantType)
+                .filter(Objects::nonNull)
+                .filter(this::isClientCredentialsParam)
+                .orElseThrow(this::throwMissingServletRequestParameterException);
+    }
+
+    private boolean isClientCredentialsParam(String param) {
+        return param.equals(CLIENT_CREDENTIALS);
+    }
+
+    private MissingServletRequestParameterException throwMissingServletRequestParameterException() {
+        return new MissingServletRequestParameterException(GRANT_TYPE, String.class.getTypeName());
     }
 }

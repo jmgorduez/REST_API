@@ -119,4 +119,17 @@ public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_14_RESPONSE);
     }
+
+    @Test
+    public void clientQueryWithInvalidIdType_should_return_ER_10()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_NOTIFICATION,
+                INVALID_CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_REQUEST);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,7 +41,7 @@ public class ExceptionsAdvice {
         return error(INTERNAL_SERVER_ERROR, e.getError(), e);
     }
 
-    @ExceptionHandler({MissingServletRequestParameterException.class})
+    @ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleMissingServletRequestParameterException(
             MissingServletRequestParameterException e)
             throws IOException {
@@ -62,7 +63,9 @@ public class ExceptionsAdvice {
 
     @ExceptionHandler({InvalidJwtAuthenticationException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleInvalidJwtAuthenticationException(
-            InvalidJwtAuthenticationException e) {
+            InvalidJwtAuthenticationException e) throws IOException {
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8),
+                ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8.getMessage());
         return error(UNAUTHORIZED,
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8, e);
     }
@@ -70,7 +73,9 @@ public class ExceptionsAdvice {
     @ExceptionHandler({RuntimeException.class, JsonProcessingException.class, IOException.class,
             HttpMediaTypeNotSupportedException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleRunTimeException(
-            RuntimeException e) {
+            RuntimeException e) throws IOException {
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6),
+                HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6.getMessage());
         return error(INTERNAL_SERVER_ERROR,
                 HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6, e);
     }

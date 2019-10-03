@@ -46,6 +46,9 @@ public class Constants {
     public static final String TIPO_DE_TOKEN = "Tipo de token";
     public static final String TIEMPO_DE_VALIDEZ_DEL_TOKEN = "Tiempo de validez del token";
     public static final String BEARED = "beared";
+    public static final String CODIGO_GNL = "Codigo GNL";
+    public static final String CUENTA_APV = "Cuenta APV";
+    public static final String MONTO = "Monto";
 
     public static final Integer TOKEN_EXPIRES_IN = 3600;
 

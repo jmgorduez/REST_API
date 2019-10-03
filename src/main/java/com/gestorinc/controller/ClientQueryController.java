@@ -2,6 +2,7 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
+import com.gestorinc.controller.model.ContributionNotificationRestControllerRequest;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.service.abstractions.IClientQueryService;
 import com.gestorinc.service.abstractions.IDTOMapper;
@@ -58,15 +59,23 @@ public class ClientQueryController {
             final ClientQueryRestControllerRequest clientQueryRequest)
             throws IOException, MissingServletRequestParameterException {
 
-        if (clientQueryRequest.getTipoIdentificador().equals(NPE)) {
+        if (isByNPE(clientQueryRequest)) {
 
             return ok(clientQueryByNPE(clientQueryRequest));
-        } else if (clientQueryRequest.getTipoIdentificador().equals(ID)) {
+        } else if (isByClientId(clientQueryRequest)) {
 
             return ok(clientQueryByClientId(clientQueryRequest));
         }
 
         throw new MissingServletRequestParameterException(TIPO_DE_IDENTIFICADOR, String.class.getName());
+    }
+
+    private boolean isByNPE(ClientQueryRestControllerRequest request) {
+        return request.getTipoIdentificador().equals(NPE);
+    }
+
+    private boolean isByClientId(ClientQueryRestControllerRequest request) {
+        return request.getTipoIdentificador().equals(ID);
     }
 
     private ClientQueryRestControllerResponse clientQueryByClientId(ClientQueryRestControllerRequest clientQueryRequest) throws IOException {

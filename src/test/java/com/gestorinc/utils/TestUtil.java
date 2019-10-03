@@ -143,6 +143,80 @@ public class TestUtil {
                     .cuentaAPV(APV0000000001)
                     .codigoGNL(_4321)
                     .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_AMOUNT_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678910)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(null)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGNL(_4321)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_PARTICIPANT_ACCOUNT_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678910)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(null)
+                    .codigoGNL(_4321)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_GLN_CODE_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678910)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGNL(null)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_UNREGISTERED_PERSON_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678911)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGNL(_4321)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_INACTIVE_CLIENT_ACCOUNT_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678913)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGNL(_4321)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_LOCAL_PERSON_WITHOUT_DUI_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678912)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGNL(_4321)
+                    .build();
+
+    public static final ContributionNotificationRestControllerRequest INVALID_CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador("XXXXXXX")
+                    .identificador(_12345678913)
+                    .fechaAporte(getDate(_2019_02_01))
+                    .medioPago(1)
+                    .build();
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
