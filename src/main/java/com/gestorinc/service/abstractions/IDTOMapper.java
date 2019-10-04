@@ -1,9 +1,11 @@
 package com.gestorinc.service.abstractions;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
+import com.gestorinc.controller.model.ContributionConfirmationRestControllerResponse;
 import com.gestorinc.controller.model.ContributionNotificationRestControllerResponse;
 import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
 import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
+import com.gestorinc.service.dto.ContributionConfirmationServiceResponseDTO;
 import com.gestorinc.service.dto.ContributionNotificationServiceResponseDTO;
 
 public interface IDTOMapper {

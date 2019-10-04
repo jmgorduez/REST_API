@@ -8,11 +8,11 @@ import static com.gestorinc.exception.enums.Error.*;
 
 public class Constants {
 
-    public static final String V1_CONSULTAR_CLIENTE = "/v1/consultarCliente";
-    public static final String V1_NOTIFICAR_APORTE = "/v1/notificarAporte";
-    public static final String V1_CONFIRMAR_APORTE = "/v1/confirmarAporte";
-    public static final String AUTENTICAR = "/autenticar";
-    public static final String USUARIO_AUTENTICADO = "/usuarioAutenticado";
+    public static final String V1_CONSULTAR_CLIENTE = "/v1/cof/servicios-apv-web/consultarCliente";
+    public static final String V1_NOTIFICAR_APORTE = "/v1/cof/servicios-apv-web/notificarAporte";
+    public static final String V1_CONFIRMAR_APORTE = "/v1/cof/servicios-apv-web/confirmarAporte";
+    public static final String AUTENTICAR = "/v1/cof/servicios-apv-web/autenticar";
+    public static final String USUARIO_AUTENTICADO = "/v1/cof/servicios-apv-web/usuarioAutenticado";
 
     public static final String INVALID_USERNAME_PASSWORD_SUPPLIED = "Invalid username/password supplied";
     public static final String EXPIRED_OR_INVALID_JWT_TOKEN = "Expired or invalid JWT token";
@@ -34,7 +34,9 @@ public class Constants {
     public static final String EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE = "Ejecución de consulta de cliente por NPE";
     public static final String EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE = "Ejecución de consulta de cliente por Id cliente";
     public static final String EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_NPE = "Ejecución de notificacion de aporte por NPE";
-    public static final String EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_IDENTIFICACION_DE_CLIENTE = "Ejecución de notificacion de aporte por identificacion de cliente";
+    public static final String EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_IDENTIFICACION_DE_CLIENTE
+            = "Ejecución de notificacion de aporte por identificacion de cliente";
+    public static final String EJECUCIÓN_DE_CONFIRMACIÓN_DE_APORTE = "Ejecución de confirmación de aporte";
     public static final String DUI_CODE = "10";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
     public static final String ANONYMOUS = "anonymous";
@@ -45,7 +47,7 @@ public class Constants {
     public static final String TIPO_DE_CONCESIÓN = "Tipo de concesión";
     public static final String TIPO_DE_TOKEN = "Tipo de token";
     public static final String TIEMPO_DE_VALIDEZ_DEL_TOKEN = "Tiempo de validez del token";
-    public static final String BEARED = "beared";
+    public static final String BEARER = "bearer";
     public static final String CODIGO_GNL = "Codigo GNL";
     public static final String CUENTA_APV = "Cuenta APV";
     public static final String MONTO = "Monto";
@@ -79,6 +81,8 @@ public class Constants {
             errorResponse(NPE_NOTIFICADO_COD_11);
     public static final ErrorRestControllerResponse ERROR_14_RESPONSE =
             errorResponse(FORMA_PAGO_NO_EXISTE_14);
+    public static final ErrorRestControllerResponse ERROR_17_RESPONSE =
+            errorResponse(NOTIFICACION_APORTE_NO_EXISTE_17);
 
     public static ErrorRestControllerResponse errorResponse(Error error){
         return ErrorRestControllerResponse.builder()

@@ -3,8 +3,6 @@ package com.gestorinc.service.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.math.BigDecimal;
-
 @Getter
 public class ContributionNotificationServiceResponseDTO extends AbstractServiceResponseDTO {
 

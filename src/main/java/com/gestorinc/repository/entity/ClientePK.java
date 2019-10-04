@@ -29,7 +29,7 @@ public class ClientePK implements Serializable {
     @Column(name = "COD_PRODUCTO", nullable = false, length = 15)
     private String codigoProducto;
 
-    @Column(name = "COD_PERSONA", nullable = false, length = 10)
+    @Column(name = "COD_PERSONA", nullable = false, columnDefinition = "BIGINT")
     private Long codigoPersona;
 
     @Column(name = "TIPO_CLIENTE", nullable = false, length = 3)

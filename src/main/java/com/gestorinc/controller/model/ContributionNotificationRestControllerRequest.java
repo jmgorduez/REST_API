@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -29,7 +28,7 @@ public final class ContributionNotificationRestControllerRequest extends Abstrac
     private final BigDecimal monto;
     @ApiModelProperty(notes = CÓDIGO_GNL_DEL_FONDO_CÓDIGO_IDENTIFICADOR_DEL_FONDO,
             position = 7)
-    private final Integer codigoGNL;
+    private final Integer codigoGLN;
 
     @Builder
     public ContributionNotificationRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,
@@ -38,12 +37,12 @@ public final class ContributionNotificationRestControllerRequest extends Abstrac
                                                          @JsonProperty("medioPago") Integer medioPago,
                                                          @JsonProperty("cuentaAPV") String cuentaAPV,
                                                          @JsonProperty("monto") BigDecimal monto,
-                                                         @JsonProperty("codigoGNL") Integer codigoGNL) {
+                                                         @JsonProperty("codigoGNL") Integer codigoGLN) {
         super(tipoIdentificador, identificador);
         this.fechaAporte = fechaAporte;
         this.medioPago = medioPago;
         this.cuentaAPV = cuentaAPV;
         this.monto = monto;
-        this.codigoGNL = codigoGNL;
+        this.codigoGLN = codigoGLN;
     }
 }

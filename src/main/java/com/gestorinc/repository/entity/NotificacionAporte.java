@@ -1,6 +1,5 @@
 package com.gestorinc.repository.entity;
 
-import com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte;
 import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 import lombok.*;
 
@@ -18,8 +17,15 @@ import java.util.Date;
 @Builder
 public class NotificacionAporte implements Serializable {
 
-    @EmbeddedId
-    private NotificacionAportePK pk;
+    @Id
+    @Column(name = "SEC_NOTIFICACION", nullable = false, length = 15)
+    private Long secNotificacion;
+    @Column(name = "NUM_LICENCIA", nullable = false, length = 10)
+    private Integer numLicencia;
+    @Column(name = "COD_EMPRESA", nullable = false, length = 15)
+    private String codigoEmpresa;
+    @Column(name = "COD_PRODUCTO", nullable = false, length = 15)
+    private String codigoProducto;
     @Column(name = "NPE")
     private String nPE;
     @Column(name = "COD_PERSONA", nullable = false)

@@ -2,15 +2,12 @@ package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
 import com.gestorinc.repository.IClientRepository;
-import com.gestorinc.repository.IContributionIntentionRepository;
 import com.gestorinc.repository.IPersonIdentificationRepository;
 import com.gestorinc.repository.IPersonRepository;
 import com.gestorinc.repository.entity.Cliente;
-import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.Persona;
 import com.gestorinc.repository.entity.PersonaPK;
 import com.gestorinc.service.abstractions.IClientManager;
-import com.gestorinc.service.abstractions.IContributionIntentionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

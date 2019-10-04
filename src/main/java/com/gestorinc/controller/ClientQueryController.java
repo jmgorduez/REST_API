@@ -2,7 +2,6 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
-import com.gestorinc.controller.model.ContributionNotificationRestControllerRequest;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.service.abstractions.IClientQueryService;
 import com.gestorinc.service.abstractions.IDTOMapper;

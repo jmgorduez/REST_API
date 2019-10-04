@@ -1,26 +1,18 @@
 package com.gestorinc.service;
 
-import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
-import com.gestorinc.controller.model.ContributionNotificationRestControllerResponse;
-import com.gestorinc.controller.model.SavingFundAccountResponse;
 import com.gestorinc.exception.LogicBusinessException;
 import com.gestorinc.repository.IContributionIntentionRepository;
 import com.gestorinc.repository.entity.IntencionAporte;
+import com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte;
 import com.gestorinc.service.abstractions.IContributionIntentionManager;
-import com.gestorinc.service.abstractions.IDTOMapper;
-import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
-import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
-import com.gestorinc.service.dto.ContributionNotificationServiceResponseDTO;
-import com.gestorinc.service.dto.SavingFundAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.EntityNotFoundException;
 
 import static com.gestorinc.exception.enums.Error.*;
-import static com.gestorinc.exception.enums.Error.NPE_NOTIFICADO_COD_11;
-import static com.gestorinc.utils.Constants.OK;
+import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.NTF;
+import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.RES;
 
 @Component
 public class ContributionIntentionManager implements IContributionIntentionManager {
@@ -37,7 +29,20 @@ public class ContributionIntentionManager implements IContributionIntentionManag
     }
 
     @Override
-    public void save(IntencionAporte intencionAporte) {
+    public void markContributionIntentionAsRES(String npe) {
+        IntencionAporte intencionAporte =
+                contributionIntentionRepository.findByNPE(npe)
+                        .orElseThrow(EntityNotFoundException::new);
+        intencionAporte.setEstado(RES);
+        contributionIntentionRepository.save(intencionAporte);
+    }
+
+    @Override
+    public void markContributionIntentionAsNTF(String npe) {
+        IntencionAporte intencionAporte =
+                contributionIntentionRepository.findByNPE(npe)
+                        .orElseThrow(EntityNotFoundException::new);
+        intencionAporte.setEstado(NTF);
         contributionIntentionRepository.save(intencionAporte);
     }
 

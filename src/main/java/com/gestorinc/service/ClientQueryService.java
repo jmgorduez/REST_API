@@ -1,6 +1,6 @@
 package com.gestorinc.service;
 
-import com.gestorinc.repository.*;
+import com.gestorinc.repository.IProductRepository;
 import com.gestorinc.repository.entity.Cliente;
 import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.Persona;

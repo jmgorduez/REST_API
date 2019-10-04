@@ -9,7 +9,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUERY;
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;

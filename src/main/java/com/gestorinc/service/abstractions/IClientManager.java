@@ -1,7 +1,6 @@
 package com.gestorinc.service.abstractions;
 
 import com.gestorinc.repository.entity.Cliente;
-import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.Persona;
 import com.gestorinc.repository.entity.PersonaPK;
 

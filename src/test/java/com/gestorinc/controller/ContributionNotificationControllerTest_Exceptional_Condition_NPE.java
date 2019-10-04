@@ -1,8 +1,6 @@
 package com.gestorinc.controller;
 
-import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
-import com.gestorinc.utils.TestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +9,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUERY;
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;

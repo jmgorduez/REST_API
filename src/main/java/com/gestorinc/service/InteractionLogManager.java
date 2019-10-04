@@ -8,19 +8,14 @@ import com.gestorinc.security.CustomRequestWrapper;
 import com.gestorinc.service.abstractions.IInteractionLogManager;
 import com.gestorinc.service.dto.AbstractServiceResponseDTO;
 import com.gestorinc.service.dto.AuditDTO;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
-import static java.util.Optional.ofNullable;
 
 @Component
 public class InteractionLogManager implements IInteractionLogManager {

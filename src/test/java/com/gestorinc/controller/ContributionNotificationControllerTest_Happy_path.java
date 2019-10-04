@@ -4,7 +4,6 @@ import com.gestorinc.controller.model.ContributionNotificationRestControllerResp
 import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.LogInterfaz;
 import com.gestorinc.repository.entity.NotificacionAporte;
-import com.gestorinc.repository.entity.NotificacionAportePK;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.NTF;
-import static com.gestorinc.utils.Constants.*;
+import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -56,8 +55,6 @@ public class ContributionNotificationControllerTest_Happy_path extends AbstractC
         NotificacionAporte notificacionAporte =
                 contributionNotificationRepository.findByNPE(_11111111111111111111111111111111111)
                         .orElseThrow(IllegalStateException::new);
-        assertThat(notificacionAporte.getPk())
-                .isEqualToComparingFieldByFieldRecursively(CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111.getPk());
         assertThat(notificacionAporte)
                 .isEqualToIgnoringGivenFields(
                         CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111, PK, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
@@ -85,11 +82,11 @@ public class ContributionNotificationControllerTest_Happy_path extends AbstractC
 
     private void validateCreatedContributionNotificationByClientId() {
         NotificacionAporte notificacionAporte =
-                contributionNotificationRepository.findByPk(new NotificacionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l))
+                contributionNotificationRepository.findBySecNotificacion(3l)
                         .orElseThrow(IllegalStateException::new);
         assertThat(notificacionAporte)
                 .isEqualToIgnoringGivenFields(
-                        CONTRIBUTION_NOTIFICATION_12345678910, PK, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
+                        CONTRIBUTION_NOTIFICATION_12345678910, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
     }
 
     private void validateSavedLogForContributionNotificationByClientId() {

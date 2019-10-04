@@ -39,8 +39,4 @@ public class IntencionAporte implements Serializable {
     public PersonaPK getPersonaPK(){
         return new PersonaPK(pk.numLicencia, codigoPersona);
     }
-
-    public NotificacionAportePK getNotificacionAportePK(Long secNotificacion){
-        return new NotificacionAportePK(pk.numLicencia,pk.codigoEmpresa,pk.codigoProducto, secNotificacion);
-    }
 }

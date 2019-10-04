@@ -11,7 +11,6 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.io.IOException;
 
 import static com.gestorinc.utils.Constants.*;
@@ -87,7 +85,7 @@ public class ContributionNotificationController {
 
     private void validateMethodParams(ContributionNotificationRestControllerRequest contributionNotificationRequest)
             throws MissingServletRequestParameterException {
-        if (contributionNotificationRequest.getCodigoGNL() == null) {
+        if (contributionNotificationRequest.getCodigoGLN() == null) {
             throw new MissingServletRequestParameterException(CODIGO_GNL, Integer.class.getName());
         }
         if (StringUtils.isEmpty(contributionNotificationRequest.getCuentaAPV())) {
@@ -109,7 +107,7 @@ public class ContributionNotificationController {
                         contributionNotificationRequest.getMedioPago().toString(),
                         contributionNotificationRequest.getCuentaAPV(),
                         contributionNotificationRequest.getMonto(),
-                        contributionNotificationRequest.getCodigoGNL());
+                        contributionNotificationRequest.getCodigoGLN());
         ContributionNotificationRestControllerResponse response =
                 dtoMapper.buildContributionNotificationResponse(responseDTO);
         interactionLogManager.generateAuditLog(httpServletRequest, response,

@@ -33,7 +33,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     dialect: com.x.data.core.hibernate.dialect.ExtendedH2Dialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
   h2:
    console:
     enabled: true

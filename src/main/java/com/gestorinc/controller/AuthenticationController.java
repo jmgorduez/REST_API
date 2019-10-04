@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.ofNullable;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -46,7 +46,8 @@ public class AuthenticationController {
                     message = CREDENCIALES_INVALIDAS,
                     response = ErrorRestControllerResponse.class)
     })
-    @PostMapping(produces = APPLICATION_JSON, path = AUTENTICAR)
+    @PostMapping(consumes = APPLICATION_FORM_URLENCODED_VALUE,
+            produces = APPLICATION_JSON, path = AUTENTICAR)
     public ResponseEntity<AuthenticationResponse> signin(
             @Valid @NotEmpty @RequestParam(GRANT_TYPE)
             @ApiParam(value = TIPO_DE_CONCESIÓN, required = true, defaultValue = CLIENT_CREDENTIALS) final String grantType,
@@ -66,7 +67,7 @@ public class AuthenticationController {
             return ok(AuthenticationResponse.builder()
                     .username(username)
                     .access_token(token)
-                    .token_type(BEARED)
+                    .token_type(BEARER)
                     .expires_in(TOKEN_EXPIRES_IN)
                     .respuesta(OK)
                     .build());

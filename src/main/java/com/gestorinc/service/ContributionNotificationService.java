@@ -1,7 +1,9 @@
 package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
-import com.gestorinc.repository.*;
+import com.gestorinc.repository.IContributionNotificationRepository;
+import com.gestorinc.repository.IPaymentMethodRepository;
+import com.gestorinc.repository.IProductRepository;
 import com.gestorinc.repository.entity.*;
 import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 import com.gestorinc.service.abstractions.IClientManager;
@@ -16,7 +18,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.gestorinc.exception.enums.Error.*;
+import static com.gestorinc.exception.enums.Error.FORMA_PAGO_NO_EXISTE_14;
+import static com.gestorinc.exception.enums.Error.PRODUCTO_CON_GLN_NO_ENCONTRADO;
 import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.NTF;
 
 @Service
@@ -68,8 +71,7 @@ public class ContributionNotificationService implements IContributionNotificatio
 
         contributionNotificationRepository.save(notificacionAporte);
 
-        intencionAporte.setEstado(NTF);
-        contributionIntentionManager.save(intencionAporte);
+        contributionIntentionManager.markContributionIntentionAsNTF(intencionAporte.getNPE());
 
         return secNotification;
     }
@@ -82,7 +84,10 @@ public class ContributionNotificationService implements IContributionNotificatio
     private NotificacionAporte buildContributionNotification(Date contributionDate, String paymentMethodCode,
                                                              IntencionAporte intencionAporte, Long secNotificacion) {
         return NotificacionAporte.builder()
-                .pk(intencionAporte.getNotificacionAportePK(secNotificacion))
+                .secNotificacion(secNotificacion)
+                .numLicencia(intencionAporte.getPk().getNumLicencia())
+                .codigoEmpresa(intencionAporte.getPk().getCodigoEmpresa())
+                .codigoProducto(intencionAporte.getPk().getCodigoProducto())
                 .nPE(intencionAporte.getNPE())
                 .codigoPersona(intencionAporte.getCodigoPersona())
                 .numeroCuenta(intencionAporte.getCuentaParticipe())
@@ -100,8 +105,10 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                              Date contributionDate, BigDecimal amount,
                                                              String paymentMethodCode) {
         return NotificacionAporte.builder()
-                .pk(new NotificacionAportePK(producto.getPk().getNumLicencia(), producto.getPk().getCodigoEmpresa(),
-                        producto.getPk().getCodigoProducto(), secNotificacion))
+                .numLicencia(producto.getPk().getNumLicencia())
+                .codigoEmpresa(producto.getPk().getCodigoEmpresa())
+                .codigoProducto(producto.getPk().getCodigoProducto())
+                .secNotificacion(secNotificacion)
                 .nPE(null)
                 .codigoPersona(personCode)
                 .numeroCuenta(participantAccount)
@@ -115,10 +122,8 @@ public class ContributionNotificationService implements IContributionNotificatio
     }
 
     private Long getNextSequence(ProductoPK productoPK) {
-        return contributionNotificationRepository.nextSequence(
-                productoPK.getNumLicencia(),
-                productoPK.getCodigoEmpresa(),
-                productoPK.getCodigoProducto()).orElse(1l);
+        return contributionNotificationRepository.nextSequence()
+                .orElse(1l);
     }
 
     private LogicBusinessException paymentMethodNotFoundException() {

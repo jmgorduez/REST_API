@@ -2,9 +2,9 @@ package com.gestorinc.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gestorinc.controller.model.*;
-import com.gestorinc.controller.model.enums.OperationEndpoint;
 import com.gestorinc.exception.enums.Error;
-import com.gestorinc.repository.entity.*;
+import com.gestorinc.repository.entity.LogInterfaz;
+import com.gestorinc.repository.entity.NotificacionAporte;
 import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 
 import java.math.BigDecimal;
@@ -26,6 +26,7 @@ public class TestUtil {
     public static final String _11111111111111111111111111111111114 = "11111111111111111111111111111111114";
     public static final String _11111111111111111111111111111111115 = "11111111111111111111111111111111115";
     public static final String _11111111111111111111111111111111116 = "11111111111111111111111111111111116";
+    public static final String _11111111111111111111111111111111117 = "11111111111111111111111111111111117";
 
     public static final String JUAN_MANUEL_GARCIA = "Juan Manuel Garcia";
     public static final String FONDO_APV01_APV0000000001 = "Fondo APV01 APV0000000001";
@@ -141,7 +142,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_AMOUNT_REST_CONTROLLER_REQUEST =
@@ -152,7 +153,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(null)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_PARTICIPANT_ACCOUNT_REST_CONTROLLER_REQUEST =
@@ -163,7 +164,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(null)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_WITHOUT_GLN_CODE_REST_CONTROLLER_REQUEST =
@@ -174,7 +175,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(null)
+                    .codigoGLN(null)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_UNREGISTERED_PERSON_REST_CONTROLLER_REQUEST =
@@ -185,7 +186,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_INACTIVE_CLIENT_ACCOUNT_REST_CONTROLLER_REQUEST =
@@ -196,7 +197,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_CLIENT_ID_LOCAL_PERSON_WITHOUT_DUI_REST_CONTROLLER_REQUEST =
@@ -207,7 +208,7 @@ public class TestUtil {
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
-                    .codigoGNL(_4321)
+                    .codigoGLN(_4321)
                     .build();
 
     public static final ContributionNotificationRestControllerRequest INVALID_CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_REQUEST =
@@ -217,6 +218,13 @@ public class TestUtil {
                     .fechaAporte(getDate(_2019_02_01))
                     .medioPago(1)
                     .build();
+
+    public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_NPE_REST_CONTROLLER_REQUEST =
+            new ContributionConfirmationRequest(1l, "XXXXXXXX");
+    public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_2_REST_CONTROLLER_REQUEST =
+            new ContributionConfirmationRequest(2l, "XXXXXXXX");
+    public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_3_REST_CONTROLLER_REQUEST =
+            new ContributionConfirmationRequest(3l, "XXXXXXXX");
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -248,7 +256,7 @@ public class TestUtil {
 
     public static final ContributionNotificationRestControllerResponse CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1
             = ContributionNotificationRestControllerResponse.builder()
-            .correlativo(1l)
+            .correlativo(3l)
             .respuesta(OK)
             .build();
 
@@ -280,6 +288,22 @@ public class TestUtil {
                     CONTRIBUTION_NOTIFICATION_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
                     CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1,
                     EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_IDENTIFICACION_DE_CLIENTE);
+    public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_CONFIRMATION_NPE_11111111111111111111111111111111117 =
+            getLogInterface(1l, V1_CONFIRMAR_APORTE,
+                    APV0000000001,
+                    CONTRIBUTION_CONFIRMATION_NPE_REST_CONTROLLER_REQUEST,
+                    ContributionConfirmationRestControllerResponse.builder()
+                    .respuesta(OK)
+                    .build(),
+                    EJECUCIÓN_DE_CONFIRMACIÓN_DE_APORTE);
+    public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_CONFIRMATION_2 =
+            getLogInterface(1l, V1_CONFIRMAR_APORTE,
+                    APV0000000001,
+                    CONTRIBUTION_CONFIRMATION_2_REST_CONTROLLER_REQUEST,
+                    ContributionConfirmationRestControllerResponse.builder()
+                            .respuesta(OK)
+                            .build(),
+                    EJECUCIÓN_DE_CONFIRMACIÓN_DE_APORTE);
 
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_ER_4_2 = getLogErrorInterface(2l, BANCO1,
             V1_CONSULTAR_CLIENTE,
@@ -308,7 +332,10 @@ public class TestUtil {
 
     public static final String USD = "USD";
     public static final NotificacionAporte CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111 = NotificacionAporte.builder()
-            .pk(new NotificacionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l))
+            .numLicencia(NUM_LICENCIA)
+            .codigoEmpresa(COD_EMPRESA)
+            .codigoProducto(APV01)
+            .secNotificacion(3l)
             .codigoPersona(_1234)
             .numeroCuenta(APV0000000001)
             .nPE(_11111111111111111111111111111111111)
@@ -320,7 +347,10 @@ public class TestUtil {
             .monto(_1000)
             .build();
     public static final NotificacionAporte CONTRIBUTION_NOTIFICATION_12345678910 = NotificacionAporte.builder()
-            .pk(new NotificacionAportePK(NUM_LICENCIA, COD_EMPRESA, APV01, 1l))
+            .numLicencia(NUM_LICENCIA)
+            .codigoEmpresa(COD_EMPRESA)
+            .codigoProducto(APV01)
+            .secNotificacion(3l)
             .codigoPersona(_1234)
             .numeroCuenta(APV0000000001)
             .nPE(null)
@@ -361,6 +391,22 @@ public class TestUtil {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
+                    LogInterfaz.EstadoLog.OK, message, getDate(_2019_02_01));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static LogInterfaz getLogInterface(long id,
+                                               String operation,
+                                               String participat,
+                                               ContributionConfirmationRequest contributionConfirmationRequest,
+                                               AbstractRestControllerResponse restControllerResponse,
+                                               String message) {
+        try {
+            return new LogInterfaz(id, BANCO1, operation, APV01, participat,
+                    OBJECT_MAPPER.writeValueAsString(contributionConfirmationRequest),
+                    OBJECT_MAPPER.writeValueAsString(restControllerResponse),
                     LogInterfaz.EstadoLog.OK, message, getDate(_2019_02_01));
         } catch (Exception e) {
             return null;

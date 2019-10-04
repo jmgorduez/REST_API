@@ -23,6 +23,7 @@ import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -170,7 +171,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
                 .param(GRANT_TYPE, grantType)
                 .param(CLIENT_ID, username)
                 .param(CLIENT_SECRET, password)
-                .contentType(APPLICATION_JSON_UTF8)
+                .contentType(APPLICATION_FORM_URLENCODED)
                 .accept(APPLICATION_JSON_UTF8)).andReturn();
     }
 }

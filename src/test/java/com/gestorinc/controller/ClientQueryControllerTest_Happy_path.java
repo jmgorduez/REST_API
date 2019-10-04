@@ -1,7 +1,6 @@
 package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +13,6 @@ import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUER
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 
 @SpringBootTest
