@@ -64,7 +64,14 @@ public class ContributionNotificationService implements IContributionNotificatio
 
         validateExistPaymentMethod(intencionAporte.getPk().getNumLicencia(), paymentMethodCode);
 
-        Long secNotification = getNextSequence(intencionAporte.getPk().getProductoPK());
+        Long secNotification = contributionNotificationRepository.nextSequence()
+                .orElse(1l);
+
+        contributionNotificationRepository.findAll().forEach(notificacionAporte -> {
+            System.out.println("SEC: " + notificacionAporte.getSecNotificacion().toString()
+                    .concat(notificacionAporte.getNumeroCuenta())
+                    .concat(notificacionAporte.getEstado().name()).concat(notificacionAporte.getCodigoPersona().toString()));
+        });
 
         NotificacionAporte notificacionAporte =
                 buildContributionNotification(contributionDate, paymentMethodCode, intencionAporte, secNotification);
@@ -121,11 +128,6 @@ public class ContributionNotificationService implements IContributionNotificatio
                 .build();
     }
 
-    private Long getNextSequence(ProductoPK productoPK) {
-        return contributionNotificationRepository.nextSequence()
-                .orElse(1l);
-    }
-
     private LogicBusinessException paymentMethodNotFoundException() {
         return new LogicBusinessException(FORMA_PAGO_NO_EXISTE_14);
     }
@@ -158,7 +160,8 @@ public class ContributionNotificationService implements IContributionNotificatio
 
         validateExistPaymentMethod(producto.getPk().getNumLicencia(), paymentMethodCode);
 
-        Long secNotification = getNextSequence(producto.getPk());
+        Long secNotification = contributionNotificationRepository.nextSequence()
+                .orElse(1l);
 
         NotificacionAporte notificacionAporte =
                 buildContributionNotification(producto, secNotification, cliente.getPk().getCodigoPersona(),

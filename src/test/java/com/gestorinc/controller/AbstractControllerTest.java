@@ -32,17 +32,7 @@ public abstract class AbstractControllerTest {
     @Autowired
     protected IContributionIntentionRepository contributionIntentionRepository;
     @Autowired
-    protected IPersonRepository personRepository;
-    @Autowired
-    protected IPersonIdentificationRepository personIdentificationRepository;
-    @Autowired
-    protected IProductRepository productRepository;
-    @Autowired
-    protected IClientRepository clientRepository;
-    @Autowired
     protected IInterfaceLogRepository interfaceLogRepository;
-    @Autowired
-    protected IInteractionLogManager interactionLogManager;
     @Autowired
     protected IContributionNotificationRepository contributionNotificationRepository;
 

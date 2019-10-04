@@ -20,7 +20,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-h2.sql", "/data-h2.sql"})
+@Sql(value = {"/schema-h2.sql", "/data-h2.sql"},
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ContributionNotificationControllerTest_Happy_path extends AbstractControllerTest {
 
     @Test
@@ -57,7 +58,7 @@ public class ContributionNotificationControllerTest_Happy_path extends AbstractC
                         .orElseThrow(IllegalStateException::new);
         assertThat(notificacionAporte)
                 .isEqualToIgnoringGivenFields(
-                        CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111, PK, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
+                        CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
     }
 
     private void validateResponse(MvcResult result) throws java.io.IOException {

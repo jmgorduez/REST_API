@@ -51,6 +51,7 @@ public class Constants {
     public static final String CODIGO_GNL = "Codigo GNL";
     public static final String CUENTA_APV = "Cuenta APV";
     public static final String MONTO = "Monto";
+    public static final String ERROR_AL_ENCRIPTAR_UNA_VALUE_CON_EL_ALGORITMO_SHA_512 = "Error al encriptar una value con el algoritmo SHA512";
 
     public static final Integer TOKEN_EXPIRES_IN = 3600;
 

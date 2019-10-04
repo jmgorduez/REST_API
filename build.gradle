@@ -69,7 +69,13 @@ dependencies {
     compile 'io.springfox:springfox-swagger2:2.7.0'
     compile 'io.springfox:springfox-swagger-ui:2.7.0'
 
-    task runapp(type: Exec) {
-        commandLine 'java', '-jar', "build/libs/REST_API-${version}.jar"
+    compile 'commons-codec:commons-codec:1.13'
+
+    task runappDev(type: Exec) {
+        commandLine 'java', '-jar', '-Dspring.profiles.active=dev', "build/libs/REST_API-${version}.jar"
+    }
+
+    task runappProd(type: Exec) {
+        commandLine 'java', '-jar', '-Dspring.profiles.active=prod', "build/libs/REST_API-${version}.jar"
     }
 }

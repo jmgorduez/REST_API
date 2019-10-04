@@ -6,8 +6,11 @@ clean:
 refresh:
 	@ sh gradlew --refresh-dependencies
 
-run:
-	@ $(gradle) build runapp
+runDev:
+	@ $(gradle) build runappDev
+
+runProd:
+	@ $(gradle) build runappProd
 
 jar:
 	@ $(gradle) build
