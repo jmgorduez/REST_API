@@ -60,12 +60,9 @@ public class AuthenticationController {
 
         validateParamGrantType(grantType);
         try {
-            String encryptedPassword = encryptionManager.encryptSHA512(password);
-            byte[] bytes = encryptedPassword.getBytes();
-            encryptedPassword = Base64.getEncoder().encodeToString(bytes);
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username,
-                            encryptedPassword));
+                            encryptionManager.encryptPassword(password)));
 
             String token = jwtTokenProvider.createToken(username);
 

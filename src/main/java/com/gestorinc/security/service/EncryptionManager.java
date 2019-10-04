@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+
 import static com.gestorinc.utils.Constants.ERROR_AL_ENCRIPTAR_UNA_VALUE_CON_EL_ALGORITMO_SHA_512;
 
 @Component
@@ -14,7 +16,16 @@ public class EncryptionManager implements IEncryptionManager {
     private String segments[] = new String[4];
 
     @Override
-    public String encryptSHA512(String value) {
+    public String encryptPassword(String value) {
+        try {
+            return toByteArrayToString(encryptPasswordSHA512(value));
+        } catch (Exception e) {
+            log.error(ERROR_AL_ENCRIPTAR_UNA_VALUE_CON_EL_ALGORITMO_SHA_512, e);
+            return null;
+        }
+    }
+
+    private String encryptPasswordSHA512(String value) {
         try {
             int path = value.length() % 6;
             String encodeSalt = getEncodeSalt(value, path);
@@ -26,6 +37,13 @@ public class EncryptionManager implements IEncryptionManager {
             return null;
         }
     }
+
+    private String toByteArrayToString(String value) {
+        return Base64.getEncoder()
+                .encodeToString(
+                        value.getBytes());
+    }
+
 
     private String buildResult(String value, int form) {
         switch (form) {
