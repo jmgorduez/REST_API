@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
@@ -17,7 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-test.sql", "/data-test.sql"})
+@Sql({"/schema-h2.sql", "/data-h2.sql"})
+@ContextConfiguration()
 public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
         extends AbstractControllerTest {
 

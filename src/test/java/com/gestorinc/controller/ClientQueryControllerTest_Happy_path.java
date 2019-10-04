@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-test.sql", "/data-test.sql"})
+@Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest {
 
     @Test

@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-test.sql", "/data-test.sql"})
+@Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class ContributionNotificationControllerTest_Happy_path extends AbstractControllerTest {
 
     @Test

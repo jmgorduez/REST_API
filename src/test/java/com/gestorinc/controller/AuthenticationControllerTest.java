@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest
-@Sql({"/schema-test.sql", "/data-test.sql"})
+@Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class AuthenticationControllerTest extends AbstractControllerTest {
 
     private MockMvc mockMvc;

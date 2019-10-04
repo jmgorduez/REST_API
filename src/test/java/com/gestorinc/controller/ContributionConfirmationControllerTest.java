@@ -5,8 +5,6 @@ import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.LogInterfaz;
 import com.gestorinc.repository.entity.NotificacionAporte;
-import com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte;
-import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import javax.persistence.EntityNotFoundException;
 
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_CONFIRMATION;
-import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.RES;
 import static com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte.CNF;
 import static com.gestorinc.utils.Constants.*;
@@ -26,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-test.sql", "/data-test.sql"})
+@Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class ContributionConfirmationControllerTest extends AbstractControllerTest {
 
     @Test

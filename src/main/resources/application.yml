@@ -1,28 +1,12 @@
-#spring:
-#  data:
-#    mongodb:
-#      host: localhost
-#      port: 27017
-#      authentication-database: admin
-#      username: admin
-#      password: admin
-#      database: shopping_cart
-
-#spring:
-#    datasource:
-#      url:
-#        jdbc:oracle:thin:@192.9.200.210:1521:oradesa
-#      username:
-#        AFPCONFIABE
-#      password:
-#        AFPCONFIABE
-#      driver-class-oracle:
-#        jdbc:
-#          driver:
-#            OracleDriver
-
 spring:
+  profiles:
+    active: prod
+
+---
+spring:
+  profiles: dev
   datasource:
+    platform: h2
     url: jdbc:h2:mem:dummydb
     driverClassName: org.h2.Driver
     username: sa
@@ -35,13 +19,54 @@ spring:
     hibernate:
       ddl-auto: validate
   h2:
-   console:
-    enabled: true
-    path: /h2-console
-    settings:
-      web-allow-others: true
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
   jackson:
     default-property-inclusion: NON_NULL
+
+---
+spring:
+  profiles: test
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    initialization-mode: always
+    initialize: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    dialect: com.x.data.core.hibernate.dialect.ExtendedH2Dialect
+    hibernate:
+      ddl-auto: validate
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jackson:
+    default-property-inclusion: NON_NULL
+
+---
+spring:
+  profiles: prod
+  datasource:
+    platform: oracle
+    url:
+      jdbc:oracle:thin:@192.9.200.210:1521:oradesa
+    username:
+      AFPCONFIABE
+    password:
+      AFPCONFIABE
+    driver-class-oracle:
+      jdbc:
+        driver:
+          OracleDriver
 
 server:
   port: 8081
