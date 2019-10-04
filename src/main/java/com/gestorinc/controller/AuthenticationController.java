@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.Objects;
 
 import static com.gestorinc.utils.Constants.*;
@@ -59,9 +60,12 @@ public class AuthenticationController {
 
         validateParamGrantType(grantType);
         try {
+            String encryptedPassword = encryptionManager.encryptSHA512(password);
+            byte[] bytes = encryptedPassword.getBytes();
+            encryptedPassword = Base64.getEncoder().encodeToString(bytes);
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username,
-                            encryptionManager.encryptSHA512(password)));
+                            encryptedPassword));
 
             String token = jwtTokenProvider.createToken(username);
 

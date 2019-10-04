@@ -8,11 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,8 +31,9 @@ public class CredencialesBancarias implements Serializable, UserDetails {
     private CredencialesBancariasPK pk;
     @Column(name = "COD_ACCESO", nullable = false, length = 100)
     private String codigoAcceso;
-    @Column(name = "TOKEN_ACCESO", nullable = false, length = 300)
-    private String tokenAcceso;
+    @Lob
+    @Column(name = "TOKEN_ACCESO", nullable = false, length = 4000)
+    private byte[] tokenAcceso;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -45,7 +44,7 @@ public class CredencialesBancarias implements Serializable, UserDetails {
 
     @Override
     public String getPassword() {
-        return tokenAcceso;
+        return Base64.getEncoder().encodeToString(tokenAcceso);
     }
 
     @Override

@@ -70,7 +70,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     @Test
     public void givenValidUserAndPassword_whenGetSecureRequest_thenOk() throws Exception {
 
-/*        String accessToken = obtainAccessToken(BANCO1, BANCO1);
+        String accessToken = obtainAccessToken(BANCO1, BANCO1);
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
                 .header(AUTHORIZATION, BEARER_.concat(accessToken))
                 .content(OBJECT_MAPPER
@@ -83,7 +83,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.OK.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ClientQueryRestControllerResponse.class))
-                .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);*/
+                .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
     @Test
     public void givenInvalidToken_whenGetSecureRequest_thenUnauthorized_log() throws Exception {
 
-        /*String accessToken = obtainAccessToken(BANCO1, BANCO1);
+        String accessToken = obtainAccessToken(BANCO1, BANCO1);
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
                 .header(AUTHORIZATION, BEARER_.concat(accessToken.concat(_12345678910)))
                 .content(OBJECT_MAPPER
@@ -122,7 +122,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
                 .isEqualToComparingFieldByFieldRecursively(ERROR_8_RESPONSE);
         assertThat(interfaceLogRepository.findOne(1l))
                 .isEqualToIgnoringGivenFields(LOG_INTERFACE_CLIENT_QUERY_ID_12345678910_ANONYMOUS_ER_8_1,
-                        FECHA_HORA_REGISTRO);*/
+                        FECHA_HORA_REGISTRO);
     }
 
     @Test
