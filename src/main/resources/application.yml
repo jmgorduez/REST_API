@@ -67,6 +67,8 @@ spring:
       jdbc:
         driver:
           OracleDriver
+    hibernate:
+      ddl-auto: validate
 
 server:
   port: 8081
