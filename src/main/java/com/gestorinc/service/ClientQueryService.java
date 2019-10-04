@@ -15,6 +15,7 @@ import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
 import com.gestorinc.service.dto.SavingFundAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +68,7 @@ public class ClientQueryService implements IClientQueryService {
 
         List<Cliente> clientList = clientManager.getClientList(clientId);
         List<SavingFundAccountDTO> participantAccountToShow = clientList.stream()
+                .filter(this::hasAccountNumber)
                 .sorted(Cliente::compareTo)
                 .map(this::toParticipantAccount)
                 .collect(toList());
@@ -79,6 +81,10 @@ public class ClientQueryService implements IClientQueryService {
                 .sorted(String::compareTo).collect(Collectors.joining(BLANK_SPACE));
 
         return buildResponse(participantAccountToShow, participantAccounts, productCodes);
+    }
+
+    private boolean hasAccountNumber(Cliente cliente){
+        return !StringUtils.isEmpty(cliente.getNumeroCuenta());
     }
 
     private ClientQueryClientIdServiceResponseDTO buildResponse(List<SavingFundAccountDTO> participantAccountToShow,
