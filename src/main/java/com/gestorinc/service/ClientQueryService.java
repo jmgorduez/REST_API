@@ -15,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.gestorinc.utils.Constants.*;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -92,8 +95,15 @@ public class ClientQueryService implements IClientQueryService {
                 .accountDescription(FONDO_.concat(cliente.getPk().getCodigoProducto()).concat(BLANK_SPACE)
                         .concat(maskParticipantAccount(cliente.getNumeroCuenta())))
                 .accountNumber(cliente.getNumeroCuenta())
-                .gLNCode(producto.getGLN().toString())
+                .gLNCode(ofNullable( producto.getGLN())
+                        .filter(Objects::nonNull)
+                        .map(integer -> integer.toString())
+                        .orElse(BLANK_SPACE))
                 .build();
+    }
+
+    private String toString(Integer integer){
+        return integer.toString();
     }
 
     private String toProductCode(Cliente cliente) {
