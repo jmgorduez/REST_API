@@ -22,7 +22,8 @@ public enum Error {
     FORMA_PAGO_NO_EXISTE_14("14", "ERROR: Forma de pago no existe."),
     PRODUCTO_CON_GLN_NO_ENCONTRADO("15", "ERROR: No existe un producto registrado con este GNL."),
     CLIENTE_NO_TIENE_CUENTA_REGISTRADA("16", "ERROR: Cliente no tiene la cuenta registrada."),
-    NOTIFICACION_APORTE_NO_EXISTE_17("17", "ERROR: No existe notificación de aporte.");
+    NOTIFICACION_APORTE_NO_EXISTE_17("17", "ERROR: No existe notificación de aporte."),
+    FONDO_SIN_GLN_CONFIGURADO_18("18", "ERROR: No existe una configuracion de GLN para el fondo.");
 
     private final String code;
     private final String message;

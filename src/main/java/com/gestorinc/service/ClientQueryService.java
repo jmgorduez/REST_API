@@ -1,5 +1,7 @@
 package com.gestorinc.service;
 
+import com.gestorinc.exception.LogicBusinessException;
+import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.IProductRepository;
 import com.gestorinc.repository.entity.Cliente;
 import com.gestorinc.repository.entity.IntencionAporte;
@@ -19,6 +21,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.gestorinc.exception.enums.Error.FONDO_SIN_GLN_CONFIGURADO_18;
 import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -98,8 +101,12 @@ public class ClientQueryService implements IClientQueryService {
                 .gLNCode(ofNullable( producto.getGLN())
                         .filter(Objects::nonNull)
                         .map(integer -> integer.toString())
-                        .orElse(BLANK_SPACE))
+                        .orElseThrow(this::gLNNotFound))
                 .build();
+    }
+
+    private LogicBusinessException gLNNotFound(){
+        return new LogicBusinessException(FONDO_SIN_GLN_CONFIGURADO_18);
     }
 
     private String toString(Integer integer){
