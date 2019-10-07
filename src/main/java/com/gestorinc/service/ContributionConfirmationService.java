@@ -29,6 +29,7 @@ public class ContributionConfirmationService implements IContributionConfirmatio
                         .orElseThrow(this::contributionNotificationNotFound);
 
         notificacionAporte.setEstado(CNF);
+        notificacionAporte.setReferencia(reference);
         contributionNotificationRepository.save(notificacionAporte);
 
         ofNullable(notificacionAporte.getNPE())

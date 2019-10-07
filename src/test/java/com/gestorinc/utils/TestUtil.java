@@ -71,8 +71,9 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(ID, _12345678912);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678913);
+    public static final String BANK_REFERENCE_XXXXXXX = "XXXXXXX";
     public static final ClientQueryRestControllerRequest INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest("XXXXXXX", _12345678913);
+            new ClientQueryRestControllerRequest(BANK_REFERENCE_XXXXXXX, _12345678913);
 
     public static final String _2019_02_01 = "2019-02-01";
 
@@ -220,11 +221,11 @@ public class TestUtil {
                     .build();
 
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_NPE_REST_CONTROLLER_REQUEST =
-            new ContributionConfirmationRequest(1l, "XXXXXXXX");
+            new ContributionConfirmationRequest(1l, BANK_REFERENCE_XXXXXXX);
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_2_REST_CONTROLLER_REQUEST =
-            new ContributionConfirmationRequest(2l, "XXXXXXXX");
+            new ContributionConfirmationRequest(2l, null);
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_3_REST_CONTROLLER_REQUEST =
-            new ContributionConfirmationRequest(3l, "XXXXXXXX");
+            new ContributionConfirmationRequest(3l, BANK_REFERENCE_XXXXXXX);
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(

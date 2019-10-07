@@ -47,4 +47,6 @@ public class NotificacionAporte implements Serializable {
     private Date fechaHoraRegistro;
     @Column(name = "COD_FORMA_PAGO", nullable = false)
     private String codigoFormaPago;
+    @Column(name = "REFERENCIA", nullable = true)
+    private String referencia;
 }

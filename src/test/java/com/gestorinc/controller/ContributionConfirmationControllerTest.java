@@ -69,6 +69,8 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
                         .orElseThrow(EntityNotFoundException::new);
         assertThat(notificacionAporte.getEstado())
                 .isEqualTo(CNF);
+        assertThat(notificacionAporte.getReferencia())
+                .isEqualTo(BANK_REFERENCE_XXXXXXX);
     }
 
     @Test
@@ -89,6 +91,8 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
                         .orElseThrow(EntityNotFoundException::new);
         assertThat(notificacionAporte.getEstado())
                 .isEqualTo(CNF);
+        assertThat(notificacionAporte.getReferencia())
+                .isNull();
     }
 
     private void validateSavedLogContributionConfirmation_2() {
