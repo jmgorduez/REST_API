@@ -3,9 +3,14 @@
 
 #### Run app.
 ```
-$ make runDev
 $ make runProd
 ```
+Run app with production environment.
+
+```
+$ make runDev
+```
+Run app with development environment.
 
 #### Generate .jar file.
 ```
