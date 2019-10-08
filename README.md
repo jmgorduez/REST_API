@@ -3,7 +3,8 @@
 
 #### Run app.
 ```
-$ make run
+$ make runDev
+$ make runProd
 ```
 
 #### Generate .jar file.
