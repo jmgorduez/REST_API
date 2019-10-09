@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.io.IOException;
 
 import static com.gestorinc.utils.Constants.*;

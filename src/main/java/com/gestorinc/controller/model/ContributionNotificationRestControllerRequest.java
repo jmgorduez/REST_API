@@ -37,7 +37,7 @@ public final class ContributionNotificationRestControllerRequest extends Abstrac
                                                          @JsonProperty("medioPago") Integer medioPago,
                                                          @JsonProperty("cuentaAPV") String cuentaAPV,
                                                          @JsonProperty("monto") BigDecimal monto,
-                                                         @JsonProperty("codigoGNL") Integer codigoGLN) {
+                                                         @JsonProperty("codigoGLN") Integer codigoGLN) {
         super(tipoIdentificador, identificador);
         this.fechaAporte = fechaAporte;
         this.medioPago = medioPago;

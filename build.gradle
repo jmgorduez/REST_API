@@ -38,7 +38,10 @@ repositories {
 dependencies {
     implementation  "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
     compile  "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile ('org.springframework.boot:spring-boot-starter-web'){
+        //To deploy .war
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-security:2.1.8.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-security:2.1.8.RELEASE'
@@ -55,7 +58,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 
-    testImplementation 'org.mockito:mockito-core:2.1.0'
     testImplementation 'org.assertj:assertj-core:3.12.2'
 
     implementation 'io.jsonwebtoken:jjwt:0.8.0'
@@ -70,6 +72,9 @@ dependencies {
     compile 'io.springfox:springfox-swagger-ui:2.7.0'
 
     compile 'commons-codec:commons-codec:1.13'
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-undertow'
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
 
     task runappDev(type: Exec) {
         commandLine 'java', '-jar', '-Dspring.profiles.active=dev', "build/libs/REST_API-${version}.jar"

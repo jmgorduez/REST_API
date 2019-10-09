@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Base64;
 import java.util.Objects;
 
 import static com.gestorinc.utils.Constants.*;

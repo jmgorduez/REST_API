@@ -20,7 +20,6 @@ import java.util.Date;
 
 import static com.gestorinc.exception.enums.Error.FORMA_PAGO_NO_EXISTE_14;
 import static com.gestorinc.exception.enums.Error.PRODUCTO_CON_GLN_NO_ENCONTRADO;
-import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.NTF;
 
 @Service
 public class ContributionNotificationService implements IContributionNotificationService {

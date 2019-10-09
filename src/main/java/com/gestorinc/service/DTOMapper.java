@@ -1,11 +1,13 @@
 package com.gestorinc.service;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerResponse;
-import com.gestorinc.controller.model.ContributionConfirmationRestControllerResponse;
 import com.gestorinc.controller.model.ContributionNotificationRestControllerResponse;
 import com.gestorinc.controller.model.SavingFundAccountResponse;
 import com.gestorinc.service.abstractions.IDTOMapper;
-import com.gestorinc.service.dto.*;
+import com.gestorinc.service.dto.ClientQueryClientIdServiceResponseDTO;
+import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
+import com.gestorinc.service.dto.ContributionNotificationServiceResponseDTO;
+import com.gestorinc.service.dto.SavingFundAccountDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

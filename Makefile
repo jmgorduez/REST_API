@@ -15,6 +15,9 @@ runProd:
 jar:
 	@ $(gradle) build
 
+war:
+	@ $(gradle) build
+
 test:
 	@ $(gradle) test
 

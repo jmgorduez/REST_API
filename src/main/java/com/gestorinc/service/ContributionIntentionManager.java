@@ -3,7 +3,6 @@ package com.gestorinc.service;
 import com.gestorinc.exception.LogicBusinessException;
 import com.gestorinc.repository.IContributionIntentionRepository;
 import com.gestorinc.repository.entity.IntencionAporte;
-import com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte;
 import com.gestorinc.service.abstractions.IContributionIntentionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

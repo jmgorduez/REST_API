@@ -1,7 +1,6 @@
 package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
-import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.IProductRepository;
 import com.gestorinc.repository.entity.Cliente;
 import com.gestorinc.repository.entity.IntencionAporte;
@@ -19,7 +18,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.gestorinc.exception.enums.Error.FONDO_SIN_GLN_CONFIGURADO_18;

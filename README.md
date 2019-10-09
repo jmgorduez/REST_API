@@ -12,9 +12,19 @@ $ make runDev
 ```
 Run app with development environment.
 
+#### Refresh gradle dependence
+```
+$ make refresh
+```
 #### Generate .jar file.
+Edit build.gradle comment line: *****exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'*****
 ```
 $ make jar
+```
+#### Generate .war file.
+Edit build.gradle uncomment line: *****exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'*****
+```
+$ make war
 ```
 ### Testing.
 
