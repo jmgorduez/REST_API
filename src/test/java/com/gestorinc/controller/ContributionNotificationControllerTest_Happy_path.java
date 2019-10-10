@@ -4,6 +4,7 @@ import com.gestorinc.controller.model.ContributionNotificationRestControllerResp
 import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.LogInterfaz;
 import com.gestorinc.repository.entity.NotificacionAporte;
+import com.gestorinc.utils.TestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +21,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql(value = {"/schema-h2.sql", "/data-h2.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class ContributionNotificationControllerTest_Happy_path extends AbstractControllerTest {
 
     @Test

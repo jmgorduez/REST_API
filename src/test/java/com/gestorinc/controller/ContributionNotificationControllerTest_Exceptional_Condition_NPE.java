@@ -18,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-h2.sql", "/data-h2.sql"})
 @ContextConfiguration()
 public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
         extends AbstractControllerTest {

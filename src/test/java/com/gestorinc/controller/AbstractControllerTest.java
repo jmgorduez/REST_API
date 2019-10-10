@@ -6,24 +6,28 @@ import com.gestorinc.controller.model.enums.OperationEndpoint;
 import com.gestorinc.repository.IContributionIntentionRepository;
 import com.gestorinc.repository.IContributionNotificationRepository;
 import com.gestorinc.repository.IInterfaceLogRepository;
+import com.gestorinc.utils.TestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
-import static com.gestorinc.utils.TestUtil.BANCO1;
+import static com.gestorinc.utils.TestUtil.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ActiveProfiles("test")
+@ActiveProfiles(TEST)
+@Sql(value = {SCHEMA_H2_SQL, DATA_H2_SQL},
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public abstract class AbstractControllerTest {
 
     protected MockMvc mockMvc;

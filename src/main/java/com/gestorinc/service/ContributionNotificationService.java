@@ -66,12 +66,6 @@ public class ContributionNotificationService implements IContributionNotificatio
         Long secNotification = contributionNotificationRepository.nextSequence()
                 .orElse(1l);
 
-        contributionNotificationRepository.findAll().forEach(notificacionAporte -> {
-            System.out.println("SEC: " + notificacionAporte.getSecNotificacion().toString()
-                    .concat(notificacionAporte.getNumeroCuenta())
-                    .concat(notificacionAporte.getEstado().name()).concat(notificacionAporte.getCodigoPersona().toString()));
-        });
-
         NotificacionAporte notificacionAporte =
                 buildContributionNotification(contributionDate, paymentMethodCode, intencionAporte, secNotification);
 

@@ -20,7 +20,7 @@ import static com.gestorinc.utils.Constants.*;
 
 public class TestUtil {
 
-    public static final String _11111111111111111111111111111111111 = "11111111111111111111111111111111111";
+    public static final String _11111111111111111111111111111111111 = " 1111 1111 1111 1111 1111 1111 11111111111 ";
     public static final String _11111111111111111111111111111111112 = "11111111111111111111111111111111112";
     public static final String _11111111111111111111111111111111113 = "11111111111111111111111111111111113";
     public static final String _11111111111111111111111111111111114 = "11111111111111111111111111111111114";
@@ -38,7 +38,9 @@ public class TestUtil {
     public static final String FECHA_HORA_REGISTRO = "fechaHoraRegistro";
     public static final String PK = "pk";
     public static final String FECHA_HORA_APORTE = "fechaHoraAporte";
-
+    public static final String SCHEMA_H2_SQL = "/schema-h2.sql";
+    public static final String DATA_H2_SQL = "/data-h2.sql";
+    public static final String TEST = "test";
 
     public static final String APV0000000001 = "APV0000000001";
     public static final String _____0001 = _____.concat("0001");
@@ -294,8 +296,8 @@ public class TestUtil {
                     APV0000000001,
                     CONTRIBUTION_CONFIRMATION_NPE_REST_CONTROLLER_REQUEST,
                     ContributionConfirmationRestControllerResponse.builder()
-                    .respuesta(OK)
-                    .build(),
+                            .respuesta(OK)
+                            .build(),
                     EJECUCIÓN_DE_CONFIRMACIÓN_DE_APORTE);
     public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_CONFIRMATION_2 =
             getLogInterface(1l, V1_CONFIRMAR_APORTE,
@@ -339,7 +341,7 @@ public class TestUtil {
             .secNotificacion(3l)
             .codigoPersona(_1234)
             .numeroCuenta(APV0000000001)
-            .nPE(_11111111111111111111111111111111111)
+            .nPE(_11111111111111111111111111111111111.trim().replace(" ", ""))
             .codigoMoneda(USD)
             .estado(EnumEstadoNotificacionAporte.ING)
             .fechaHoraRegistro(Calendar.getInstance().getTime())

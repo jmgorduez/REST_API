@@ -2,6 +2,7 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
+import com.gestorinc.utils.TestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Sql({"/schema-h2.sql", "/data-h2.sql"})
 public class ClientQueryControllerTest_Exceptional_Condition_NPE extends AbstractControllerTest {
+
 
     @Test
     public void clientQueryByNPE_should_return_ER_1()
