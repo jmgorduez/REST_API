@@ -116,7 +116,7 @@ public class Constants {
     public static final String CONTRASEÑA_DE_ACCESO = "Contraseña de acceso.";
     public static final String CORRELATIVO_IDENTIFICADOR_DE_LA_NOTIFICACIÓN_DE_APORTE = "Correlativo identificador de la notificación de aporte.";
     public static final String REFERENCIA_DE_LA_TRANSACCIÓN_BANCARIA = "Referencia de la transacción bancaria.";
-    public static final String FECHA_DEL_APORTE = "Fecha del aporte en formato DD/MM/AAAA HH:mm:ss";
+    public static final String FECHA_DEL_APORTE = "Fecha del aporte en formato DD/MM/AAAA HH:mm";
     public static final String MEDIO_DE_PAGO_DEL_APORTE = "Medio de pago del aporte";
     public static final String CUENTA_DEL_PARTICIPANTE = "Cuenta del participante.";
     public static final String CÓDIGO_DE_ERROR = "Código de error";
