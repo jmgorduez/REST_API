@@ -74,6 +74,7 @@ public class InteractionLogManager implements IInteractionLogManager {
                 .tramaRequest(auditDTO.getJsonRequestFrame())
                 .tramaResponse(auditDTO.getJsonResponseFrame())
                 .mensaje(auditDTO.getMessage())
+                .ip(auditDTO.getIp())
                 .build();
         interfaceLogRepository.save(logInterfaz);
     }

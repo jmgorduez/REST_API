@@ -16,8 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.gestorinc.exception.enums.Error.*;
-import static com.gestorinc.utils.Constants.DUI_CODE;
-import static com.gestorinc.utils.Constants.YYYY_MM_DD;
+import static com.gestorinc.utils.Constants.*;
 
 @Component
 public class ClientManager implements IClientManager {

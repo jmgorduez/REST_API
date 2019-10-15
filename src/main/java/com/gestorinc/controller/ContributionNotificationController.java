@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -59,7 +61,7 @@ public class ContributionNotificationController {
     @ResponseStatus(CREATED)
     public ResponseEntity<ContributionNotificationRestControllerResponse> contributionNotification(
             @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE) final ContributionNotificationRestControllerRequest contributionNotificationRequest)
-            throws IOException, MissingServletRequestParameterException {
+            throws IOException, MissingServletRequestParameterException, ParseException {
 
         if (isByNPE(contributionNotificationRequest)) {
             return new ResponseEntity<ContributionNotificationRestControllerResponse>(
@@ -98,12 +100,13 @@ public class ContributionNotificationController {
 
     private ContributionNotificationRestControllerResponse buildContributionNotificationByClientIdRestControllerResponse(
             ContributionNotificationRestControllerRequest contributionNotificationRequest)
-            throws IOException {
+            throws IOException, ParseException {
 
         ContributionNotificationServiceResponseDTO responseDTO =
                 contributionNotificationService.contributionNotificationByClientId(
                         contributionNotificationRequest.getIdentificador(),
-                        contributionNotificationRequest.getFechaAporte(),
+                        new SimpleDateFormat(DD_MM_YYYY_HH_MM)
+                        .parse(contributionNotificationRequest.getFechaAporte()),
                         contributionNotificationRequest.getMedioPago().toString(),
                         contributionNotificationRequest.getCuentaAPV(),
                         contributionNotificationRequest.getMonto(),
@@ -117,13 +120,14 @@ public class ContributionNotificationController {
 
     private ContributionNotificationRestControllerResponse buildContributionNotificationByNPERestControllerResponse(
             ContributionNotificationRestControllerRequest contributionNotificationRequest)
-            throws IOException {
+            throws IOException, ParseException {
 
         ContributionNotificationServiceResponseDTO responseDTO =
                 contributionNotificationService
                         .contributionNotificationByNPE(
                                 contributionNotificationRequest.getIdentificador(),
-                                contributionNotificationRequest.getFechaAporte(),
+                                new SimpleDateFormat(DD_MM_YYYY_HH_MM)
+                                        .parse(contributionNotificationRequest.getFechaAporte()),
                                 contributionNotificationRequest.getMedioPago().toString());
         ContributionNotificationRestControllerResponse response =
                 dtoMapper.buildContributionNotificationResponse(responseDTO);

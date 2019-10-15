@@ -27,6 +27,7 @@ public class TestUtil {
     public static final String _11111111111111111111111111111111115 = "11111111111111111111111111111111115";
     public static final String _11111111111111111111111111111111116 = "11111111111111111111111111111111116";
     public static final String _11111111111111111111111111111111117 = "11111111111111111111111111111111117";
+    public static final String _11111111111111111111111111111111118 = "11111111111111111111111111111111118";
 
     public static final String JUAN_MANUEL_GARCIA = "Juan Manuel Garcia";
     public static final String FONDO_APV01_APV0000000001 = "Fondo APV01 APV0000000001";
@@ -36,7 +37,6 @@ public class TestUtil {
     public static final String BANCO1 = "BANCO1";
     public static final String BEARER_ = "Bearer ";
     public static final String FECHA_HORA_REGISTRO = "fechaHoraRegistro";
-    public static final String PK = "pk";
     public static final String FECHA_HORA_APORTE = "fechaHoraAporte";
     public static final String SCHEMA_H2_SQL = "/schema-h2.sql";
     public static final String DATA_H2_SQL = "/data-h2.sql";
@@ -51,6 +51,7 @@ public class TestUtil {
     public static final String _12345678911 = "12345678911";
     public static final String _12345678912 = "12345678912";
     public static final String _12345678913 = "12345678913";
+    public static final String LOCALHOST_IP = "127.0.0.1";
 
     public static final BigDecimal _1000 = new BigDecimal(1000).setScale(2);
     public static final Integer _4321 = 4321;
@@ -65,6 +66,8 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111115);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111116_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111116);
+    public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111118_REST_CONTROLLER_REQUEST =
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111118);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(ID, _12345678910);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678911_REST_CONTROLLER_REQUEST =
@@ -77,14 +80,14 @@ public class TestUtil {
     public static final ClientQueryRestControllerRequest INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST =
             new ClientQueryRestControllerRequest(BANK_REFERENCE_XXXXXXX, _12345678913);
 
-    public static final String _2019_02_01 = "2019-02-01";
+    public static final String _01_02_2019 = "01/02/2019 00:00:00";
 
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111111)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -92,7 +95,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111111)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(3)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -100,7 +103,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111112)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -108,7 +111,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111113)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -116,7 +119,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111114)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -124,7 +127,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111115)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
     public static final ContributionNotificationRestControllerRequest
@@ -132,7 +135,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(NPE)
                     .identificador(_11111111111111111111111111111111116)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .build();
 
@@ -141,7 +144,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678910)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
@@ -152,7 +155,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678910)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(null)
                     .cuentaAPV(APV0000000001)
@@ -163,7 +166,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678910)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(null)
@@ -174,7 +177,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678910)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
@@ -185,7 +188,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678911)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
@@ -196,7 +199,7 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678913)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
@@ -207,27 +210,60 @@ public class TestUtil {
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador(ID)
                     .identificador(_12345678912)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(_1000)
                     .cuentaAPV(APV0000000001)
                     .codigoGLN(_4321)
                     .build();
-
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_UNSUPPORTED_DATE_FORMART_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678912)
+                    .fechaAporte("200/30/aaaa")
+                    .medioPago(1)
+                    .monto(_1000)
+                    .cuentaAPV(APV0000000001)
+                    .codigoGLN(_4321)
+                    .build();
     public static final ContributionNotificationRestControllerRequest INVALID_CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_REQUEST =
             ContributionNotificationRestControllerRequest.builder()
                     .tipoIdentificador("XXXXXXX")
                     .identificador(_12345678913)
-                    .fechaAporte(getDate(_2019_02_01))
+                    .fechaAporte(_01_02_2019)
                     .medioPago(1)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest CONTRIBUTION_NOTIFICATION_RESERVED_NPE_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(NPE)
+                    .identificador(_11111111111111111111111111111111118)
+                    .fechaAporte(_01_02_2019)
+                    .medioPago(1)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest
+            CONTRIBUTION_NOTIFICATION_CLIENT_ID_UNSUPPORTED_VALUE_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678910)
+                    .fechaAporte(_01_02_2019)
+                    .medioPago(1)
+                    .monto(new BigDecimal(0))
+                    .cuentaAPV(APV0000000001)
+                    .codigoGLN(_4321)
                     .build();
 
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_NPE_REST_CONTROLLER_REQUEST =
             new ContributionConfirmationRequest(1l, BANK_REFERENCE_XXXXXXX);
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_2_REST_CONTROLLER_REQUEST =
-            new ContributionConfirmationRequest(2l, null);
+            new ContributionConfirmationRequest(2l, BANK_REFERENCE_XXXXXXX);
     public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_3_REST_CONTROLLER_REQUEST =
             new ContributionConfirmationRequest(3l, BANK_REFERENCE_XXXXXXX);
+    public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_4_REST_CONTROLLER_REQUEST =
+            new ContributionConfirmationRequest(4l, BANK_REFERENCE_XXXXXXX);
+    public static final ContributionConfirmationRequest CONTRIBUTION_CONFIRMATION_5_REST_CONTROLLER_REQUEST =
+            new ContributionConfirmationRequest(5l, BANK_REFERENCE_XXXXXXX);
+
 
     public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002
             = Arrays.asList(
@@ -259,7 +295,7 @@ public class TestUtil {
 
     public static final ContributionNotificationRestControllerResponse CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1
             = ContributionNotificationRestControllerResponse.builder()
-            .correlativo(3l)
+            .correlativo(6l)
             .respuesta(OK)
             .build();
 
@@ -338,14 +374,14 @@ public class TestUtil {
             .numLicencia(NUM_LICENCIA)
             .codigoEmpresa(COD_EMPRESA)
             .codigoProducto(APV01)
-            .secNotificacion(3l)
+            .secNotificacion(6l)
             .codigoPersona(_1234)
             .numeroCuenta(APV0000000001)
             .nPE(_11111111111111111111111111111111111.trim().replace(" ", ""))
             .codigoMoneda(USD)
             .estado(EnumEstadoNotificacionAporte.ING)
             .fechaHoraRegistro(Calendar.getInstance().getTime())
-            .fechaHoraAporte(getDate(_2019_02_01))
+            .fechaHoraAporte(getDate(_01_02_2019))
             .codigoFormaPago("1")
             .monto(_1000)
             .build();
@@ -353,14 +389,14 @@ public class TestUtil {
             .numLicencia(NUM_LICENCIA)
             .codigoEmpresa(COD_EMPRESA)
             .codigoProducto(APV01)
-            .secNotificacion(3l)
+            .secNotificacion(6l)
             .codigoPersona(_1234)
             .numeroCuenta(APV0000000001)
             .nPE(null)
             .codigoMoneda(USD)
             .estado(EnumEstadoNotificacionAporte.ING)
             .fechaHoraRegistro(Calendar.getInstance().getTime())
-            .fechaHoraAporte(getDate(_2019_02_01))
+            .fechaHoraAporte(getDate(_01_02_2019))
             .codigoFormaPago("1")
             .monto(_1000)
             .build();
@@ -378,7 +414,7 @@ public class TestUtil {
             return new LogInterfaz(id, user, operation, product, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
-                    status, message, getDate(_2019_02_01));
+                    status, message, getDate(_01_02_2019), LOCALHOST_IP);
         } catch (Exception e) {
             return null;
         }
@@ -394,7 +430,7 @@ public class TestUtil {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
-                    LogInterfaz.EstadoLog.OK, message, getDate(_2019_02_01));
+                    LogInterfaz.EstadoLog.OK, message, getDate(_01_02_2019), LOCALHOST_IP);
         } catch (Exception e) {
             return null;
         }
@@ -410,7 +446,7 @@ public class TestUtil {
             return new LogInterfaz(id, BANCO1, operation, APV01, participat,
                     OBJECT_MAPPER.writeValueAsString(contributionConfirmationRequest),
                     OBJECT_MAPPER.writeValueAsString(restControllerResponse),
-                    LogInterfaz.EstadoLog.OK, message, getDate(_2019_02_01));
+                    LogInterfaz.EstadoLog.OK, message, getDate(_01_02_2019), LOCALHOST_IP);
         } catch (Exception e) {
             return null;
         }
@@ -427,7 +463,7 @@ public class TestUtil {
                     OBJECT_MAPPER.writeValueAsString(ErrorRestControllerResponse.builder()
                             .error(error.getCode())
                             .build()),
-                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_2019_02_01));
+                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_01_02_2019), LOCALHOST_IP);
         } catch (JsonProcessingException e) {
             return null;
         }
@@ -439,7 +475,7 @@ public class TestUtil {
             return new LogInterfaz(id, ANONYMOUS, AUTENTICAR, null, null,
                     "",
                     OBJECT_MAPPER.writeValueAsString(errorRestControllerResponse),
-                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_2019_02_01));
+                    LogInterfaz.EstadoLog.ER, error.getMessage(), getDate(_01_02_2019), LOCALHOST_IP);
         } catch (Exception e) {
             return null;
         }
@@ -447,7 +483,7 @@ public class TestUtil {
 
     public static Date getDate(String value) {
         try {
-            return new SimpleDateFormat(YYYY_MM_DD).parse(value);
+            return new SimpleDateFormat(DD_MM_YYYY_HH_MM).parse(value);
         } catch (ParseException e) {
             return null;
         }

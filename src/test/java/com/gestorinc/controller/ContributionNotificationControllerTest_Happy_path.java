@@ -4,13 +4,14 @@ import com.gestorinc.controller.model.ContributionNotificationRestControllerResp
 import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.LogInterfaz;
 import com.gestorinc.repository.entity.NotificacionAporte;
-import com.gestorinc.utils.TestUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.text.ParseException;
+import java.util.Calendar;
 
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.repository.entity.enums.EnumEstadoIntencionAporte.NTF;
@@ -51,13 +52,25 @@ public class ContributionNotificationControllerTest_Happy_path extends AbstractC
         assertThat(intencionAporte.getEstado()).isEqualTo(NTF);
     }
 
-    private void validateCreatedContributionNotificationByNPE() {
+    private void validateCreatedContributionNotificationByNPE() throws ParseException {
         NotificacionAporte notificacionAporte =
                 contributionNotificationRepository.findByNPE(_11111111111111111111111111111111111)
                         .orElseThrow(IllegalStateException::new);
         assertThat(notificacionAporte)
                 .isEqualToIgnoringGivenFields(
                         CONTRIBUTION_NOTIFICATION_11111111111111111111111111111111111, FECHA_HORA_REGISTRO, FECHA_HORA_APORTE);
+        compareFechaAporte(notificacionAporte);
+    }
+
+    private void compareFechaAporte(NotificacionAporte notificacionAporte) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(notificacionAporte.getFechaHoraAporte());
+        assertThat(calendar.get(Calendar.YEAR))
+                .isEqualTo(2019);
+        assertThat(calendar.get(Calendar.MONTH))
+                .isEqualTo(Calendar.FEBRUARY);
+        assertThat(calendar.get(Calendar.DAY_OF_MONTH))
+                .isEqualTo(1);
     }
 
     private void validateResponse(MvcResult result) throws java.io.IOException {
@@ -82,7 +95,7 @@ public class ContributionNotificationControllerTest_Happy_path extends AbstractC
 
     private void validateCreatedContributionNotificationByClientId() {
         NotificacionAporte notificacionAporte =
-                contributionNotificationRepository.findBySecNotificacion(3l)
+                contributionNotificationRepository.findBySecNotificacion(6l)
                         .orElseThrow(IllegalStateException::new);
         assertThat(notificacionAporte)
                 .isEqualToIgnoringGivenFields(

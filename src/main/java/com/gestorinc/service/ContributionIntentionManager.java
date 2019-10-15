@@ -54,6 +54,8 @@ public class ContributionIntentionManager implements IContributionIntentionManag
                 throw this.defeatedNPEException();
             case NTF:
                 throw this.notifiedNPEException();
+            case RES:
+                throw this.reservedNPEException();
         }
     }
 
@@ -71,5 +73,9 @@ public class ContributionIntentionManager implements IContributionIntentionManag
 
     private LogicBusinessException notifiedNPEException() {
         return new LogicBusinessException(NPE_NOTIFICADO_COD_11);
+    }
+
+    private LogicBusinessException reservedNPEException() {
+        return new LogicBusinessException(NPE_RESERVADO_20);
     }
 }

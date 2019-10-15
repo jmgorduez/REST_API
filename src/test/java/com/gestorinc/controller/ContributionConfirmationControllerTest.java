@@ -1,5 +1,6 @@
 package com.gestorinc.controller;
 
+import com.gestorinc.controller.model.ContributionConfirmationRequest;
 import com.gestorinc.controller.model.ContributionConfirmationRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.repository.entity.IntencionAporte;
@@ -84,6 +85,13 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
         validateSavedLogContributionConfirmation_2();
     }
 
+    private void validateErrorResponse(MvcResult result) throws java.io.IOException {
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(),
+                ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(
+                        ERROR_10_RESPONSE);
+    }
+
     private void validateUpdatedStatusContributionConfirmation_2() {
         NotificacionAporte notificacionAporte =
                 contributionNotificationRepository.findBySecNotificacion(2l)
@@ -91,7 +99,7 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
         assertThat(notificacionAporte.getEstado())
                 .isEqualTo(CNF);
         assertThat(notificacionAporte.getReferencia())
-                .isNull();
+                .isEqualTo(BANK_REFERENCE_XXXXXXX);
     }
 
     private void validateSavedLogContributionConfirmation_2() {
@@ -111,5 +119,39 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(),
                 ErrorRestControllerResponse.class))
         .isEqualToComparingFieldByFieldRecursively(ERROR_17_RESPONSE);
+    }
+
+    @Test
+    public void confirmContribution_withoutBankReference()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_CONFIRMATION,
+                new ContributionConfirmationRequest(1l, null));
+
+        validateErrorResponse(result);
+    }
+
+    @Test
+    public void confirmContribution_ConfirmedContributionNotification()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_CONFIRMATION,
+                CONTRIBUTION_CONFIRMATION_4_REST_CONTROLLER_REQUEST);
+
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(),
+                ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_21_RESPONSE);
+    }
+
+    @Test
+    public void confirmContribution_ProcessedContributionNotification()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_CONFIRMATION,
+                CONTRIBUTION_CONFIRMATION_5_REST_CONTROLLER_REQUEST);
+
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(),
+                ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_22_RESPONSE);
     }
 }

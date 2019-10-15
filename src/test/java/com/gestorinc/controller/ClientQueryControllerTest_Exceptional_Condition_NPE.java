@@ -102,4 +102,30 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_9_RESPONSE);
     }
+
+    @Test
+    public void clientQueryByNPEWithoutIdentificador_should_return_ER_10()
+            throws Exception {
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
+                new ClientQueryRestControllerRequest(NPE, null));
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.BAD_REQUEST.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
+    }
+
+    @Test
+    public void clientQueryByReservedNPE_should_return_ER_20()
+            throws Exception {
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
+                CLIENT_QUERY_NPE_11111111111111111111111111111111118_REST_CONTROLLER_REQUEST);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_20_RESPONSE);
+    }
 }

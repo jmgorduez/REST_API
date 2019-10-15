@@ -10,6 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static com.gestorinc.controller.model.enums.OperationEndpoint.CLIENT_QUERY;
 import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTION_NOTIFICATION;
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;
@@ -119,7 +120,7 @@ public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
     }
 
     @Test
-    public void clientQueryWithInvalidIdType_should_return_ER_10()
+    public void contributionNotificationWithInvalidIdType_should_return_ER_10()
             throws Exception {
 
         MvcResult result = executePutRestInteraction(CONTRIBUTION_NOTIFICATION,
@@ -129,5 +130,18 @@ public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
                 .isEqualTo(HttpStatus.BAD_REQUEST.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
+    }
+
+    @Test
+    public void contributionNotificationByReservedNPE_should_return_ER_20()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_NOTIFICATION,
+                CONTRIBUTION_NOTIFICATION_RESERVED_NPE_REST_CONTROLLER_REQUEST);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_20_RESPONSE);
     }
 }

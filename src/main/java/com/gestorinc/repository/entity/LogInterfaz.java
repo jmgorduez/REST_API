@@ -56,4 +56,8 @@ public class LogInterfaz implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     private Date fechaHoraRegistro;
+
+    @Column(name = "IP")
+    @NotNull
+    private String ip;
 }

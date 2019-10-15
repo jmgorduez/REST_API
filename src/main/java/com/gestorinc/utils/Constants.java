@@ -38,7 +38,8 @@ public class Constants {
             = "Ejecución de notificacion de aporte por identificacion de cliente";
     public static final String EJECUCIÓN_DE_CONFIRMACIÓN_DE_APORTE = "Ejecución de confirmación de aporte";
     public static final String DUI_CODE = "10";
-    public static final String YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String DD_MM_YYYY_HH_MM = "dd/MM/yyyy HH:mm";
+    public static final String YYYY_MM_DD = "YYYY-MM-dd";
     public static final String ANONYMOUS = "anonymous";
     public static final String CLIENT_SECRET = "client_secret";
     public static final String CLIENT_ID = "client_id";
@@ -83,7 +84,15 @@ public class Constants {
     public static final ErrorRestControllerResponse ERROR_14_RESPONSE =
             errorResponse(FORMA_PAGO_NO_EXISTE_14);
     public static final ErrorRestControllerResponse ERROR_17_RESPONSE =
-            errorResponse(NOTIFICACION_APORTE_NO_EXISTE_17);
+            errorResponse(NO_EXISTE_UNA_NOTIFICACION_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13);
+    public static final ErrorRestControllerResponse ERROR_19_RESPONSE =
+            errorResponse(FORMATO_FECHA_INCORRECTO_19);
+    public static final ErrorRestControllerResponse ERROR_20_RESPONSE =
+            errorResponse(NPE_RESERVADO_20);
+    public static final ErrorRestControllerResponse ERROR_21_RESPONSE =
+            errorResponse(NOTIFICACION_CONFIRMADA_21);
+    public static final ErrorRestControllerResponse ERROR_22_RESPONSE =
+            errorResponse(NOTIFICACION_PROCESADA_22);
 
     public static ErrorRestControllerResponse errorResponse(Error error){
         return ErrorRestControllerResponse.builder()
@@ -107,7 +116,7 @@ public class Constants {
     public static final String CONTRASEÑA_DE_ACCESO = "Contraseña de acceso.";
     public static final String CORRELATIVO_IDENTIFICADOR_DE_LA_NOTIFICACIÓN_DE_APORTE = "Correlativo identificador de la notificación de aporte.";
     public static final String REFERENCIA_DE_LA_TRANSACCIÓN_BANCARIA = "Referencia de la transacción bancaria.";
-    public static final String FECHA_DEL_APORTE = "Fecha del aporte";
+    public static final String FECHA_DEL_APORTE = "Fecha del aporte en formato DD/MM/AAAA HH:mm:ss";
     public static final String MEDIO_DE_PAGO_DEL_APORTE = "Medio de pago del aporte";
     public static final String CUENTA_DEL_PARTICIPANTE = "Cuenta del participante.";
     public static final String CÓDIGO_DE_ERROR = "Código de error";
@@ -128,7 +137,6 @@ public class Constants {
     public static final String ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE = "Entrada para la consulta de cliente.";
     public static final String ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE = "Entrada para la notificación de aporte";
     public static final String ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE = "Entrada para la confirmación de aporte";
-    public static final String ENTRADA_PARA_LA_AUTENTICACIÓN_DEL_USUARIO = "Entrada para la autenticación del usuario";
     public static final String PAGO_APORTES = "Pago aportes";
     public static final String AUTENTICACION = "Autenticación";
     public static final String DEBE_AUTENTICARSE_USANDO_AUTENTICAR_Y_ENVIAR_EL_TOKEN_RECIBIDO_VIA_HEADER_AUTHENTICATION_BEARER_TOKEN

@@ -18,6 +18,7 @@ public final class ContributionConfirmationRequest {
     private final Long correlativo;
     @ApiModelProperty(notes = REFERENCIA_DE_LA_TRANSACCIÓN_BANCARIA,
             required = true, position = 2)
+    @NotNull
     private final String referencia;
 
     public ContributionConfirmationRequest(@JsonProperty("correlativo") Long correlativo,

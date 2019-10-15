@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
 
 import static com.gestorinc.exception.enums.Error.*;
 import static com.gestorinc.utils.Constants.EXCEPTION_;
@@ -37,13 +38,23 @@ public class ExceptionsAdvice {
     public ResponseEntity<ErrorRestControllerResponse> handleBusinessException(
             LogicBusinessException e)
             throws IOException {
-        logManager.generateAuditLogError(httpServletRequest, errorResponse(e.getError()),e.getError().getMessage());
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(e.getError()), e.getError().getMessage());
         return error(INTERNAL_SERVER_ERROR, e.getError(), e);
     }
 
-    @ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentNotValidException.class})
+    @ExceptionHandler({MissingServletRequestParameterException.class})
     public ResponseEntity<ErrorRestControllerResponse> handleMissingServletRequestParameterException(
             MissingServletRequestParameterException e)
+            throws IOException {
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10),
+                ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10.getMessage());
+        return error(BAD_REQUEST,
+                ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10, e);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ErrorRestControllerResponse> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e)
             throws IOException {
         logManager.generateAuditLogError(httpServletRequest, errorResponse(ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10),
                 ERROR_EN_LOS_PARAMETROS_RECIBIDOS_COD_10.getMessage());
@@ -70,14 +81,22 @@ public class ExceptionsAdvice {
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8, e);
     }
 
-    @ExceptionHandler({RuntimeException.class, JsonProcessingException.class, IOException.class,
-            HttpMediaTypeNotSupportedException.class})
-    public ResponseEntity<ErrorRestControllerResponse> handleRunTimeException(
-            RuntimeException e) throws IOException {
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<ErrorRestControllerResponse> handleException(
+            Exception e) throws IOException {
         logManager.generateAuditLogError(httpServletRequest, errorResponse(HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6),
                 HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6.getMessage());
         return error(INTERNAL_SERVER_ERROR,
                 HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6, e);
+    }
+
+    @ExceptionHandler({ParseException.class})
+    public ResponseEntity<ErrorRestControllerResponse> handleRunTimeException(
+            ParseException e) throws IOException {
+        logManager.generateAuditLogError(httpServletRequest, errorResponse(FORMATO_FECHA_INCORRECTO_19),
+                FORMATO_FECHA_INCORRECTO_19.getMessage());
+        return error(INTERNAL_SERVER_ERROR,
+                FORMATO_FECHA_INCORRECTO_19, e);
     }
 
     private ResponseEntity<ErrorRestControllerResponse> error(HttpStatus status, Error error, Exception e) {
