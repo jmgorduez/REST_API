@@ -66,7 +66,7 @@ public class ClientQueryService implements IClientQueryService {
     public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, Integer gLNCode) {
 
         ofNullable(gLNCode)
-                .ifPresent(this::validateIfExistProductWithGLN);
+                .ifPresent(productRepository::validateIfExistProductWithGNL);
 
         List<Cliente> clientList = clientManager.getClientList(clientId, gLNCode);
         List<SavingFundAccountDTO> participantAccountToShow = clientList.stream()
@@ -83,15 +83,6 @@ public class ClientQueryService implements IClientQueryService {
                 .sorted(String::compareTo).collect(Collectors.joining(BLANK_SPACE));
 
         return buildResponse(participantAccountToShow, participantAccounts, productCodes);
-    }
-
-    private void validateIfExistProductWithGLN(Integer gLNCode){
-        productRepository.findByGLN(gLNCode)
-                .orElseThrow(this::productWithGLNNotFoundException);
-    }
-
-    private LogicBusinessException productWithGLNNotFoundException() {
-        return new LogicBusinessException(PRODUCTO_CON_GLN_NO_ENCONTRADO);
     }
 
     private boolean hasAccountNumber(Cliente cliente){

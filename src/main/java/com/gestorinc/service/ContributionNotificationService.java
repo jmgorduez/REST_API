@@ -86,7 +86,7 @@ public class ContributionNotificationService implements IContributionNotificatio
 
     private void validateExistPaymentMethod(Integer licenceNumber, String paymentMethodCode) {
         paymentMethodRepository.findByPk(new TipoFormaPagoVistaPK(licenceNumber, paymentMethodCode))
-                .orElseThrow(this::paymentMethodNotFoundException);
+                .orElseThrow(paymentMethodRepository::paymentMethodNotFoundException);
     }
 
     private NotificacionAporte buildContributionNotification(Date contributionDate, String paymentMethodCode,
@@ -135,10 +135,6 @@ public class ContributionNotificationService implements IContributionNotificatio
                 .build();
     }
 
-    private LogicBusinessException paymentMethodNotFoundException() {
-        return new LogicBusinessException(FORMA_PAGO_NO_EXISTE_14);
-    }
-
     @Override
     public ContributionNotificationServiceResponseDTO contributionNotificationByClientId(String clientId,
                                                                                          Date contributionDate,
@@ -148,7 +144,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                          Integer gNLCode,
                                                                                          String backCode) {
         Producto producto = productRepository.findByGLN(gNLCode)
-                .orElseThrow(this::productWithGLNNotFoundException);
+                .orElseThrow(productRepository::productWithGLNNotFoundException);
 
         CredencialesBancarias credencialesBancarias = bankRepository.findByCodigoAcceso(backCode).get();
 
@@ -181,9 +177,5 @@ public class ContributionNotificationService implements IContributionNotificatio
         contributionNotificationRepository.save(notificacionAporte);
 
         return secNotification;
-    }
-
-    private LogicBusinessException productWithGLNNotFoundException() {
-        return new LogicBusinessException(PRODUCTO_CON_GLN_NO_ENCONTRADO);
     }
 }
