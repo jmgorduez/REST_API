@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @Api(PAGO_APORTES)
 @RestController
@@ -58,7 +59,8 @@ public class ContributionNotificationController {
                     message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION,
                     response = ErrorRestControllerResponse.class)
     })
-    @PutMapping(produces = APPLICATION_JSON, path = V1_NOTIFICAR_APORTE)
+    @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
+            path = V1_NOTIFICAR_APORTE)
     @ResponseStatus(CREATED)
     public ResponseEntity<ContributionNotificationRestControllerResponse> contributionNotification(
             @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE) final ContributionNotificationRestControllerRequest contributionNotificationRequest)

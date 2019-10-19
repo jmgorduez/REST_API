@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -68,7 +67,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
     }
 
     @Test
-    public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id()
+    public void clientQueryByClientId_should_return_the_client_query_response_by_client_id()
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
@@ -93,7 +92,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
 
 
     @Test
-    public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id_log1()
+    public void clientQueryByClientId_should_return_the_client_query_response_by_client_id_log1()
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST);
@@ -109,7 +108,7 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
     }
 
     @Test
-    public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id_log2()
+    public void clientQueryByClientId_should_return_the_client_query_response_by_client_id_log2()
             throws Exception {
 
         interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);

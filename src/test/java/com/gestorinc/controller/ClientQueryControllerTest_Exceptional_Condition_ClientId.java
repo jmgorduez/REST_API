@@ -2,12 +2,10 @@ package com.gestorinc.controller;
 
 import com.gestorinc.controller.model.ClientQueryRestControllerRequest;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
-import com.gestorinc.utils.Constants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MvcResult;
 

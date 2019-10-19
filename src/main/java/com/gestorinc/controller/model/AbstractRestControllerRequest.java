@@ -19,7 +19,7 @@ public abstract class AbstractRestControllerRequest {
     @ApiModelProperty(notes = IDENTIFICADOR, required = true, position = 2)
     protected final String identificador;
     @ApiModelProperty(notes = CÓDIGO_GNL_DEL_FONDO_CÓDIGO_IDENTIFICADOR_DEL_FONDO,
-            position = 3)
+            position = 7)
     protected final Integer codigoGLN;
 
     public AbstractRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,

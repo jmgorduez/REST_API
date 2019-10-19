@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import static com.gestorinc.utils.Constants.*;
 import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 @Api(PAGO_APORTES)
 @RestController
@@ -50,7 +51,8 @@ public class ContributionConfirmationController {
             @ApiResponse(code = 500, message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONFIRMACION,
                     response = ErrorRestControllerResponse.class)
     })
-    @PutMapping(produces = APPLICATION_JSON, path = V1_CONFIRMAR_APORTE)
+    @PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
+            path = V1_CONFIRMAR_APORTE)
     @ResponseStatus(ACCEPTED)
     public ResponseEntity<ContributionConfirmationRestControllerResponse> contributionConfirmation(
             @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONFIRMACIÓN_DE_APORTE) final ContributionConfirmationRequest contributionConfirmationRequest) throws IOException {

@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 import static com.gestorinc.utils.Constants.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Api(PAGO_APORTES)
@@ -52,7 +53,8 @@ public class ClientQueryController {
             @ApiResponse(code = 500, message = REGLA_DE_NEGOCIO_NO_CUMPLIDA_CONSULTA_NOTIFICACION,
                     response = ErrorRestControllerResponse.class)
     })
-    @PostMapping(produces = APPLICATION_JSON, path = V1_CONSULTAR_CLIENTE)
+    @PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
+            path = V1_CONSULTAR_CLIENTE)
     public ResponseEntity<ClientQueryRestControllerResponse> clientQuery(
             @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_CONSULTA_DE_CLIENTE)
             final ClientQueryRestControllerRequest clientQueryRequest)

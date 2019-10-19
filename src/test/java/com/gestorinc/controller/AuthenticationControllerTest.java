@@ -10,7 +10,6 @@ import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,8 +22,7 @@ import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -53,7 +51,7 @@ public class AuthenticationControllerTest extends AbstractControllerTest {
         RequestBuilder requestBuilder = post(V1_CONSULTAR_CLIENTE)
                 .content(OBJECT_MAPPER.writeValueAsBytes(CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST))
                 .contentType(APPLICATION_JSON_UTF8)
-                .accept(APPLICATION_JSON);
+                .accept(APPLICATION_JSON_UTF8_VALUE);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         assertThat(result.getResponse().getStatus())

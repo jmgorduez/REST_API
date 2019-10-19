@@ -1,9 +1,7 @@
 package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
-import com.gestorinc.exception.enums.Error;
 import com.gestorinc.repository.IContributionNotificationRepository;
-import com.gestorinc.repository.entity.IntencionAporte;
 import com.gestorinc.repository.entity.NotificacionAporte;
 import com.gestorinc.service.abstractions.IContributionConfirmationService;
 import com.gestorinc.service.abstractions.IContributionIntentionManager;

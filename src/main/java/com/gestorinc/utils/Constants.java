@@ -25,7 +25,6 @@ public class Constants {
     public static final String ER = "ER";
     public static final String USER = "USER";
     public static final String EXCEPTION_ = "Exception: ";
-    public static final String APPLICATION_JSON = "application/json";
     public static final String NPE = "NPE";
     public static final String ID = "ID";
     public static final String FONDO_ = "Fondo ";

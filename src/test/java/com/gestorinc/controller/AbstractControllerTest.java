@@ -6,7 +6,6 @@ import com.gestorinc.controller.model.enums.OperationEndpoint;
 import com.gestorinc.repository.IContributionIntentionRepository;
 import com.gestorinc.repository.IContributionNotificationRepository;
 import com.gestorinc.repository.IInterfaceLogRepository;
-import com.gestorinc.utils.TestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;

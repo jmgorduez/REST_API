@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 import static com.gestorinc.utils.Constants.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -36,7 +37,8 @@ public class UserinfoController {
                     message = PARAMETROS_INCORRECTOS,
                     response = ErrorRestControllerResponse.class)
     })
-    @GetMapping(produces = APPLICATION_JSON, path = USUARIO_AUTENTICADO)
+    @GetMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE,
+            path = USUARIO_AUTENTICADO)
     public ResponseEntity<UserinfoResponse> currentUser() {
         return ok(UserinfoResponse.builder()
                 .username(httpServletRequest.getUserPrincipal().getName())

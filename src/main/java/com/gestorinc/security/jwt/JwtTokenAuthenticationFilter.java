@@ -1,6 +1,5 @@
 package com.gestorinc.security.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
 import com.gestorinc.exception.enums.Error;
 import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
@@ -24,6 +23,7 @@ import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.of;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 public class JwtTokenAuthenticationFilter extends GenericFilterBean {
 
@@ -60,9 +60,9 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     private void handleException(HttpServletRequest httpServletRequest, HttpServletResponse response, ErrorRestControllerResponse errorResponse, Error error) throws IOException {
 
         logManager.generateAuditLogError(httpServletRequest, errorResponse, error.getMessage());
-        response.setContentType(APPLICATION_JSON);
+        response.setContentType(APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(
-                new ObjectMapper()
+                OBJECT_MAPPER
                         .writeValueAsString(errorResponse));
     }
 
