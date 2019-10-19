@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IClientManager {
     Persona getPerson(PersonaPK personaPK);
-    List<Cliente> getClientList(String clientId);
+    List<Cliente> getClientList(String clientId, Integer... gLNCode);
     Cliente getClient(String clientId, String participantAccount);
     void validateLocalAdultClientHasDUIIdentificationType(Persona persona);
 }

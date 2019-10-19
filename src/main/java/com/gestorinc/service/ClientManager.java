@@ -46,20 +46,35 @@ public class ClientManager implements IClientManager {
     }
 
     @Override
-    public List<Cliente> getClientList(String clientId) {
+    public List<Cliente> getClientList(String clientId, Integer... gLNCode) {
 
         Persona persona = personRepository.findByIdentification(clientId)
                 .orElseThrow(this::clientNotFoundException);
 
         validateLocalAdultClientHasDUIIdentificationType(persona);
 
-        List<Cliente> clientList = clientRepository.findByCodPersona(persona.getPk().getCodigoPersona());
+        List<Cliente> clientList = getClients(persona, gLNCode);
 
         if (clientList.isEmpty()) {
             throw this.clientDoesNotHaveAActiveAccountException();
         }
 
         return clientList;
+    }
+
+    private List<Cliente> getClients(Persona persona, Integer[] gLNCode) {
+        List<Cliente> clientList;
+        if (thereIsNotGLNCode(gLNCode)) {
+            clientList = clientRepository.findByCodPersona(persona.getPk().getCodigoPersona());
+        }else{
+            clientList = clientRepository.findByCodPersonaAndGLNCode(persona.getPk().getCodigoPersona(),
+                    gLNCode[0]);
+        }
+        return clientList;
+    }
+
+    private boolean thereIsNotGLNCode(Integer[] gLNCode) {
+        return gLNCode.length == 0 || gLNCode[0] == null;
     }
 
     @Override

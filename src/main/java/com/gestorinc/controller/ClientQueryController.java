@@ -80,7 +80,7 @@ public class ClientQueryController {
     private ClientQueryRestControllerResponse clientQueryByClientId(ClientQueryRestControllerRequest clientQueryRequest) throws IOException {
 
         ClientQueryClientIdServiceResponseDTO clientQueryClientIdResponseDTO
-                = clientQueryService.queryByClientId(clientQueryRequest.getIdentificador());
+                = clientQueryService.queryByClientId(clientQueryRequest.getIdentificador(), clientQueryRequest.getCodigoGLN());
 
         ClientQueryRestControllerResponse clientQueryResponse = dtoMapper.buildClientQueryResponse(clientQueryClientIdResponseDTO);
 

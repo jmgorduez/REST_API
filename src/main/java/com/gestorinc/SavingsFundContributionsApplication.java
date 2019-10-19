@@ -10,12 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableAutoConfiguration
-@EnableCaching
-@ComponentScan( basePackages= {"com.gestorinc"})
-@EnableSwagger2
 public class SavingsFundContributionsApplication
-		extends SpringBootServletInitializer {
+		extends SpringBootServletInitializer
+        {
 
     public static void main(String[] args) {
         SpringApplication.run(SavingsFundContributionsApplication.class, args);

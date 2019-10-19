@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.gestorinc.exception.enums.Error.ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8;
-import static com.gestorinc.utils.Constants.ERROR_8_RESPONSE;
-import static com.gestorinc.utils.Constants.OBJECT_MAPPER;
+import static com.gestorinc.utils.Constants.*;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
@@ -26,6 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         logManager.generateAuditLogError(request, ERROR_8_RESPONSE,
                 ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8.getMessage());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(APPLICATION_JSON);
         response.getWriter()
                 .write(OBJECT_MAPPER
                         .writeValueAsString(ERROR_8_RESPONSE));

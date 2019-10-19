@@ -8,11 +8,13 @@ import java.util.Date;
 public interface IContributionNotificationService {
     ContributionNotificationServiceResponseDTO contributionNotificationByNPE(String npe,
                                                                              Date contributionDate,
-                                                                             String paymentMethodCode);
+                                                                             String paymentMethodCode,
+                                                                             String bankCode);
     ContributionNotificationServiceResponseDTO contributionNotificationByClientId(String clientId,
                                                                                   Date contributionDate,
                                                                                   String paymentMethodCode,
                                                                                   String participantAccount,
                                                                                   BigDecimal amount,
-                                                                                  Integer gNLCode);
+                                                                                  Integer gNLCode,
+                                                                                  String bankCode);
 }

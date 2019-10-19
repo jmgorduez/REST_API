@@ -1,6 +1,7 @@
 package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
+import com.gestorinc.repository.IBankRepository;
 import com.gestorinc.repository.IContributionNotificationRepository;
 import com.gestorinc.repository.IPaymentMethodRepository;
 import com.gestorinc.repository.IProductRepository;
@@ -34,20 +35,25 @@ public class ContributionNotificationService implements IContributionNotificatio
     private IContributionIntentionManager contributionIntentionManager;
     @Autowired
     private IClientManager clientManager;
+    @Autowired
+    private IBankRepository bankRepository;
 
 
     @Override
     public ContributionNotificationServiceResponseDTO contributionNotificationByNPE(String npe,
                                                                                     Date contributionDate,
-                                                                                    String paymentMethodCode) {
+                                                                                    String paymentMethodCode,
+                                                                                    String backCode) {
 
         IntencionAporte intencionAporte = contributionIntentionManager.getContributionIntention(npe);
+        CredencialesBancarias credencialesBancarias = bankRepository.findByCodigoAcceso(backCode).get();
 
         clientManager.validateLocalAdultClientHasDUIIdentificationType(
                 clientManager.getPerson(intencionAporte.getPersonaPK()));
 
         Long secNotification =
-                saveContributionNotificationByClientId(contributionDate, paymentMethodCode, intencionAporte);
+                saveContributionNotificationByClientId(contributionDate, paymentMethodCode,
+                        intencionAporte, credencialesBancarias);
 
         return ContributionNotificationServiceResponseDTO.builder()
                 .correlative(secNotification)
@@ -59,7 +65,8 @@ public class ContributionNotificationService implements IContributionNotificatio
     @Transactional
     private synchronized Long saveContributionNotificationByClientId(Date contributionDate,
                                                                      String paymentMethodCode,
-                                                                     IntencionAporte intencionAporte) {
+                                                                     IntencionAporte intencionAporte,
+                                                                     CredencialesBancarias credencialesBancarias) {
 
         validateExistPaymentMethod(intencionAporte.getPk().getNumLicencia(), paymentMethodCode);
 
@@ -67,7 +74,8 @@ public class ContributionNotificationService implements IContributionNotificatio
                 .orElse(1l);
 
         NotificacionAporte notificacionAporte =
-                buildContributionNotification(contributionDate, paymentMethodCode, intencionAporte, secNotification);
+                buildContributionNotification(contributionDate, paymentMethodCode, intencionAporte, secNotification,
+                        credencialesBancarias);
 
         contributionNotificationRepository.save(notificacionAporte);
 
@@ -82,7 +90,8 @@ public class ContributionNotificationService implements IContributionNotificatio
     }
 
     private NotificacionAporte buildContributionNotification(Date contributionDate, String paymentMethodCode,
-                                                             IntencionAporte intencionAporte, Long secNotificacion) {
+                                                             IntencionAporte intencionAporte, Long secNotificacion,
+                                                             CredencialesBancarias credencialesBancarias) {
         return NotificacionAporte.builder()
                 .secNotificacion(secNotificacion)
                 .numLicencia(intencionAporte.getPk().getNumLicencia())
@@ -97,13 +106,16 @@ public class ContributionNotificationService implements IContributionNotificatio
                 .fechaHoraAporte(contributionDate)
                 .fechaHoraRegistro(Calendar.getInstance().getTime())
                 .codigoFormaPago(paymentMethodCode)
+                .tipoEntidadFinanciera(credencialesBancarias.getPk().getCodigoTipoEntidad())
+                .codigoEntidadFinanciera(credencialesBancarias.getPk().getCodigoEntidad())
                 .build();
     }
 
     private NotificacionAporte buildContributionNotification(Producto producto, Long secNotificacion,
                                                              Long personCode, String participantAccount,
                                                              Date contributionDate, BigDecimal amount,
-                                                             String paymentMethodCode) {
+                                                             String paymentMethodCode,
+                                                             CredencialesBancarias credencialesBancarias) {
         return NotificacionAporte.builder()
                 .numLicencia(producto.getPk().getNumLicencia())
                 .codigoEmpresa(producto.getPk().getCodigoEmpresa())
@@ -118,6 +130,8 @@ public class ContributionNotificationService implements IContributionNotificatio
                 .fechaHoraAporte(contributionDate)
                 .fechaHoraRegistro(Calendar.getInstance().getTime())
                 .codigoFormaPago(paymentMethodCode)
+                .tipoEntidadFinanciera(credencialesBancarias.getPk().getCodigoTipoEntidad())
+                .codigoEntidadFinanciera(credencialesBancarias.getPk().getCodigoEntidad())
                 .build();
     }
 
@@ -131,12 +145,15 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                          String paymentMethodCode,
                                                                                          String participantAccount,
                                                                                          BigDecimal amount,
-                                                                                         Integer gNLCode) {
+                                                                                         Integer gNLCode,
+                                                                                         String backCode) {
         Producto producto = productRepository.findByGLN(gNLCode)
                 .orElseThrow(this::productWithGLNNotFoundException);
 
+        CredencialesBancarias credencialesBancarias = bankRepository.findByCodigoAcceso(backCode).get();
+
         Long secNotification = saveContributionNotificationByClientId(clientId, contributionDate, paymentMethodCode,
-                participantAccount,amount, producto);
+                participantAccount, amount, producto, credencialesBancarias);
 
         return ContributionNotificationServiceResponseDTO.builder()
                 .correlative(secNotification)
@@ -148,7 +165,8 @@ public class ContributionNotificationService implements IContributionNotificatio
     @Transactional
     private synchronized Long saveContributionNotificationByClientId(String clientId, Date contributionDate,
                                                                      String paymentMethodCode, String participantAccount,
-                                                                     BigDecimal amount, Producto producto) {
+                                                                     BigDecimal amount, Producto producto,
+                                                                     CredencialesBancarias credencialesBancarias) {
         Cliente cliente = clientManager.getClient(clientId, participantAccount);
 
         validateExistPaymentMethod(producto.getPk().getNumLicencia(), paymentMethodCode);
@@ -158,7 +176,7 @@ public class ContributionNotificationService implements IContributionNotificatio
 
         NotificacionAporte notificacionAporte =
                 buildContributionNotification(producto, secNotification, cliente.getPk().getCodigoPersona(),
-                        participantAccount, contributionDate, amount, paymentMethodCode);
+                        participantAccount, contributionDate, amount, paymentMethodCode, credencialesBancarias);
 
         contributionNotificationRepository.save(notificacionAporte);
 

@@ -27,7 +27,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112));
+                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -57,7 +57,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111113));
+                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111113, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -70,7 +70,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111114));
+                new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111114, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -108,7 +108,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_NPE extends Abstrac
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(NPE, null));
+                new ClientQueryRestControllerRequest(NPE, null, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.BAD_REQUEST.value());

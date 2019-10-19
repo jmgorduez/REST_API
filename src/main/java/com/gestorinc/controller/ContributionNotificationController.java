@@ -3,6 +3,7 @@ package com.gestorinc.controller;
 import com.gestorinc.controller.model.ContributionNotificationRestControllerRequest;
 import com.gestorinc.controller.model.ContributionNotificationRestControllerResponse;
 import com.gestorinc.controller.model.ErrorRestControllerResponse;
+import com.gestorinc.security.CustomRequestWrapper;
 import com.gestorinc.service.InteractionLogManager;
 import com.gestorinc.service.abstractions.IContributionNotificationService;
 import com.gestorinc.service.abstractions.IDTOMapper;
@@ -62,16 +63,16 @@ public class ContributionNotificationController {
     public ResponseEntity<ContributionNotificationRestControllerResponse> contributionNotification(
             @NotNull @Valid @RequestBody @ApiParam(value = ENTRADA_PARA_LA_NOTIFICACIÓN_DE_APORTE) final ContributionNotificationRestControllerRequest contributionNotificationRequest)
             throws IOException, MissingServletRequestParameterException, ParseException {
-
+        CustomRequestWrapper customRequestWrapper = new CustomRequestWrapper(httpServletRequest);
         if (isByNPE(contributionNotificationRequest)) {
             return new ResponseEntity<ContributionNotificationRestControllerResponse>(
                     buildContributionNotificationByNPERestControllerResponse(
-                            contributionNotificationRequest), CREATED);
+                            contributionNotificationRequest, customRequestWrapper), CREATED);
         } else if (isByClientId(contributionNotificationRequest)){
             validateMethodParams(contributionNotificationRequest);
             return new ResponseEntity<ContributionNotificationRestControllerResponse>(
                     buildContributionNotificationByClientIdRestControllerResponse(
-                            contributionNotificationRequest), CREATED);
+                            contributionNotificationRequest, customRequestWrapper), CREATED);
         }
 
         throw new MissingServletRequestParameterException(TIPO_DE_IDENTIFICADOR, String.class.getName());
@@ -99,7 +100,7 @@ public class ContributionNotificationController {
     }
 
     private ContributionNotificationRestControllerResponse buildContributionNotificationByClientIdRestControllerResponse(
-            ContributionNotificationRestControllerRequest contributionNotificationRequest)
+            ContributionNotificationRestControllerRequest contributionNotificationRequest, CustomRequestWrapper customRequestWrapper)
             throws IOException, ParseException {
 
         ContributionNotificationServiceResponseDTO responseDTO =
@@ -110,7 +111,8 @@ public class ContributionNotificationController {
                         contributionNotificationRequest.getMedioPago().toString(),
                         contributionNotificationRequest.getCuentaAPV(),
                         contributionNotificationRequest.getMonto(),
-                        contributionNotificationRequest.getCodigoGLN());
+                        contributionNotificationRequest.getCodigoGLN(),
+                        customRequestWrapper.authenticatedBank());
         ContributionNotificationRestControllerResponse response =
                 dtoMapper.buildContributionNotificationResponse(responseDTO);
         interactionLogManager.generateAuditLog(httpServletRequest, response,
@@ -119,7 +121,7 @@ public class ContributionNotificationController {
     }
 
     private ContributionNotificationRestControllerResponse buildContributionNotificationByNPERestControllerResponse(
-            ContributionNotificationRestControllerRequest contributionNotificationRequest)
+            ContributionNotificationRestControllerRequest contributionNotificationRequest, CustomRequestWrapper customRequestWrapper)
             throws IOException, ParseException {
 
         ContributionNotificationServiceResponseDTO responseDTO =
@@ -128,7 +130,8 @@ public class ContributionNotificationController {
                                 contributionNotificationRequest.getIdentificador(),
                                 new SimpleDateFormat(DD_MM_YYYY_HH_MM)
                                         .parse(contributionNotificationRequest.getFechaAporte()),
-                                contributionNotificationRequest.getMedioPago().toString());
+                                contributionNotificationRequest.getMedioPago().toString(),
+                                customRequestWrapper.authenticatedBank());
         ContributionNotificationRestControllerResponse response =
                 dtoMapper.buildContributionNotificationResponse(responseDTO);
         interactionLogManager.generateAuditLog(httpServletRequest, response,

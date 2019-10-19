@@ -20,8 +20,7 @@ import java.io.IOException;
 
 import static com.gestorinc.exception.enums.Error.ERROR_DE_AUTENTICACIÓN_DE_BANCO_TOKEN_NO_VALIDO_O_EXPIRADO_COD_8;
 import static com.gestorinc.exception.enums.Error.HA_OCURRIDO_UN_ERROR_EN_EL_PROCESO_FAVOR_INTENTAR_MÁS_TARDE_COD_6;
-import static com.gestorinc.utils.Constants.ERROR_6_RESPONSE;
-import static com.gestorinc.utils.Constants.ERROR_8_RESPONSE;
+import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.of;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -61,7 +60,7 @@ public class JwtTokenAuthenticationFilter extends GenericFilterBean {
     private void handleException(HttpServletRequest httpServletRequest, HttpServletResponse response, ErrorRestControllerResponse errorResponse, Error error) throws IOException {
 
         logManager.generateAuditLogError(httpServletRequest, errorResponse, error.getMessage());
-
+        response.setContentType(APPLICATION_JSON);
         response.getWriter().write(
                 new ObjectMapper()
                         .writeValueAsString(errorResponse));

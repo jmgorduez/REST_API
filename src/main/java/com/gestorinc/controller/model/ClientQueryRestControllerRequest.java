@@ -7,7 +7,8 @@ import lombok.Getter;
 public final class ClientQueryRestControllerRequest extends AbstractRestControllerRequest {
 
     public ClientQueryRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,
-                                            @JsonProperty("identificador") String identificador) {
-       super(tipoIdentificador, identificador);
+                                            @JsonProperty("identificador") String identificador,
+                                            @JsonProperty("codigoGLN") Integer codigoGLN) {
+       super(tipoIdentificador, identificador, codigoGLN);
     }
 }

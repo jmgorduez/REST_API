@@ -71,6 +71,22 @@ public class CustomRequestWrapper extends HttpServletRequestWrapper {
 
     private ServletInputStream getServletInputStream(ByteArrayInputStream byteArrayInputStream) {
         return new ServletInputStream() {
+            //To deploy .jar
+            /*@Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener listener) {
+
+            }*/
+
             @Override
             public int read() throws IOException {
                 return byteArrayInputStream.read();

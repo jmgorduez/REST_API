@@ -79,6 +79,18 @@ public class ClientQueryControllerTest_Happy_path extends AbstractControllerTest
                 .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_1);
     }
 
+    @Test
+    public void clientQueryByClientIdAndGLN_should_return_the_client_query_response_for_client_id_and_gln()
+            throws Exception {
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, CLIENT_QUERY_CLIENT_ID_12345678910_4321_REST_CONTROLLER_REQUEST);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ClientQueryRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(CLIENT_QUERY_CLIENT_ID_RESPONSE_2);
+    }
+
 
     @Test
     public void clientQueryByClientId_should_return_the_client_query_response_for_the_contribution_intention_by_client_id_log1()

@@ -34,7 +34,10 @@ public class TestUtil {
     public static final Integer NUM_LICENCIA = 1;
     public static final String COD_EMPRESA = "1";
     public static final String APV01 = "APV01";
+    public static final String FA01 = "FA01";
     public static final String BANCO1 = "BANCO1";
+    public static final String BAN = "BAN";
+    public static final String BAN_01 = "BAN01";
     public static final String BEARER_ = "Bearer ";
     public static final String FECHA_HORA_REGISTRO = "fechaHoraRegistro";
     public static final String FECHA_HORA_APORTE = "fechaHoraAporte";
@@ -46,6 +49,7 @@ public class TestUtil {
     public static final String _____0001 = _____.concat("0001");
     public static final String APV0000000002 = "APV0000000002";
     public static final String _____0002 = _____.concat("0002");
+    public static final String FA0000000001 = "FA0000000001";
 
     public static final String _12345678910 = "12345678910";
     public static final String _12345678911 = "12345678911";
@@ -55,30 +59,33 @@ public class TestUtil {
 
     public static final BigDecimal _1000 = new BigDecimal(1000).setScale(2);
     public static final Integer _4321 = 4321;
+    public static final Integer _4322 = 4322;
     public static final Long _1234 = 1234l;
 
 
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111111);
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111111, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111112_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112);
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111112, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111115_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111115);
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111115, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111116_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111116);
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111116, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_NPE_11111111111111111111111111111111118_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111118);
+            new ClientQueryRestControllerRequest(NPE, _11111111111111111111111111111111118, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(ID, _12345678910);
+            new ClientQueryRestControllerRequest(ID, _12345678910, null);
+    public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678910_4321_REST_CONTROLLER_REQUEST =
+            new ClientQueryRestControllerRequest(ID, _12345678910, _4321);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678911_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(ID, _12345678911);
+            new ClientQueryRestControllerRequest(ID, _12345678911, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678912_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(ID, _12345678912);
+            new ClientQueryRestControllerRequest(ID, _12345678912, null);
     public static final ClientQueryRestControllerRequest CLIENT_QUERY_CLIENT_ID_12345678913_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(ID, _12345678913);
+            new ClientQueryRestControllerRequest(ID, _12345678913, null);
     public static final String BANK_REFERENCE_XXXXXXX = "XXXXXXX";
     public static final ClientQueryRestControllerRequest INVALID_CLIENT_QUERY_REST_CONTROLLER_REQUEST =
-            new ClientQueryRestControllerRequest(BANK_REFERENCE_XXXXXXX, _12345678913);
+            new ClientQueryRestControllerRequest(BANK_REFERENCE_XXXXXXX, _12345678913, null);
 
     public static final String _01_02_2019 = "01/02/2019 00:00:00";
 
@@ -279,6 +286,26 @@ public class TestUtil {
                     .numeroCuenta(APV0000000002)
                     .codigoGLN(_4321.toString())
                     .build());
+    public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001
+            = Arrays.asList(
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(APV01).concat(BLANK_SPACE)
+                            .concat(_____0001))
+                    .numeroCuenta(APV0000000001)
+                    .codigoGLN(_4321.toString())
+                    .build(),
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(APV01).concat(BLANK_SPACE)
+                            .concat(_____0002))
+                    .numeroCuenta(APV0000000002)
+                    .codigoGLN(_4321.toString())
+                    .build(),
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(FA01).concat(BLANK_SPACE)
+                            .concat(_____0001))
+                    .numeroCuenta(FA0000000001)
+                    .codigoGLN(_4322.toString())
+                    .build());
 
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_NPE_RESPONSE_1
             = ClientQueryRestControllerResponse.builder()
@@ -288,6 +315,11 @@ public class TestUtil {
             .respuesta(OK)
             .build();
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_CLIENT_ID_RESPONSE_1
+            = ClientQueryRestControllerResponse.builder()
+            .cuentaAPV(SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001)
+            .respuesta(OK)
+            .build();
+    public static final ClientQueryRestControllerResponse CLIENT_QUERY_CLIENT_ID_RESPONSE_2
             = ClientQueryRestControllerResponse.builder()
             .cuentaAPV(SAVINGS_ACCOUNTS_APV0000000001_APV0000000002)
             .respuesta(OK)
@@ -300,29 +332,35 @@ public class TestUtil {
             .build();
 
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_NPE_1 = getLogInterface(1l, V1_CONSULTAR_CLIENTE,
+            APV01,
             APV0000000001,
             CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_NPE_2 = getLogInterface(2l, V1_CONSULTAR_CLIENTE,
+            APV01,
             APV0000000001,
             CLIENT_QUERY_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST, CLIENT_QUERY_NPE_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1 = getLogInterface(1l, V1_CONSULTAR_CLIENTE,
-            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002),
+            APV01.concat(BLANK_SPACE).concat(FA01),
+            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002).concat(BLANK_SPACE).concat(FA0000000001),
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST, CLIENT_QUERY_CLIENT_ID_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_2 = getLogInterface(2l, V1_CONSULTAR_CLIENTE,
-            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002),
+            APV01.concat(BLANK_SPACE).concat(FA01),
+            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002).concat(BLANK_SPACE).concat(FA0000000001),
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST, CLIENT_QUERY_CLIENT_ID_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
     public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111 =
             getLogInterface(1l, V1_NOTIFICAR_APORTE,
+                    APV01,
                     APV0000000001,
                     CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST,
                     CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1,
                     EJECUCIÓN_DE_NOTIFICACION_DE_APORTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_NOTIFICATION_CLIENT_ID_12345678910 =
             getLogInterface(1l, V1_NOTIFICAR_APORTE,
+                    APV01,
                     APV0000000001,
                     CONTRIBUTION_NOTIFICATION_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST,
                     CONTRIBUTION_NOTIFICATION_REST_CONTROLLER_RESPONSE_1,
@@ -384,6 +422,8 @@ public class TestUtil {
             .fechaHoraAporte(getDate(_01_02_2019))
             .codigoFormaPago("1")
             .monto(_1000)
+            .tipoEntidadFinanciera(BAN)
+            .codigoEntidadFinanciera(BAN_01)
             .build();
     public static final NotificacionAporte CONTRIBUTION_NOTIFICATION_12345678910 = NotificacionAporte.builder()
             .numLicencia(NUM_LICENCIA)
@@ -399,6 +439,8 @@ public class TestUtil {
             .fechaHoraAporte(getDate(_01_02_2019))
             .codigoFormaPago("1")
             .monto(_1000)
+            .tipoEntidadFinanciera(BAN)
+            .codigoEntidadFinanciera(BAN_01)
             .build();
 
     private static LogInterfaz getLogInterfaceBasic(long id,
@@ -422,12 +464,13 @@ public class TestUtil {
 
     private static LogInterfaz getLogInterface(long id,
                                                String operation,
-                                               String participat,
+                                               String products,
+                                               String participants,
                                                AbstractRestControllerRequest abstractRestControllerRequest,
                                                AbstractRestControllerResponse RestControllerResponse,
                                                String message) {
         try {
-            return new LogInterfaz(id, BANCO1, operation, APV01, participat,
+            return new LogInterfaz(id, BANCO1, operation, products, participants,
                     OBJECT_MAPPER.writeValueAsString(abstractRestControllerRequest),
                     OBJECT_MAPPER.writeValueAsString(RestControllerResponse),
                     LogInterfaz.EstadoLog.OK, message, getDate(_01_02_2019), LOCALHOST_IP);
@@ -438,12 +481,12 @@ public class TestUtil {
 
     private static LogInterfaz getLogInterface(long id,
                                                String operation,
-                                               String participat,
+                                               String participant,
                                                ContributionConfirmationRequest contributionConfirmationRequest,
                                                AbstractRestControllerResponse restControllerResponse,
                                                String message) {
         try {
-            return new LogInterfaz(id, BANCO1, operation, APV01, participat,
+            return new LogInterfaz(id, BANCO1, operation, APV01, participant,
                     OBJECT_MAPPER.writeValueAsString(contributionConfirmationRequest),
                     OBJECT_MAPPER.writeValueAsString(restControllerResponse),
                     LogInterfaz.EstadoLog.OK, message, getDate(_01_02_2019), LOCALHOST_IP);

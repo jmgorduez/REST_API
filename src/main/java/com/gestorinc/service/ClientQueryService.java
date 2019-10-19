@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.gestorinc.exception.enums.Error.FONDO_SIN_GLN_CONFIGURADO_18;
+import static com.gestorinc.exception.enums.Error.PRODUCTO_CON_GLN_NO_ENCONTRADO;
 import static com.gestorinc.utils.Constants.*;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -62,9 +63,12 @@ public class ClientQueryService implements IClientQueryService {
     }
 
     @Override
-    public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId) {
+    public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, Integer gLNCode) {
 
-        List<Cliente> clientList = clientManager.getClientList(clientId);
+        ofNullable(gLNCode)
+                .ifPresent(this::validateIfExistProductWithGLN);
+
+        List<Cliente> clientList = clientManager.getClientList(clientId, gLNCode);
         List<SavingFundAccountDTO> participantAccountToShow = clientList.stream()
                 .filter(this::hasAccountNumber)
                 .sorted(Cliente::compareTo)
@@ -79,6 +83,15 @@ public class ClientQueryService implements IClientQueryService {
                 .sorted(String::compareTo).collect(Collectors.joining(BLANK_SPACE));
 
         return buildResponse(participantAccountToShow, participantAccounts, productCodes);
+    }
+
+    private void validateIfExistProductWithGLN(Integer gLNCode){
+        productRepository.findByGLN(gLNCode)
+                .orElseThrow(this::productWithGLNNotFoundException);
+    }
+
+    private LogicBusinessException productWithGLNNotFoundException() {
+        return new LogicBusinessException(PRODUCTO_CON_GLN_NO_ENCONTRADO);
     }
 
     private boolean hasAccountNumber(Cliente cliente){

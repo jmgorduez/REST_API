@@ -73,11 +73,9 @@ dependencies {
 
     compile 'commons-codec:commons-codec:1.13'
 
+    //To deploy .war
     providedRuntime 'org.springframework.boot:spring-boot-starter-undertow'
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
-
-    compile 'org.springframework.boot:spring-boot-starter-undertow'
-    compile 'javax.servlet:javax.servlet-api:3.0.1'
 
     task runappDev(type: Exec) {
         commandLine 'java', '-jar', '-Dspring.profiles.active=dev', "build/libs/REST_API-${version}.jar"

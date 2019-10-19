@@ -18,10 +18,15 @@ public abstract class AbstractRestControllerRequest {
     @NotNull
     @ApiModelProperty(notes = IDENTIFICADOR, required = true, position = 2)
     protected final String identificador;
+    @ApiModelProperty(notes = CÓDIGO_GNL_DEL_FONDO_CÓDIGO_IDENTIFICADOR_DEL_FONDO,
+            position = 3)
+    protected final Integer codigoGLN;
 
     public AbstractRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,
-                                         @JsonProperty("identificador") String identificador) {
+                                         @JsonProperty("identificador") String identificador,
+                                         @JsonProperty("codigoGLN") Integer codigoGLN) {
         this.tipoIdentificador = tipoIdentificador;
         this.identificador = identificador;
+        this.codigoGLN = codigoGLN;
     }
 }

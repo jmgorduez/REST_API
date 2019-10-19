@@ -83,6 +83,8 @@ public class Constants {
             errorResponse(NPE_NOTIFICADO_COD_11);
     public static final ErrorRestControllerResponse ERROR_14_RESPONSE =
             errorResponse(FORMA_PAGO_NO_EXISTE_14);
+    public static final ErrorRestControllerResponse ERROR_15_RESPONSE =
+            errorResponse(PRODUCTO_CON_GLN_NO_ENCONTRADO);
     public static final ErrorRestControllerResponse ERROR_17_RESPONSE =
             errorResponse(NO_EXISTE_UNA_NOTIFICACION_DE_APORTE_EN_ESTADO_INGRESADA_CON_ESTE_CORRELATIVO_COD_13);
     public static final ErrorRestControllerResponse ERROR_19_RESPONSE =

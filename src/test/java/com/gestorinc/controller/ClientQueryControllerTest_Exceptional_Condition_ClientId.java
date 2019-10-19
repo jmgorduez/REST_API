@@ -25,7 +25,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
     public void clientQueryByClientId_should_return_ER_4_personNotFound()
             throws Exception {
 
-        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -39,7 +39,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
 
         interfaceLogRepository.save(LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1);
 
-        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911));
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY, new ClientQueryRestControllerRequest(ID, _12345678911, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -110,11 +110,24 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(ID, null));
+                new ClientQueryRestControllerRequest(ID, null, null));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.BAD_REQUEST.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_10_RESPONSE);
+    }
+
+    @Test
+    public void clientQueryByClientIdWithoutIdentificador_should_return_ER_15()
+            throws Exception {
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
+                new ClientQueryRestControllerRequest(ID, _12345678910, 1111));
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_15_RESPONSE);
     }
 }
