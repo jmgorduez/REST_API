@@ -58,8 +58,8 @@ public class TestUtil {
     public static final String LOCALHOST_IP = "127.0.0.1";
 
     public static final BigDecimal _1000 = new BigDecimal(1000).setScale(2);
-    public static final Integer _4321 = 4321;
-    public static final Integer _4322 = 4322;
+    public static final String _4321 = "4321";
+    public static final String _4322 = "4322";
     public static final Long _1234 = 1234l;
 
 

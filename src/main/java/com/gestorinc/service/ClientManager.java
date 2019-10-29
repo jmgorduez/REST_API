@@ -47,7 +47,7 @@ public class ClientManager implements IClientManager {
     }
 
     @Override
-    public List<Cliente> getClientList(String clientId, Integer... gLNCode) {
+    public List<Cliente> getClientList(String clientId, String... gLNCode) {
 
         Persona persona = personRepository.findByIdentification(clientId)
                 .orElseThrow(this::clientNotFoundException);
@@ -63,7 +63,7 @@ public class ClientManager implements IClientManager {
         return clientList;
     }
 
-    private List<Cliente> getClients(Persona persona, Integer[] gLNCode) {
+    private List<Cliente> getClients(Persona persona, String[] gLNCode) {
         List<Cliente> clientList;
         if (thereIsNotGLNCode(gLNCode)) {
             clientList = clientRepository.findByCodPersona(persona.getPk().getCodigoPersona());
@@ -74,7 +74,7 @@ public class ClientManager implements IClientManager {
         return clientList;
     }
 
-    private boolean thereIsNotGLNCode(Integer[] gLNCode) {
+    private boolean thereIsNotGLNCode(String[] gLNCode) {
         return gLNCode.length == 0 || gLNCode[0] == null;
     }
 

@@ -85,6 +85,7 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
     }
 
     private void validateErrorResponse(MvcResult result) throws java.io.IOException {
+
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(),
                 ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(
@@ -126,6 +127,16 @@ public class ContributionConfirmationControllerTest extends AbstractControllerTe
 
         MvcResult result = executePutRestInteraction(CONTRIBUTION_CONFIRMATION,
                 new ContributionConfirmationRequest(1l, null));
+
+        validateErrorResponse(result);
+    }
+
+    @Test
+    public void confirmContribution_withBankReferenceEmpty()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_CONFIRMATION,
+                new ContributionConfirmationRequest(1l, ""));
 
         validateErrorResponse(result);
     }

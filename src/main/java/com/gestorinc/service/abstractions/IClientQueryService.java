@@ -5,5 +5,5 @@ import com.gestorinc.service.dto.ClientQueryNPEServiceResponseDTO;
 
 public interface IClientQueryService {
     ClientQueryNPEServiceResponseDTO queryByNPE(String npe);
-    ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, Integer gLNCode);
+    ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, String gLNCode);
 }

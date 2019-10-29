@@ -121,7 +121,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
-                new ClientQueryRestControllerRequest(ID, _12345678910, 1111));
+                new ClientQueryRestControllerRequest(ID, _12345678910, "1111"));
 
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());

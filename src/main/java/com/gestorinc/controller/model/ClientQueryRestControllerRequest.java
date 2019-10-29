@@ -8,7 +8,7 @@ public final class ClientQueryRestControllerRequest extends AbstractRestControll
 
     public ClientQueryRestControllerRequest(@JsonProperty("tipoIdentificador") String tipoIdentificador,
                                             @JsonProperty("identificador") String identificador,
-                                            @JsonProperty("codigoGLN") Integer codigoGLN) {
+                                            @JsonProperty("codigoGLN") String codigoGLN) {
        super(tipoIdentificador, identificador, codigoGLN);
     }
 }

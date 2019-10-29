@@ -63,7 +63,7 @@ public class ClientQueryService implements IClientQueryService {
     }
 
     @Override
-    public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, Integer gLNCode) {
+    public ClientQueryClientIdServiceResponseDTO queryByClientId(String clientId, String gLNCode) {
 
         ofNullable(gLNCode)
                 .ifPresent(productRepository::validateIfExistProductWithGNL);

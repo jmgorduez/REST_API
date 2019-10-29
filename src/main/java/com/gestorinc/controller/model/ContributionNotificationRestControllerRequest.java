@@ -36,7 +36,7 @@ public final class ContributionNotificationRestControllerRequest
                                                          @JsonProperty("medioPago") Integer medioPago,
                                                          @JsonProperty("cuentaAPV") String cuentaAPV,
                                                          @JsonProperty("monto") BigDecimal monto,
-                                                         @JsonProperty("codigoGLN") Integer codigoGLN) {
+                                                         @JsonProperty("codigoGLN") String codigoGLN) {
         super(tipoIdentificador, identificador, codigoGLN);
         this.fechaAporte = fechaAporte;
         this.medioPago = medioPago;

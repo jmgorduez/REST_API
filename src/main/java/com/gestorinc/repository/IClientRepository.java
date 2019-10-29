@@ -18,5 +18,5 @@ public interface IClientRepository extends CrudRepository<Cliente, ClientePK> {
             "where c.pk.numLicencia = p.pk.numLicencia and c.pk.codigoEmpresa = p.pk.codigoEmpresa " +
             " and c.pk.codigoProducto = p.pk.codigoProducto and c.pk.codigoPersona = ?1 and c.estadoParticipe = 'A' " +
             " and p.gLN = ?2 ")
-    List<Cliente> findByCodPersonaAndGLNCode(Long codPersona, Integer gLNCode);
+    List<Cliente> findByCodPersonaAndGLNCode(Long codPersona, String gLNCode);
 }

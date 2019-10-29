@@ -3,6 +3,7 @@ package com.gestorinc.controller.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +19,7 @@ public final class ContributionConfirmationRequest {
     private final Long correlativo;
     @ApiModelProperty(notes = REFERENCIA_DE_LA_TRANSACCIÓN_BANCARIA,
             required = true, position = 2)
-    @NotNull
+    @NotNull @NotEmpty
     private final String referencia;
 
     public ContributionConfirmationRequest(@JsonProperty("correlativo") Long correlativo,

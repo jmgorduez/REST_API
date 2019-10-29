@@ -141,7 +141,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                          String paymentMethodCode,
                                                                                          String participantAccount,
                                                                                          BigDecimal amount,
-                                                                                         Integer gNLCode,
+                                                                                         String gNLCode,
                                                                                          String backCode) {
         Producto producto = productRepository.findByGLN(gNLCode)
                 .orElseThrow(productRepository::productWithGLNNotFoundException);

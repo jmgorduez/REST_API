@@ -13,9 +13,9 @@ import static com.gestorinc.exception.enums.Error.PRODUCTO_CON_GLN_NO_ENCONTRADO
 @Repository
 public interface IProductRepository extends CrudRepository<Producto, ProductoPK> {
 
-    Optional<Producto> findByGLN(Integer gln);
+    Optional<Producto> findByGLN(String gln);
 
-    default void validateIfExistProductWithGNL(Integer gln){
+    default void validateIfExistProductWithGNL(String gln){
         findByGLN(gln)
                 .orElseThrow(this::productWithGLNNotFoundException);
     }

@@ -15,6 +15,6 @@ public interface IContributionNotificationService {
                                                                                   String paymentMethodCode,
                                                                                   String participantAccount,
                                                                                   BigDecimal amount,
-                                                                                  Integer gNLCode,
+                                                                                  String gNLCode,
                                                                                   String bankCode);
 }
