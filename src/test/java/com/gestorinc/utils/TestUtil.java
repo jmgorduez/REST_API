@@ -50,6 +50,7 @@ public class TestUtil {
     public static final String APV0000000002 = "APV0000000002";
     public static final String _____0002 = _____.concat("0002");
     public static final String FA0000000001 = "FA0000000001";
+    public static final String FA0000000002 = "FA0000000002";
 
     public static final String _12345678910 = "12345678910";
     public static final String _12345678911 = "12345678911";
@@ -286,7 +287,7 @@ public class TestUtil {
                     .numeroCuenta(APV0000000002)
                     .codigoGLN(_4321.toString())
                     .build());
-    public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001
+    public static final List<SavingFundAccountResponse> SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001_FA0000000002
             = Arrays.asList(
             SavingFundAccountResponse.builder()
                     .descripcionCuenta(FONDO_.concat(APV01).concat(BLANK_SPACE)
@@ -304,6 +305,11 @@ public class TestUtil {
                     .descripcionCuenta(FONDO_.concat(FA01).concat(BLANK_SPACE)
                             .concat(_____0001))
                     .numeroCuenta(FA0000000001)
+                    .codigoGLN(_4322.toString()).build(),
+            SavingFundAccountResponse.builder()
+                    .descripcionCuenta(FONDO_.concat(FA01).concat(BLANK_SPACE)
+                            .concat(_____0002))
+                    .numeroCuenta(FA0000000002)
                     .codigoGLN(_4322.toString())
                     .build());
 
@@ -316,7 +322,7 @@ public class TestUtil {
             .build();
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_CLIENT_ID_RESPONSE_1
             = ClientQueryRestControllerResponse.builder()
-            .cuentaAPV(SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001)
+            .cuentaAPV(SAVINGS_ACCOUNTS_APV0000000001_APV0000000002_FA0000000001_FA0000000002)
             .respuesta(OK)
             .build();
     public static final ClientQueryRestControllerResponse CLIENT_QUERY_CLIENT_ID_RESPONSE_2
@@ -343,12 +349,18 @@ public class TestUtil {
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_NPE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_1 = getLogInterface(1l, V1_CONSULTAR_CLIENTE,
             APV01.concat(BLANK_SPACE).concat(FA01),
-            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002).concat(BLANK_SPACE).concat(FA0000000001),
+            APV0000000001.concat(BLANK_SPACE).concat(
+                    APV0000000002).concat(BLANK_SPACE).concat(
+                    FA0000000001).concat(BLANK_SPACE).concat(
+                    FA0000000002),
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST, CLIENT_QUERY_CLIENT_ID_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
     public static final LogInterfaz LOG_INTERFACE_CLIENT_QUERY_CLIENT_ID_2 = getLogInterface(2l, V1_CONSULTAR_CLIENTE,
             APV01.concat(BLANK_SPACE).concat(FA01),
-            APV0000000001.concat(BLANK_SPACE).concat(APV0000000002).concat(BLANK_SPACE).concat(FA0000000001),
+            APV0000000001.concat(BLANK_SPACE).concat(
+                    APV0000000002).concat(BLANK_SPACE).concat(
+                    FA0000000001).concat(BLANK_SPACE).concat(
+                    FA0000000002),
             CLIENT_QUERY_CLIENT_ID_12345678910_REST_CONTROLLER_REQUEST, CLIENT_QUERY_CLIENT_ID_RESPONSE_1,
             EJECUCION_DE_CONSULTA_DE_CLIENTE_POR_ID_CLIENTE);
     public static final LogInterfaz LOG_INTERFACE_CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111 =
