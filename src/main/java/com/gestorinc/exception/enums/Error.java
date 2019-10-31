@@ -26,7 +26,8 @@ public enum Error {
     FORMATO_FECHA_INCORRECTO_19("19", "ERROR: El formato de fecha es incorrecto."),
     NPE_RESERVADO_20("20", "ERROR: NPE reservado."),
     NOTIFICACION_CONFIRMADA_21("21", "ERROR: Notificación ya ha sido confirmada."),
-    NOTIFICACION_PROCESADA_22("22", "ERROR: Notificación ya ha sido procesada.");
+    NOTIFICACION_PROCESADA_22("22", "ERROR: Notificación ya ha sido procesada."),
+    FORMATO_INCORRECTO_GLN_23("23", "ERROR: Formato incorrecto GLN.");
 
     private final String code;
     private final String message;

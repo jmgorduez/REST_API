@@ -6,6 +6,7 @@ import com.gestorinc.exception.jwt.InvalidJwtAuthenticationException;
 import com.gestorinc.service.abstractions.IInteractionLogManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -95,6 +96,19 @@ public class ExceptionsAdvice {
                 FORMATO_FECHA_INCORRECTO_19.getMessage());
         return error(INTERNAL_SERVER_ERROR,
                 FORMATO_FECHA_INCORRECTO_19, e);
+    }
+
+    @ExceptionHandler({InvalidDataAccessApiUsageException.class})
+    public ResponseEntity<ErrorRestControllerResponse> handleInvalidDataAccessApiUsageException(
+            InvalidDataAccessApiUsageException e) throws IOException {
+
+        if (e.getCause() instanceof NumberFormatException) {
+            logManager.generateAuditLogError(httpServletRequest, errorResponse(FORMATO_INCORRECTO_GLN_23),
+                    FORMATO_INCORRECTO_GLN_23.getMessage());
+            return error(INTERNAL_SERVER_ERROR,
+                    FORMATO_INCORRECTO_GLN_23, e);
+        }
+        return handleException(e);
     }
 
     private ResponseEntity<ErrorRestControllerResponse> error(HttpStatus status, Error error, Exception e) {

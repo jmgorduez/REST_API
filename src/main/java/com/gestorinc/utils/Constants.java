@@ -94,6 +94,8 @@ public class Constants {
             errorResponse(NOTIFICACION_CONFIRMADA_21);
     public static final ErrorRestControllerResponse ERROR_22_RESPONSE =
             errorResponse(NOTIFICACION_PROCESADA_22);
+    public static final ErrorRestControllerResponse ERROR_23_RESPONSE =
+            errorResponse(FORMATO_INCORRECTO_GLN_23);
 
     public static ErrorRestControllerResponse errorResponse(Error error){
         return ErrorRestControllerResponse.builder()

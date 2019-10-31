@@ -117,7 +117,7 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
     }
 
     @Test
-    public void clientQueryByClientIdWithoutIdentificador_should_return_ER_15()
+    public void clientQueryByClientId_should_return_ER_15()
             throws Exception {
 
         MvcResult result = executePostRestInteraction(CLIENT_QUERY,
@@ -127,5 +127,19 @@ public class ClientQueryControllerTest_Exceptional_Condition_ClientId extends Ab
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_15_RESPONSE);
+    }
+
+
+    @Test
+    public void clientQueryByClientId_should_return_ER_23()
+            throws Exception {
+
+        MvcResult result = executePostRestInteraction(CLIENT_QUERY,
+                new ClientQueryRestControllerRequest(ID, _12345678910, "XXXXX"));
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_23_RESPONSE);
     }
 }

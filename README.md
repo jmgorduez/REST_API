@@ -1,11 +1,18 @@
 # Confía REST API. 
 ### Dependencies
-  - IntelliJ IDEA
-  - gradle
-  - git
-  - GNU Make
+  - IntelliJ IDEA.
+  - gradle.
+  - git.
+  - GNU Make.
+  
+### Steps to install using IntelliJ IDEA.
+  - Define maven config from: Preferences | Build, Execution, Deployment | Build Tools | Maven.
+  - Install IntelliJ IDEA's plugin for lombok from: File | Settings | Plugins.
+  - Restart IntelliJ IDEA.
+  - Activate the checkbox *Enable annotation processing* from: Preferences | Build, Execution, Deployment | Compiler | Annotation Processors.
+  - Install ojdbc7.jar into your maven local repo, *following this document: https://www.mkyong.com/maven/how-to-add-oracle-jdbc-driver-in-your-maven-local-repository/*.
 
-### Run indications.
+### Run app indications.
 
 #### Refresh gradle dependence
 ```

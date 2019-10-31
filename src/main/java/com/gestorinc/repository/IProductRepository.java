@@ -15,7 +15,8 @@ public interface IProductRepository extends CrudRepository<Producto, ProductoPK>
 
     Optional<Producto> findByGLN(String gln);
 
-    default void validateIfExistProductWithGNL(String gln){
+    default void validateIfExistProductWithGNL(String gln) {
+        Integer.parseInt(gln);
         findByGLN(gln)
                 .orElseThrow(this::productWithGLNNotFoundException);
     }
