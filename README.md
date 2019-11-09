@@ -14,6 +14,40 @@
 
 ### Run app indications.
 
+#### Configure jboss datasource (for dev and prod profiles)
+Edit file *standalone/configuration/standolone.xml*.
+```
+<subsystem xmlns="urn:jboss:domain:datasources:5.0">
+            <datasources>
+                <datasource jndi-name="java:jboss/datasources/h2DS" pool-name="H2DS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:h2:mem:dummydb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+                    <driver>h2</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                        <password>password</password>
+                    </security>
+                </datasource>
+                <drivers>
+                    <driver name="h2" module="com.h2database.h2">
+                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                    </driver>
+                </drivers>
+                <datasource jndi-name="java:jboss/datasources/ORACLE_DS" pool-name="ORACLE_DS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:oracle:thin:@192.9.200.210:1521:oradesa</connection-url>
+                    <driver>oracle</driver>
+                    <security>
+                        <user-name>AFPCONFIABE</user-name>
+                        <password>AFPCONFIABE</password>
+                    </security>
+                </datasource>
+                <drivers>
+                    <driver name="oracle" module="com.oracle.ojdbc6">
+                        <xa-datasource-class>oracle.jdbc.OracleDriver</xa-datasource-class>
+                    </driver>
+                </drivers>
+            </datasources>
+        </subsystem>
+```
 #### Refresh gradle dependence
 ```
 $ make refresh
@@ -29,6 +63,9 @@ Edit build.gradle uncomment line: *****exclude group: 'org.springframework.boot'
 $ make war
 ```
 
+#### Run app without embedded Apache Tomcat server.
+Copy .war file to *standalone/deployments/*.
+
 #### Run app with embedded Apache Tomcat server.
 ```
 $ make runProd
@@ -40,7 +77,7 @@ $ make runDev
 ```
 Run app with development environment.
 
-### Testing.
+### Testing (test profile).
 
 #### Run integration tests.
 ```

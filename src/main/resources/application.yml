@@ -11,10 +11,8 @@ spring:
   profiles: dev
   datasource:
     platform: h2
-    url: jdbc:h2:mem:dummydb
+    jndiName: java:jboss/datasources/h2DS
     driverClassName: org.h2.Driver
-    username: sa
-    password: password
     initialization-mode: always
     initialize: true
   jpa:
@@ -61,12 +59,7 @@ spring:
   profiles: prod
   datasource:
     platform: oracle
-    url:
-      jdbc:oracle:thin:@192.9.200.210:1521:oradesa
-    username:
-      AFPCONFIABE
-    password:
-      AFPCONFIABE
+    jndiName: java:jboss/datasources/ORACLE_DS
     driver-class-oracle:
       jdbc:
         driver:
