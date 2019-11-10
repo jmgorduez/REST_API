@@ -41,8 +41,8 @@ Edit file *standalone/configuration/standolone.xml*.
                     </security>
                 </datasource>
                 <drivers>
-                    <driver name="oracle" module="com.oracle.ojdbc6">
-                        <xa-datasource-class>oracle.jdbc.OracleDriver</xa-datasource-class>
+                    <driver name="oracle" module="com.oracle">
+                      <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
                     </driver>
                 </drivers>
             </datasources>
