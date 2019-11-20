@@ -1,4 +1,4 @@
-# Confía REST API. 
+# REST API. 
 ### Dependencies
   - IntelliJ IDEA.
   - gradle.
