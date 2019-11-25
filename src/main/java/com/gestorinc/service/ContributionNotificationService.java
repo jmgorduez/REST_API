@@ -1,10 +1,7 @@
 package com.gestorinc.service;
 
 import com.gestorinc.exception.LogicBusinessException;
-import com.gestorinc.repository.IBankRepository;
-import com.gestorinc.repository.IContributionNotificationRepository;
-import com.gestorinc.repository.IPaymentMethodRepository;
-import com.gestorinc.repository.IProductRepository;
+import com.gestorinc.repository.*;
 import com.gestorinc.repository.entity.*;
 import com.gestorinc.repository.entity.enums.EnumEstadoNotificacionAporte;
 import com.gestorinc.service.abstractions.IClientManager;
@@ -37,6 +34,8 @@ public class ContributionNotificationService implements IContributionNotificatio
     private IClientManager clientManager;
     @Autowired
     private IBankRepository bankRepository;
+    @Autowired
+    private IHolidayRepository holidayRepository;
 
 
     @Override
@@ -45,6 +44,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                     String paymentMethodCode,
                                                                                     String backCode) {
 
+        holidayRepository.validateHoliday(contributionDate);
         IntencionAporte intencionAporte = contributionIntentionManager.getContributionIntention(npe);
         CredencialesBancarias credencialesBancarias = bankRepository.findByCodigoAcceso(backCode).get();
 
@@ -63,10 +63,10 @@ public class ContributionNotificationService implements IContributionNotificatio
     }
 
     @Transactional
-    private synchronized Long saveContributionNotificationByClientId(Date contributionDate,
-                                                                     String paymentMethodCode,
-                                                                     IntencionAporte intencionAporte,
-                                                                     CredencialesBancarias credencialesBancarias) {
+    synchronized Long saveContributionNotificationByClientId(Date contributionDate,
+                                                             String paymentMethodCode,
+                                                             IntencionAporte intencionAporte,
+                                                             CredencialesBancarias credencialesBancarias) {
 
         validateExistPaymentMethod(intencionAporte.getPk().getNumLicencia(), paymentMethodCode);
 
@@ -143,6 +143,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                          BigDecimal amount,
                                                                                          String gNLCode,
                                                                                          String backCode) {
+        holidayRepository.validateHoliday(contributionDate);
         Producto producto = productRepository.findByGLN(gNLCode)
                 .orElseThrow(productRepository::productWithGLNNotFoundException);
 
@@ -159,10 +160,10 @@ public class ContributionNotificationService implements IContributionNotificatio
     }
 
     @Transactional
-    private synchronized Long saveContributionNotificationByClientId(String clientId, Date contributionDate,
-                                                                     String paymentMethodCode, String participantAccount,
-                                                                     BigDecimal amount, Producto producto,
-                                                                     CredencialesBancarias credencialesBancarias) {
+    synchronized Long saveContributionNotificationByClientId(String clientId, Date contributionDate,
+                                                             String paymentMethodCode, String participantAccount,
+                                                             BigDecimal amount, Producto producto,
+                                                             CredencialesBancarias credencialesBancarias) {
         Cliente cliente = clientManager.getClient(clientId, participantAccount);
 
         validateExistPaymentMethod(producto.getPk().getNumLicencia(), paymentMethodCode);

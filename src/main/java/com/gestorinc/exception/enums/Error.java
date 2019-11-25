@@ -27,7 +27,8 @@ public enum Error {
     NPE_RESERVADO_20("20", "ERROR: NPE reservado."),
     NOTIFICACION_CONFIRMADA_21("21", "ERROR: Notificación ya ha sido confirmada."),
     NOTIFICACION_PROCESADA_22("22", "ERROR: Notificación ya ha sido procesada."),
-    FORMATO_INCORRECTO_GLN_23("23", "ERROR: Formato incorrecto GLN.");
+    FORMATO_INCORRECTO_GLN_23("23", "ERROR: Formato incorrecto GLN."),
+    FECHA_DIA_FERIADO_24("24", "ERROR: La fecha es un dia feriado.");
 
     private final String code;
     private final String message;

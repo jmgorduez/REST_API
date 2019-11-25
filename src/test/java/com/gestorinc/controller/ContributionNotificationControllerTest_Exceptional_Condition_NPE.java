@@ -142,4 +142,17 @@ public class ContributionNotificationControllerTest_Exceptional_Condition_NPE
         assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
                 .isEqualToComparingFieldByFieldRecursively(ERROR_20_RESPONSE);
     }
+
+    @Test
+    public void contributionNotificationByNPEAtHoliday_should_return_ER_24()
+            throws Exception {
+
+        MvcResult result = executePutRestInteraction(CONTRIBUTION_NOTIFICATION,
+                CONTRIBUTION_NOTIFICATION_NPE_AT_HOLIDAY_REST_CONTROLLER_REQUEST);
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        assertThat(OBJECT_MAPPER.readValue(result.getResponse().getContentAsString(), ErrorRestControllerResponse.class))
+                .isEqualToComparingFieldByFieldRecursively(ERROR_24_RESPONSE);
+    }
 }

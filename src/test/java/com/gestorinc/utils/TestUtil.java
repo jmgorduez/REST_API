@@ -89,6 +89,8 @@ public class TestUtil {
             new ClientQueryRestControllerRequest(BANK_REFERENCE_XXXXXXX, _12345678913, null);
 
     public static final String _01_02_2019 = "01/02/2019 00:00:00";
+    public static final String _01_01_2019 = "01/01/2019 00:00:00";
+    public static final String _01_05_2019 = "01/05/2019 00:00:00";
 
     public static final ContributionNotificationRestControllerRequest
             CONTRIBUTION_NOTIFICATION_NPE_11111111111111111111111111111111111_REST_CONTROLLER_REQUEST =
@@ -257,6 +259,23 @@ public class TestUtil {
                     .fechaAporte(_01_02_2019)
                     .medioPago(1)
                     .monto(new BigDecimal(0))
+                    .cuentaAPV(APV0000000001)
+                    .codigoGLN(_4321)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest CONTRIBUTION_NOTIFICATION_NPE_AT_HOLIDAY_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(NPE)
+                    .identificador(_11111111111111111111111111111111111)
+                    .fechaAporte(_01_01_2019)
+                    .medioPago(1)
+                    .build();
+    public static final ContributionNotificationRestControllerRequest CONTRIBUTION_NOTIFICATION_ID_AT_HOLIDAY_REST_CONTROLLER_REQUEST =
+            ContributionNotificationRestControllerRequest.builder()
+                    .tipoIdentificador(ID)
+                    .identificador(_12345678910)
+                    .fechaAporte(_01_05_2019)
+                    .medioPago(1)
+                    .monto(_1000)
                     .cuentaAPV(APV0000000001)
                     .codigoGLN(_4321)
                     .build();

@@ -96,6 +96,8 @@ public class Constants {
             errorResponse(NOTIFICACION_PROCESADA_22);
     public static final ErrorRestControllerResponse ERROR_23_RESPONSE =
             errorResponse(FORMATO_INCORRECTO_GLN_23);
+    public static final ErrorRestControllerResponse ERROR_24_RESPONSE =
+            errorResponse(FECHA_DIA_FERIADO_24);
 
     public static ErrorRestControllerResponse errorResponse(Error error){
         return ErrorRestControllerResponse.builder()
