@@ -34,8 +34,6 @@ public class ContributionNotificationService implements IContributionNotificatio
     private IClientManager clientManager;
     @Autowired
     private IBankRepository bankRepository;
-    @Autowired
-    private IHolidayRepository holidayRepository;
 
 
     @Override
@@ -44,7 +42,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                     String paymentMethodCode,
                                                                                     String backCode) {
 
-        holidayRepository.validateHoliday(contributionDate);
+        contributionNotificationRepository.validateHoliday(contributionDate);
         IntencionAporte intencionAporte = contributionIntentionManager.getContributionIntention(npe);
         CredencialesBancarias credencialesBancarias = bankRepository.findByCodigoAcceso(backCode).get();
 
@@ -143,7 +141,7 @@ public class ContributionNotificationService implements IContributionNotificatio
                                                                                          BigDecimal amount,
                                                                                          String gNLCode,
                                                                                          String backCode) {
-        holidayRepository.validateHoliday(contributionDate);
+        contributionNotificationRepository.validateHoliday(contributionDate);
         Producto producto = productRepository.findByGLN(gNLCode)
                 .orElseThrow(productRepository::productWithGLNNotFoundException);
 

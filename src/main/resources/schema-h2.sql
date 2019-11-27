@@ -155,9 +155,12 @@
     CONSTRAINT CK_ESTADO_NOTIFICACION_APORTE
   	CHECK (ESTADO in ('ING','CNF','PRO')));
 
-   DROP TABLE IF EXISTS ADM_DIA_FERIADO;
-   CREATE TABLE ADM_DIA_FERIADO
-   (	ID INTEGER NOT NULL,
-        DIA INTEGER NOT NULL,
-        MES INTEGER NOT NULL,
-        PRIMARY KEY (ID, DIA, MES));
+drop alias if exists ISHOLIDAY;
+create alias ISHOLIDAY as '
+boolean isHoliday(java.util.Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+    return (calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.MONTH) == 0)
+    || (calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.MONTH) == 4);
+}
+';

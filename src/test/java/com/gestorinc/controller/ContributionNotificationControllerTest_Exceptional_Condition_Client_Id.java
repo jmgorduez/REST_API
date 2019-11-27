@@ -12,6 +12,7 @@ import static com.gestorinc.controller.model.enums.OperationEndpoint.CONTRIBUTIO
 import static com.gestorinc.utils.Constants.*;
 import static com.gestorinc.utils.TestUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 
 
 @SpringBootTest
